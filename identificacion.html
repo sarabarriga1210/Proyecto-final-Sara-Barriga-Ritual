@@ -1,0 +1,74 @@
+
+<!doctype html>
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Identificación biométrica</title>
+
+        <link rel="stylesheet" href="css/identificacion.css">
+    </head>
+
+    <body>
+
+        <div id="contenedor-pantalla">
+
+            <!-- HORA -->
+
+            <div id="contenedor-hora">
+                <p id="hora"></p>
+                <p id="estado">SISTEMA ACTIVO</p>
+            </div>
+
+
+            <!-- TEXTO PRINCIPAL -->
+
+            <div id="contenedor-texto">
+                <p id="titulo">NIVEL DE PRODUCTIVIDAD</p>
+
+                <p id="instruccion">
+                    Realice la medición biométrica para continuar.
+                </p>
+            </div>
+
+
+            <!-- HUELLA Y ARO -->
+
+            <div id="contenedor-huella">
+
+                <div id="aro">
+
+                    <div id="centro-aro">
+                        <img id="huella" src="assets/huella.png" alt="Huella digital">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MENSAJES Y RESULTADO -->
+
+            <div id="contenedor-mensaje">
+
+                <p id="mensaje">MANTENGA PRESIONADO PARA INICIAR</p>
+
+                <p id="puntaje"></p>
+
+                <button id="boton-continuar" type="button">
+                    CONTINUAR CON EL PROTOCOLO
+                    <span id="flecha-continuar">→</span>
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <script src="js/identificacion.js"></script>
+
+    </body>
+
+</html>
