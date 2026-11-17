@@ -1,5 +1,4 @@
 
-/* CONFIGURACIÓN GENERAL */
 
 body {
     background-color: #050805;
@@ -17,8 +16,6 @@ p {
 }
 
 
-/* CONTENEDOR PRINCIPAL */
-
 #contenedor-pantalla {
     width: 100%;
     height: 100vh;
@@ -28,8 +25,6 @@ p {
     align-items: center;
 }
 
-
-/* HORA */
 
 #contenedor-hora {
     position: absolute;
@@ -50,8 +45,6 @@ p {
 }
 
 
-/* TEXTO PRINCIPAL */
-
 #contenedor-texto {
     position: absolute;
     top: 25%;
@@ -70,8 +63,6 @@ p {
     line-height: 1.6;
 }
 
-
-/* HUELLA Y ARO */
 
 #contenedor-huella {
     position: absolute;
@@ -117,8 +108,6 @@ p {
 }
 
 
-/* MENSAJES Y RESULTADO */
-
 #contenedor-mensaje {
     position: absolute;
     bottom: 9%;
@@ -140,7 +129,6 @@ p {
 }
 
 
-/* BOTÓN PARA CONTINUAR */
 
 #boton-continuar {
     display: none;
@@ -168,16 +156,11 @@ p {
 }
 
 
-/* FLECHA DEL BOTÓN */
-
 #flecha-continuar {
     font-size: 22px;
     margin-left: 12px;
     color: #8fbf88;
 }
-
-
-/* EFECTO AL PRESIONAR */
 
 #boton-continuar:active {
     background-color: #263b27;

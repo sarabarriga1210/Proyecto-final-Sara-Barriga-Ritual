@@ -13,7 +13,7 @@ let tiempoNecesario = 3000;
 let completado = false;
 
 
-// RELOJ
+
 
 function actualizarHora() {
 
@@ -39,7 +39,7 @@ actualizarHora();
 setInterval(actualizarHora, 1000);
 
 
-// INICIAR MEDICIÓN
+
 
 function iniciarMedicion(event) {
 
@@ -67,7 +67,7 @@ function iniciarMedicion(event) {
 }
 
 
-// ACTUALIZAR EL ARO
+
 
 function actualizarProgreso() {
 
@@ -93,7 +93,7 @@ function actualizarProgreso() {
 }
 
 
-// CUANDO SE LEVANTA EL DEDO
+
 
 function terminarMedicion() {
 
@@ -120,7 +120,7 @@ function terminarMedicion() {
 }
 
 
-// MEDICIÓN COMPLETADA
+
 
 function finalizarMedicion() {
 
@@ -133,7 +133,7 @@ function finalizarMedicion() {
     puntaje.textContent = "PRODUCTIVIDAD: " + resultado + "%";
 
 
-    // MOSTRAR BOTÓN DESPUÉS DE 2 SEGUNDOS
+    
 
     setTimeout(function() {
 
@@ -150,7 +150,7 @@ function finalizarMedicion() {
 }
 
 
-// CONTINUAR A LA SIGUIENTE PANTALLA
+
 
 function continuarProtocolo(event) {
 
@@ -161,7 +161,7 @@ function continuarProtocolo(event) {
 }
 
 
-// EVENTOS TÁCTILES
+
 
 huella.addEventListener("touchstart", iniciarMedicion, { passive: false });
 

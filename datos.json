@@ -1,0 +1,47 @@
+
+[
+    {
+        "remitente": "Amor",
+        "tipo": "pareja",
+        "imagen": "assets/pareja.png",
+        "mensaje": "Amor, ya hice la reserva para mañana a las 8. ¿Te parece?",
+        "respuestas": [
+            "Listo, amor. Allá nos vemos.",
+            "Perfecto, gracias por organizarlo.",
+            "Confirmado."
+        ]
+    },
+    {
+        "remitente": "Mamá",
+        "tipo": "familia",
+        "imagen": "assets/mama.png",
+        "mensaje": "¿Cómo te fue hoy? Hace rato no hablamos. Llámame cuando puedas.",
+        "respuestas": [
+            "Bien, ma. Mañana hablamos con calma.",
+            "Todo bien, gracias por preguntar. Te llamo luego.",
+            "Recibido, te aviso cuando tenga tiempo."
+        ]
+    },
+    {
+        "remitente": "Jefe",
+        "tipo": "trabajo",
+        "imagen": "assets/jefe.png",
+        "mensaje": "Necesito que me envíes el informe actualizado antes de mañana a primera hora.",
+        "respuestas": [
+            "Claro, lo dejo listo hoy.",
+            "Entendido, mañana lo tienes.",
+            "Recibido, quedo pendiente."
+        ]
+    },
+    {
+        "remitente": "Grupo de la universidad",
+        "tipo": "grupo",
+        "imagen": "assets/grupo.png",
+        "mensaje": "Chicos, acuérdense que el otro jueves tienen la entrega final.",
+        "respuestas": [
+            "Perfecto, gracias.",
+            "No, no alcanzo.",
+            "No puedo ir ese día."
+        ]
+    }
+]

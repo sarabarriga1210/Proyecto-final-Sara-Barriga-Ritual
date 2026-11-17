@@ -1,0 +1,58 @@
+
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bandeja de entrada</title>
+    <link rel="stylesheet" href="css/interaccion.css">
+</head>
+
+<body>
+
+    <div id="contenedor-pantalla">
+
+        <div id="contenedor-hora">
+            <p id="hora"></p>
+            <p id="estado">SISTEMA ACTIVO</p>
+        </div>
+
+        <div id="contenedor-bandeja">
+            <p id="titulo-bandeja">BANDEJA DE ENTRADA</p>
+            <p id="contador-pendientes">4 PENDIENTES</p>
+        </div>
+
+        <div id="contenedor-notificacion">
+
+            <div id="encabezado-notificacion">
+                <img id="foto-perfil" src="" alt="Foto de perfil">
+
+                <div id="informacion-remitente">
+                    <p id="remitente"></p>
+                    <p id="tipo-notificacion"></p>
+                </div>
+
+                <p id="hora-notificacion">ahora</p>
+            </div>
+
+            <div id="contenedor-mensaje">
+                <p id="mensaje-notificacion"></p>
+            </div>
+
+        </div>
+
+        <div id="contenedor-respuestas">
+            <p id="titulo-respuestas">SELECCIONE UNA RESPUESTA</p>
+            <div id="lista-respuestas"></div>
+        </div>
+
+        <div id="casilla-respuesta">
+            <p id="texto-casilla">ARRASTRE LA RESPUESTA AQUÍ</p>
+        </div>
+
+    </div>
+
+    <script src="js/interaccion.js"></script>
+
+</body>
+</html>

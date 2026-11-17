@@ -30,7 +30,7 @@ actualizarReloj();
 setInterval(actualizarReloj, 1000);
 
 
-// ---------- TEXTO DE CONTEXTO ----------
+
 let textoFrase1 = document.getElementById("texto-frase1");
 let textoFrase2 = document.getElementById("texto-frase2");
 let textoFrase3 = document.getElementById("texto-frase3");
@@ -42,7 +42,7 @@ textoFrase3.innerHTML = "Tu próxima activación está programada para las 6:00 
 textoFrase4.innerHTML = "Sigue las indicaciones.";
 
 
-// ---------- INSTRUCCIÓN FINAL ----------
+
 let contenedorInstruccion = document.getElementById("contenedor-instruccion");
 let flecha = document.getElementById("flecha");
 let textoInstruccion = document.getElementById("texto-instruccion");
@@ -51,7 +51,7 @@ flecha.innerHTML = "↑";
 textoInstruccion.innerHTML = "Deslice hacia arriba para iniciar";
 
 
-// ---------- APARICIÓN DEL TEXTO (una frase tras otra) ----------
+
 let listo = false;
 
 setTimeout(function () {
@@ -76,7 +76,7 @@ setTimeout(function () {
 }, 19000);
 
 
-// ---------- GESTO: DESLIZAR HACIA ARRIBA ----------
+
 let pantalla = document.getElementById("contenedor-pantalla");
 let inicioY = 0;
 
