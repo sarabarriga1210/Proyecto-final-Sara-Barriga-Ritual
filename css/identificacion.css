@@ -108,10 +108,11 @@ p {
 }
 
 #huella {
+    display: block;
     width: 95px;
     height: 95px;
     object-fit: contain;
-    opacity: 0.9;
+    opacity: 1;
     touch-action: none;
 }
 
