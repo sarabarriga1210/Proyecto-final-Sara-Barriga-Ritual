@@ -1,5 +1,4 @@
 
-
 body {
     background-color: #050805;
     margin: 0;
@@ -102,6 +101,8 @@ p {
     background-color: #101a10;
     margin-bottom: 12px;
     padding: 16px;
+    touch-action: pan-y;
+    transition: background-color 0.3s, border 0.3s;
 }
 
 .area summary {
@@ -141,6 +142,7 @@ p {
     border-top: 1px solid #365335;
     margin-top: 15px;
     padding-top: 15px;
+    padding-bottom: 5px;
     color: #a9b9a5;
     font-size: 11px;
     line-height: 1.7;
@@ -148,6 +150,25 @@ p {
 
 .explicacion p {
     margin-bottom: 12px;
+}
+
+/* TARJETA AMPLIADA */
+
+.area.ampliada {
+    border: 2px solid #8fbf88;
+    background-color: #142014;
+    padding: 22px;
+    transform: scale(1.02);
+}
+
+.area.ampliada .puntaje {
+    color: #ffffff;
+    font-size: 23px;
+}
+
+.area.ampliada .explicacion {
+    font-size: 13px;
+    line-height: 1.9;
 }
 
 /* CONCLUSIÓN */

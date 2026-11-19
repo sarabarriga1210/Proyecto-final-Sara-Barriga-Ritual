@@ -41,3 +41,107 @@ if (promedio >= 70) {
         "SU DESEMPEÑO GENERAL SE ENCUENTRA POR DEBAJO DE LOS ESTÁNDARES ÓPTIMOS. SIN EMBARGO, CUMPLE LOS REQUISITOS MÍNIMOS PARA LA DESCONEXIÓN.";
 
 }
+
+
+/* GESTO DE ZOOM EN LOS DASHBOARDS */
+
+let areas = document.getElementsByClassName("area");
+
+for (let i = 0; i < areas.length; i++) {
+
+    let areaActual = areas[i];
+
+    let distanciaInicial = 0;
+    let gestoRealizado = false;
+
+
+    /* INICIO DEL GESTO */
+
+    areaActual.ontouchstart = function(evento) {
+
+        if (evento.touches.length == 2) {
+
+            evento.preventDefault();
+
+            let dedo1 = evento.touches[0];
+            let dedo2 = evento.touches[1];
+
+            let diferenciaX = dedo2.clientX - dedo1.clientX;
+            let diferenciaY = dedo2.clientY - dedo1.clientY;
+
+            distanciaInicial = Math.sqrt(
+                diferenciaX * diferenciaX +
+                diferenciaY * diferenciaY
+            );
+
+            gestoRealizado = false;
+
+        }
+
+    };
+
+
+    /* MOVIMIENTO DE LOS DEDOS */
+
+    areaActual.ontouchmove = function(evento) {
+
+        if (evento.touches.length == 2) {
+
+            evento.preventDefault();
+
+            let dedo1 = evento.touches[0];
+            let dedo2 = evento.touches[1];
+
+            let diferenciaX = dedo2.clientX - dedo1.clientX;
+            let diferenciaY = dedo2.clientY - dedo1.clientY;
+
+            let distanciaActual = Math.sqrt(
+                diferenciaX * diferenciaX +
+                diferenciaY * diferenciaY
+            );
+
+            let cambioDistancia = distanciaActual - distanciaInicial;
+
+
+            /* AMPLIAR LA TARJETA */
+
+            if (cambioDistancia > 40 && gestoRealizado == false) {
+
+                areaActual.open = true;
+                areaActual.className = "area ampliada";
+
+                gestoRealizado = true;
+
+            }
+
+
+            /* CERRAR LA TARJETA */
+
+            if (cambioDistancia < -40 && gestoRealizado == false) {
+
+                areaActual.open = false;
+                areaActual.className = "area";
+
+                gestoRealizado = true;
+
+            }
+
+        }
+
+    };
+
+
+    /* FINALIZAR EL GESTO */
+
+    areaActual.ontouchend = function(evento) {
+
+        if (evento.touches.length < 2) {
+
+            distanciaInicial = 0;
+            gestoRealizado = false;
+
+        }
+
+    };
+
+}
