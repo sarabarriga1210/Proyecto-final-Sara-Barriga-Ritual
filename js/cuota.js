@@ -84,7 +84,12 @@ function mostrarMomentos() {
         let corazon = document.createElement("div");
 
         nuevoMomento.className = "momento";
+        
         imagenMomento.src = videoActual.momentos[i].imagen;
+        
+        imagenMomento.onerror = function() {
+            console.log("No se encontró esta imagen:", imagenMomento.src);
+        };
 
         corazon.className = "corazon";
         corazon.textContent = "♥";
