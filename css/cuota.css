@@ -1,0 +1,205 @@
+
+body {
+    background-color: #050805;
+    margin: 0;
+    padding: 0;
+    color: #6f9c6a;
+    font-family: "Courier New", monospace;
+    overflow-x: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+p {
+    margin: 0;
+}
+
+#contenedor-pantalla {
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 0;
+}
+
+/* ENCABEZADO */
+
+#encabezado {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+#titulo-sistema {
+    font-size: 17px;
+    letter-spacing: 4px;
+    color: #8fbf88;
+}
+
+#subtitulo {
+    font-size: 9px;
+    letter-spacing: 2px;
+    margin-top: 8px;
+}
+
+/* INFORMACIÓN DEL RECAP */
+
+#informacion-recap {
+    width: 85%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#momento-del-dia {
+    font-size: 20px;
+    letter-spacing: 4px;
+    color: #8fbf88;
+}
+
+#instruccion {
+    font-size: 10px;
+    letter-spacing: 1px;
+    margin-top: 8px;
+}
+
+/* VIDEO */
+
+#contenedor-video {
+    width: 90%;
+    max-width: 500px;
+    background-color: #101a10;
+    border: 1px solid #365335;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#video-recap {
+    display: block;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
+    background-color: #101a10;
+}
+
+/* SELECCIÓN DE MOMENTOS */
+
+#contenedor-seleccion {
+    display: none;
+    width: 90%;
+    max-width: 500px;
+    margin-top: 25px;
+}
+
+#instruccion-likes {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+}
+
+#cuadricula-momentos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.momento {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #365335;
+    border-radius: 5px;
+    background-color: #101a10;
+    touch-action: manipulation;
+}
+
+.momento img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.momento.seleccionado {
+    border: 2px solid #8fbf88;
+}
+
+.corazon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    font-size: 65px;
+    opacity: 0;
+    pointer-events: none;
+    text-shadow: 0 0 15px #000000;
+}
+
+.corazon.visible {
+    animation: aparecerCorazon 0.8s ease;
+}
+
+@keyframes aparecerCorazon {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.4);
+    }
+
+    35% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.3);
+    }
+
+    70% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+}
+
+/* INSTRUCCIONES Y LIKES */
+
+#instruccion-doble-toque {
+    text-align: center;
+    font-size: 9px;
+    letter-spacing: 1px;
+    margin-top: 18px;
+}
+
+#contenedor-likes {
+    margin-top: 30px;
+    text-align: center;
+}
+
+#contador-likes {
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #b03a3a;
+}
+
+/* OCULTAR VIDEO CUANDO APARECEN LAS IMÁGENES */
+
+#contenedor-video.oculto {
+    display: none;
+}
+
+@media (max-width: 360px) {
+    #titulo-sistema {
+        font-size: 14px;
+    }
+
+    #instruccion-likes {
+        font-size: 10px;
+    }
+
+    .corazon {
+        font-size: 50px;
+    }
+}
