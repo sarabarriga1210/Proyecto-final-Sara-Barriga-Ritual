@@ -4,88 +4,40 @@
         "momento": "MAÑANA",
         "video": "assets/manana.mp4",
         "momentos": [
-            {
-                "imagen": "assets/manana_1.jpg",
-                "actividad": "Despertarse"
-            },
-            {
-                "imagen": "assets/manana_2.jpg",
-                "actividad": "Preparar el desayuno"
-            },
-            {
-                "imagen": "assets/manana_3.jpg",
-                "actividad": "Comer"
-            },
-            {
-                "imagen": "assets/manana_4.jpg",
-                "actividad": "Bañarse"
-            }
+            {"imagen": "assets/manana_1.png", "actividad": "Despertarse"},
+            {"imagen": "assets/manana_2.png", "actividad": "Preparar el desayuno"},
+            {"imagen": "assets/manana_3.png", "actividad": "Comer"},
+            {"imagen": "assets/manana_4.png", "actividad": "Bañarse"}
         ]
     },
     {
         "momento": "MEDIODÍA",
         "video": "assets/mediodia.mp4",
         "momentos": [
-            {
-                "imagen": "assets/mediodia_1.jpg",
-                "actividad": "Trabajar"
-            },
-            {
-                "imagen": "assets/mediodia_2.jpg",
-                "actividad": "Conversar con un compañero"
-            },
-            {
-                "imagen": "assets/mediodia_3.jpg",
-                "actividad": "Salir del trabajo"
-            },
-            {
-                "imagen": "assets/mediodia_4.jpg",
-                "actividad": "Montar en patineta"
-            }
+            {"imagen": "assets/mediodia_1.png", "actividad": "Trabajar"},
+            {"imagen": "assets/mediodia_2.png", "actividad": "Conversar con un compañero"},
+            {"imagen": "assets/mediodia_3.png", "actividad": "Salir del trabajo"},
+            {"imagen": "assets/mediodia_4.png", "actividad": "Montar en patineta"}
         ]
     },
     {
         "momento": "TARDE",
         "video": "assets/tarde.mp4",
         "momentos": [
-            {
-                "imagen": "assets/tarde_1.jpg",
-                "actividad": "Almorzar"
-            },
-            {
-                "imagen": "assets/tarde_2.jpg",
-                "actividad": "Ver una película"
-            },
-            {
-                "imagen": "assets/tarde_3.jpg",
-                "actividad": "Leer un artículo"
-            },
-            {
-                "imagen": "assets/tarde_4.jpg",
-                "actividad": "Tomar una siesta"
-            }
+            {"imagen": "assets/tarde_1.png", "actividad": "Almorzar"},
+            {"imagen": "assets/tarde_2.png", "actividad": "Ver una película"},
+            {"imagen": "assets/tarde_3.png", "actividad": "Leer un artículo"},
+            {"imagen": "assets/tarde_4.png", "actividad": "Tomar una siesta"}
         ]
     },
     {
         "momento": "NOCHE",
         "video": "assets/noche.mp4",
         "momentos": [
-            {
-                "imagen": "assets/noche_1.jpg",
-                "actividad": "Pasear a la mascota"
-            },
-            {
-                "imagen": "assets/noche_2.jpg",
-                "actividad": "Ver TikTok"
-            },
-            {
-                "imagen": "assets/noche_3.jpg",
-                "actividad": "Hacer skincare"
-            },
-            {
-                "imagen": "assets/noche_4.jpg",
-                "actividad": "Jugar videojuegos"
-            }
+            {"imagen": "assets/noche_1.png", "actividad": "Pasear a la mascota"},
+            {"imagen": "assets/noche_2.png", "actividad": "Ver TikTok"},
+            {"imagen": "assets/noche_3.png", "actividad": "Hacer skincare"},
+            {"imagen": "assets/noche_4.png", "actividad": "Jugar videojuegos"}
         ]
     }
 ]
