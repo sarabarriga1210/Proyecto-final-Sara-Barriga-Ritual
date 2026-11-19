@@ -43,7 +43,7 @@ if (promedio >= 70) {
 }
 
 
-/* GESTO DE ZOOM EN LOS DASHBOARDS */
+/* GESTO DE AMPLIACIÓN DE LAS TARJETAS */
 
 let areas = document.getElementsByClassName("area");
 
@@ -55,7 +55,7 @@ for (let i = 0; i < areas.length; i++) {
     let gestoRealizado = false;
 
 
-    /* INICIO DEL GESTO */
+    /* CUANDO LOS DOS DEDOS TOCAN LA TARJETA */
 
     areaActual.ontouchstart = function(evento) {
 
@@ -81,7 +81,7 @@ for (let i = 0; i < areas.length; i++) {
     };
 
 
-    /* MOVIMIENTO DE LOS DEDOS */
+    /* CUANDO LOS DEDOS SE MUEVEN */
 
     areaActual.ontouchmove = function(evento) {
 
@@ -103,9 +103,9 @@ for (let i = 0; i < areas.length; i++) {
             let cambioDistancia = distanciaActual - distanciaInicial;
 
 
-            /* AMPLIAR LA TARJETA */
+            /* SEPARAR LOS DEDOS: AMPLIAR */
 
-            if (cambioDistancia > 40 && gestoRealizado == false) {
+            if (cambioDistancia > 30 && gestoRealizado == false) {
 
                 areaActual.open = true;
                 areaActual.className = "area ampliada";
@@ -115,9 +115,9 @@ for (let i = 0; i < areas.length; i++) {
             }
 
 
-            /* CERRAR LA TARJETA */
+            /* ACERCAR LOS DEDOS: CERRAR */
 
-            if (cambioDistancia < -40 && gestoRealizado == false) {
+            if (cambioDistancia < -30 && gestoRealizado == false) {
 
                 areaActual.open = false;
                 areaActual.className = "area";
@@ -131,7 +131,7 @@ for (let i = 0; i < areas.length; i++) {
     };
 
 
-    /* FINALIZAR EL GESTO */
+    /* CUANDO LOS DEDOS SE LEVANTAN */
 
     areaActual.ontouchend = function(evento) {
 
@@ -141,6 +141,16 @@ for (let i = 0; i < areas.length; i++) {
             gestoRealizado = false;
 
         }
+
+    };
+
+
+    /* SI EL GESTO SE INTERRUMPE */
+
+    areaActual.ontouchcancel = function() {
+
+        distanciaInicial = 0;
+        gestoRealizado = false;
 
     };
 

@@ -83,37 +83,43 @@ p {
     text-align: center;
     font-size: 14px;
     letter-spacing: 2px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 #instruccion {
     text-align: center;
-    font-size: 9px;
+    font-size: 10px;
     letter-spacing: 1px;
-    line-height: 1.5;
-    margin-bottom: 22px;
+    line-height: 1.7;
+    margin: 0 auto 25px auto;
+    max-width: 330px;
+    color: #8fbf88;
 }
 
 /* TARJETAS */
 
 .area {
+    width: 100%;
+    box-sizing: border-box;
     border: 1px solid #365335;
     background-color: #101a10;
-    margin-bottom: 12px;
-    padding: 16px;
-    touch-action: pan-y;
-    transition: background-color 0.3s, border 0.3s;
+    margin-bottom: 18px;
+    padding: 25px 20px;
+    min-height: 105px;
+
+    /* El gesto táctil lo controla nuestro JavaScript */
+    touch-action: none;
 }
 
 .area summary {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    min-height: 55px;
     list-style: none;
-    cursor: pointer;
     color: #8fbf88;
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 1px;
 }
 
@@ -124,7 +130,7 @@ p {
 .area summary::after {
     content: "+";
     color: #8fbf88;
-    font-size: 18px;
+    font-size: 22px;
 }
 
 .area[open] summary::after {
@@ -132,7 +138,7 @@ p {
 }
 
 .puntaje {
-    font-size: 20px;
+    font-size: 22px;
     white-space: nowrap;
 }
 
@@ -140,16 +146,15 @@ p {
 
 .explicacion {
     border-top: 1px solid #365335;
-    margin-top: 15px;
-    padding-top: 15px;
-    padding-bottom: 5px;
+    margin-top: 18px;
+    padding-top: 18px;
     color: #a9b9a5;
-    font-size: 11px;
-    line-height: 1.7;
+    font-size: 12px;
+    line-height: 1.8;
 }
 
 .explicacion p {
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 
 /* TARJETA AMPLIADA */
@@ -157,13 +162,12 @@ p {
 .area.ampliada {
     border: 2px solid #8fbf88;
     background-color: #142014;
-    padding: 22px;
-    transform: scale(1.02);
+    padding: 28px 22px;
 }
 
 .area.ampliada .puntaje {
     color: #ffffff;
-    font-size: 23px;
+    font-size: 24px;
 }
 
 .area.ampliada .explicacion {
@@ -210,7 +214,8 @@ p {
     }
 
     .area {
-        padding: 13px;
+        padding: 22px 15px;
+        min-height: 100px;
     }
 
     .area summary {
@@ -218,7 +223,7 @@ p {
     }
 
     .puntaje {
-        font-size: 17px;
+        font-size: 19px;
     }
 
 }
