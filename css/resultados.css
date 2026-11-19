@@ -1,4 +1,5 @@
 
+
 body {
     background-color: #050805;
     margin: 0;
@@ -20,42 +21,39 @@ p {
     width: 100%;
     min-height: 100vh;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 30px 0;
+    padding: 30px 20px;
 }
 
 /* ENCABEZADO */
 
-#encabezado-resultados {
+#encabezado {
     text-align: center;
     margin-bottom: 35px;
 }
 
-#titulo-sistema {
-    font-size: 17px;
-    letter-spacing: 4px;
+#titulo {
     color: #8fbf88;
+    font-size: 17px;
+    letter-spacing: 3px;
 }
 
 #subtitulo {
     font-size: 9px;
+    margin-top: 10px;
     letter-spacing: 2px;
-    margin-top: 8px;
 }
 
 /* RESUMEN GENERAL */
 
 #resumen-general {
-    width: 85%;
+    width: 100%;
     max-width: 500px;
     box-sizing: border-box;
+    margin: 0 auto 35px auto;
     border: 1px solid #365335;
     background-color: #101a10;
-    padding: 25px 15px;
+    padding: 22px 15px;
     text-align: center;
-    margin-bottom: 40px;
 }
 
 #titulo-resumen {
@@ -64,128 +62,142 @@ p {
 }
 
 #puntaje-general {
-    font-size: 48px;
+    font-size: 45px;
     color: #8fbf88;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 18px 0;
 }
 
 #mensaje-general {
     font-size: 11px;
-    line-height: 1.6;
-    letter-spacing: 1px;
+    line-height: 1.7;
 }
 
-/* SECCIÓN DE DASHBOARDS */
+/* ÁREAS */
 
-#seccion-dashboards {
-    width: 90%;
+#seccion-areas {
+    width: 100%;
     max-width: 600px;
+    margin: 0 auto;
 }
 
-#titulo-dashboards {
-    font-size: 15px;
+#titulo-areas {
     text-align: center;
-    letter-spacing: 3px;
-    color: #8fbf88;
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
 }
 
-#instruccion-dashboards {
+#instruccion {
+    text-align: center;
     font-size: 9px;
-    text-align: center;
     letter-spacing: 1px;
-    margin-top: 10px;
-    margin-bottom: 25px;
     line-height: 1.5;
+    margin-bottom: 22px;
 }
 
-/* CUADRÍCULA */
+/* TARJETAS */
 
-#cuadricula-dashboards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
-
-/* CADA DASHBOARD */
-
-.dashboard {
-    min-height: 125px;
-    box-sizing: border-box;
+.area {
     border: 1px solid #365335;
     background-color: #101a10;
-    border-radius: 4px;
-    padding: 15px 10px;
+    margin-bottom: 12px;
+    padding: 16px;
+}
+
+.area summary {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    text-align: center;
-    touch-action: none;
-}
-
-.nombre-area {
-    font-size: 10px;
+    gap: 10px;
+    list-style: none;
+    cursor: pointer;
+    color: #8fbf88;
+    font-size: 11px;
     letter-spacing: 1px;
-    line-height: 1.5;
-    color: #8fbf88;
 }
 
-.puntaje-area {
-    font-size: 30px;
+.area summary::-webkit-details-marker {
+    display: none;
+}
+
+.area summary::after {
+    content: "+";
     color: #8fbf88;
+    font-size: 18px;
+}
+
+.area[open] summary::after {
+    content: "-";
+}
+
+.puntaje {
+    font-size: 20px;
+    white-space: nowrap;
+}
+
+/* EXPLICACIONES */
+
+.explicacion {
+    border-top: 1px solid #365335;
     margin-top: 15px;
+    padding-top: 15px;
+    color: #a9b9a5;
+    font-size: 11px;
+    line-height: 1.7;
 }
 
-/* CONCLUSIÓN FINAL */
+.explicacion p {
+    margin-bottom: 12px;
+}
 
-#conclusion-final {
-    width: 85%;
+/* CONCLUSIÓN */
+
+#conclusion {
+    width: 100%;
     max-width: 500px;
     box-sizing: border-box;
     border: 1px solid #6b2929;
     background-color: #160d0d;
     padding: 22px 18px;
-    margin-top: 40px;
+    margin: 35px auto 20px auto;
     text-align: center;
-    margin-bottom: 30px;
 }
 
 #titulo-conclusion {
+    color: #b03a3a;
     font-size: 12px;
     letter-spacing: 2px;
-    color: #b03a3a;
     margin-bottom: 15px;
 }
 
 #texto-conclusion {
-    font-size: 11px;
-    line-height: 1.7;
     color: #c58b8b;
+    font-size: 11px;
+    line-height: 1.8;
 }
 
 /* PANTALLAS PEQUEÑAS */
 
 @media (max-width: 360px) {
 
-    #titulo-sistema {
+    #titulo {
         font-size: 14px;
     }
 
     #puntaje-general {
-        font-size: 40px;
+        font-size: 38px;
     }
 
-    .dashboard {
-        min-height: 115px;
+    .area {
+        padding: 13px;
     }
 
-    .nombre-area {
-        font-size: 9px;
+    .area summary {
+        font-size: 10px;
     }
 
-    .puntaje-area {
-        font-size: 26px;
+    .puntaje {
+        font-size: 17px;
     }
 
 }
