@@ -1,16 +1,21 @@
 
 /* ELEMENTOS DE LA PANTALLA */
 
+/* Resultado general */
 let puntajeGeneral = document.getElementById("puntaje-general");
 let mensajeGeneral = document.getElementById("mensaje-general");
 
+/* Desviación conductual */
 let puntajeDesviacion = document.getElementById("puntaje-desviacion");
 let nivelDesviacion = document.getElementById("nivel-desviacion");
 let detalleDesviacion = document.getElementById("detalle-desviacion");
 
+/* Impacto de decisiones */
+let tituloPreferencias = document.getElementById("titulo-preferencias");
 let textoPreferencias = document.getElementById("texto-preferencias");
 let listaPreferencias = document.getElementById("lista-preferencias");
 
+/* Dictamen */
 let textoConclusion = document.getElementById("texto-conclusion");
 
 
@@ -25,364 +30,378 @@ let resultadosNotificaciones = JSON.parse(
 );
 
 
-/* ÁREAS Y PUNTAJES INICIALES */
+/* NOMBRES DE LAS NUEVE ÁREAS */
 
 let areas = {
 
     descanso: {
         nombre: "DESCANSO",
-        puntaje: 65,
+        puntaje: 60,
         evidencias: []
     },
 
     alimentacion: {
         nombre: "ALIMENTACIÓN",
-        puntaje: 65,
+        puntaje: 60,
         evidencias: []
     },
 
     cultura: {
         nombre: "CULTURA",
-        puntaje: 65,
+        puntaje: 60,
         evidencias: []
     },
 
     higiene: {
         nombre: "HIGIENE E IMAGEN CORPORAL",
-        puntaje: 65,
+        puntaje: 60,
         evidencias: []
     },
 
     salud: {
         nombre: "SALUD",
-        puntaje: 65,
+        puntaje: 60,
         evidencias: []
     },
 
     productividad: {
         nombre: "PRODUCTIVIDAD",
-        puntaje: 65,
+        puntaje: 60,
         evidencias: []
     },
 
     actividad_fisica: {
         nombre: "ACTIVIDAD FÍSICA",
-        puntaje: 65,
+        puntaje: 60,
         evidencias: []
     },
 
     medio_ambiente: {
         nombre: "CUIDADO DEL MEDIO AMBIENTE",
-        puntaje: 65,
+        puntaje: 60,
         evidencias: []
     },
 
     economia: {
         nombre: "ECONOMÍA",
-        puntaje: 65,
+        puntaje: 60,
         evidencias: []
     }
 
 };
 
 
-/* REGLAS DE INTERPRETACIÓN DE LAS ACTIVIDADES */
+/* EXPLICACIONES DE LOS IMPACTOS POR ACTIVIDAD */
 
-let reglasActividades = {
+let explicacionesImpactos = {
 
     despertar: {
-        efectos: {
-            descanso: 5,
-            salud: 3
-        },
-        mensaje: "Consultaste tu registro de sueño. El sistema reconoce el seguimiento de tus horas de descanso."
+        descanso: "Permite monitorear los periodos de recuperación.",
+        salud: "Favorece el seguimiento de hábitos de descanso.",
+        productividad: "Facilita organizar la jornada según la energía disponible."
     },
 
     preparar_desayuno: {
-        efectos: {
-            alimentacion: 5,
-            economia: -2
-        },
-        mensaje: "Utilizaste la impresora nutricional. El sistema registra el consumo de recursos para preparar alimentos."
+        alimentacion: "Reconoce la planificación de alimentos.",
+        salud: "Favorece la preparación de una comida.",
+        economia: "Consume cápsulas nutricionales adicionales.",
+        medio_ambiente: "Genera residuos de los insumos utilizados.",
+        productividad: "Requiere tiempo adicional de preparación."
     },
 
     comer_desayuno: {
-        efectos: {
-            alimentacion: 7,
-            salud: 4
-        },
-        mensaje: "Consumiste el desayuno proteico establecido. La ingesta cumple los parámetros nutricionales."
+        alimentacion: "Cumple el primer periodo nutricional.",
+        salud: "Favorece la regularidad alimentaria.",
+        productividad: "Aporta energía para iniciar la jornada.",
+        economia: "Consume una ración asignada."
     },
 
     ducha: {
-        efectos: {
-            higiene: 6,
-            salud: 2,
-            medio_ambiente: -4
-        },
-        mensaje: "Completaste la rutina de higiene. El consumo de agua superó parcialmente la cuota ambiental."
+        higiene: "Cumple el indicador de higiene personal.",
+        salud: "Favorece el cuidado corporal.",
+        medio_ambiente: "Registra consumo de agua.",
+        economia: "Consume recursos asignados."
     },
 
     trabajo: {
-        efectos: {
-            productividad: 8,
-            economia: 4
-        },
-        mensaje: "Cumpliste actividades laborales en tu estación asignada. El sistema reconoce el tiempo productivo."
+        productividad: "Cumple los objetivos asignados.",
+        economia: "Contribuye a la estabilidad de ingresos.",
+        salud: "La actividad laboral prolongada genera desgaste.",
+        descanso: "Reduce el tiempo disponible para recuperarse."
     },
 
     conversacion: {
-        efectos: {
-            salud: 4,
-            productividad: -3
-        },
-        mensaje: "Conversaste con un compañero durante la jornada. La interacción favoreció el vínculo social, pero redujo el tiempo productivo."
+        salud: "Favorece la interacción social y el bienestar emocional.",
+        productividad: "Reduce el tiempo dedicado a las tareas laborales.",
+        cultura: "Permite intercambiar ideas y perspectivas."
     },
 
     salida_trabajo: {
-        efectos: {
-            productividad: 3
-        },
-        mensaje: "Registraste tu salida mediante el torniquete biométrico. El sistema verificó el cierre de tu jornada."
+        productividad: "Demuestra cumplimiento de los horarios establecidos.",
+        descanso: "Protege el tiempo destinado a la recuperación.",
+        salud: "Favorece una distribución equilibrada de la jornada."
     },
 
     patineta: {
-        efectos: {
-            actividad_fisica: 8,
-            medio_ambiente: 8
-        },
-        mensaje: "Utilizaste movilidad eléctrica regenerativa. La actividad favoreció el movimiento y redujo el impacto ambiental."
+        actividad_fisica: "Incentiva el movimiento y la movilidad activa.",
+        medio_ambiente: "Reduce el uso de medios de transporte contaminantes.",
+        salud: "Favorece la actividad al aire libre.",
+        economia: "Reduce gastos de transporte."
     },
 
     almuerzo: {
-        efectos: {
-            alimentacion: 7,
-            economia: -2
-        },
-        mensaje: "Consumiste el almuerzo nutricional estandarizado. El sistema reconoce el cumplimiento alimentario y registra el costo de producción."
+        alimentacion: "Cumple el segundo periodo nutricional.",
+        salud: "Favorece la regularidad de las comidas.",
+        economia: "Consume recursos de la ración diaria.",
+        productividad: "Mantiene la disponibilidad de energía durante la jornada.",
+        medio_ambiente: "Genera residuos asociados al consumo."
     },
 
     pelicula: {
-        efectos: {
-            cultura: -4,
-            productividad: -2
-        },
-        mensaje: "Elegiste entretenimiento recreativo. El sistema no identificó una contribución directa a tus objetivos de actualización."
+        cultura: "Promueve el consumo de contenido audiovisual autorizado.",
+        descanso: "Permite una pausa de las obligaciones.",
+        salud: "Favorece la recreación y el bienestar.",
+        productividad: "Reduce el tiempo disponible para otras tareas."
     },
 
     articulo: {
-        efectos: {
-            cultura: 8,
-            productividad: 3
-        },
-        mensaje: "Consultaste el artículo de actualización ciudadana. El sistema reconoce tu disposición a mantenerte informado."
+        cultura: "Favorece el aprendizaje y la actualización de conocimientos.",
+        productividad: "Fortalece las habilidades de análisis.",
+        salud: "Estimula la actividad cognitiva."
     },
 
     siesta: {
-        efectos: {
-            descanso: -8,
-            salud: 3,
-            productividad: -5
-        },
-        mensaje: "Registraste un periodo de sueño fuera del horario autorizado. El sistema considera que alteraste la distribución de tu descanso."
+        descanso: "Reconoce la recuperación física durante una pausa.",
+        salud: "Registra el beneficio inmediato de descansar.",
+        productividad: "El sistema considera que altera la programación energética."
     },
 
     mascota: {
-        efectos: {
-            actividad_fisica: 7,
-            medio_ambiente: 5
-        },
-        mensaje: "Realizaste un recorrido con tu mascota. El sistema reconoce la actividad física y el manejo responsable de residuos."
+        actividad_fisica: "Favorece el movimiento y la actividad al aire libre.",
+        medio_ambiente: "Promueve el contacto con espacios exteriores.",
+        salud: "Favorece el bienestar físico y emocional.",
+        descanso: "Permite una pausa de las actividades laborales.",
+        productividad: "Consume parte del tiempo programado para la rutina nocturna."
     },
 
     videos_cortos: {
-        efectos: {
-            cultura: -6,
-            productividad: -5
-        },
-        mensaje: "Consumiste contenido de influenciadores sintéticos. El sistema no encontró evidencia de aprendizaje verificable."
+        cultura: "Prioriza contenido de entretenimiento de bajo valor formativo según los criterios del sistema.",
+        productividad: "Reduce la disponibilidad para completar actividades pendientes.",
+        descanso: "Prolonga la exposición a pantallas durante la noche.",
+        salud: "Puede alterar la preparación para el descanso."
     },
 
     skincare: {
-        efectos: {
-            higiene: 5,
-            economia: -5
-        },
-        mensaje: "Completaste una rutina de cuidado facial. El sistema registra el cumplimiento estético y el consumo de productos."
+        higiene: "Cumple el indicador de cuidado personal.",
+        salud: "Favorece la rutina de cuidado corporal.",
+        economia: "Consume cápsulas y productos asignados.",
+        descanso: "Extiende el tiempo de la rutina nocturna."
     },
 
     videojuego: {
-        efectos: {
-            cultura: 3,
-            productividad: -8
-        },
-        mensaje: "Elegiste una experiencia de reconstrucción ecológica virtual. Aunque presenta contenido ambiental, el sistema no reconoce su utilidad productiva directa."
+        cultura: "Favorece el aprendizaje mediante experiencias interactivas.",
+        productividad: "Consume tiempo de la jornada nocturna.",
+        descanso: "Proporciona un periodo breve de recreación.",
+        salud: "Prolonga el tiempo de exposición a pantallas.",
+        medio_ambiente: "Refuerza conocimientos sobre ecosistemas y conservación."
     }
 
 };
 
 
-/* CRUZAR LOS LIKES CON LOS INDICADORES */
+/* EVALUACIÓN FIJA DE LAS 16 ACTIVIDADES */
 
-for (let i = 0; i < preferenciasCuota.length; i++) {
+/* Cargar cuota.json para que todos reciban
+   la misma evaluación de la rutina completa. */
 
-    let preferencia = preferenciasCuota[i];
+fetch("cuota.json")
+    .then(function(respuesta) {
 
-    let regla = reglasActividades[preferencia.id];
+        if (!respuesta.ok) {
+            throw new Error("No se pudo cargar cuota.json");
+        }
 
-    if (regla != undefined) {
+        return respuesta.json();
 
-        for (let area in regla.efectos) {
+    })
+    .then(function(datos) {
 
-            areas[area].puntaje =
-                areas[area].puntaje + regla.efectos[area];
+        calcularAreas(datos);
 
-            areas[area].evidencias.push(regla.mensaje);
+        mostrarAreas();
+
+        calcularPromedio();
+
+        mostrarDesviacion();
+
+        mostrarPreferencias();
+
+        mostrarConclusion();
+
+    })
+    .catch(function(error) {
+
+        console.log("Error al calcular resultados:", error);
+
+        mensajeGeneral.textContent =
+            "NO FUE POSIBLE COMPLETAR LA EVALUACIÓN.";
+
+        textoConclusion.textContent =
+            "ERROR DE LECTURA. NO SE PUDO GENERAR EL INFORME DEL SISTEMA.";
+
+    });
+
+
+/* SUMAR LOS IMPACTOS DE LAS 16 ACTIVIDADES */
+
+function calcularAreas(datos) {
+
+    for (let i = 0; i < datos.length; i++) {
+
+        let actividades = datos[i].momentos;
+
+        for (let j = 0; j < actividades.length; j++) {
+
+            let actividadActual = actividades[j];
+
+            let impactos = actividadActual.impactos;
+
+            for (let nombreArea in impactos) {
+
+                if (areas[nombreArea] != undefined) {
+
+                    let impacto = impactos[nombreArea];
+
+                    areas[nombreArea].puntaje =
+                        areas[nombreArea].puntaje + impacto;
+
+                    let explicacion = "Impacto registrado por esta actividad.";
+
+                    if (
+                        explicacionesImpactos[actividadActual.id] != undefined &&
+                        explicacionesImpactos[actividadActual.id][nombreArea] != undefined
+                    ) {
+
+                        explicacion =
+                            explicacionesImpactos[actividadActual.id][nombreArea];
+
+                    }
+
+                    let evidencia = {
+
+                        actividad: actividadActual.actividad,
+
+                        impacto: impacto,
+
+                        explicacion: explicacion
+
+                    };
+
+                    areas[nombreArea].evidencias.push(evidencia);
+
+                }
+
+            }
 
         }
 
     }
 
-}
 
+    /* LIMITAR LOS PUNTAJES ENTRE 0 Y 100 */
 
-/* RELACIONAR NOTIFICACIONES CON INDICADORES */
+    for (let nombreArea in areas) {
 
-function obtenerAreasNotificacion(tipo) {
+        if (areas[nombreArea].puntaje > 100) {
+            areas[nombreArea].puntaje = 100;
+        }
 
-    if (tipo == "VÍNCULO AFECTIVO" ||
-        tipo == "VÍNCULO FAMILIAR") {
-
-        return ["salud"];
-
-    }
-
-    if (tipo == "TRABAJO") {
-
-        return ["productividad", "economia"];
-
-    }
-
-    if (tipo == "EDUCACIÓN") {
-
-        return ["cultura", "productividad"];
-
-    }
-
-    return [];
-
-}
-
-
-/* CALCULAR ACIERTOS Y DESVIACIONES */
-
-let cantidadAciertos = 0;
-let cantidadDesviaciones = 0;
-
-for (let i = 0; i < resultadosNotificaciones.length; i++) {
-
-    let resultado = resultadosNotificaciones[i];
-
-    let areasRelacionadas = obtenerAreasNotificacion(resultado.tipo);
-
-    let cambio = 0;
-    let mensaje = "";
-
-    if (resultado.clasificacion == "acierto") {
-
-        cantidadAciertos++;
-
-        cambio = 6;
-
-        mensaje =
-            "Tu respuesta a " + resultado.remitente +
-            " fue clasificada como ACIERTO por el sistema.";
-
-    } else if (resultado.clasificacion == "desviacion") {
-
-        cantidadDesviaciones++;
-
-        cambio = -12;
-
-        mensaje =
-            "Tu respuesta a " + resultado.remitente +
-            " fue registrada como DESVIACIÓN CONDUCTUAL.";
-
-    }
-
-    for (let j = 0; j < areasRelacionadas.length; j++) {
-
-        let nombreArea = areasRelacionadas[j];
+        if (areas[nombreArea].puntaje < 0) {
+            areas[nombreArea].puntaje = 0;
+        }
 
         areas[nombreArea].puntaje =
-            areas[nombreArea].puntaje + cambio;
-
-        areas[nombreArea].evidencias.push(mensaje);
+            Math.round(areas[nombreArea].puntaje);
 
     }
 
 }
 
 
-/* LIMITAR LOS PUNTAJES ENTRE 0 Y 100 */
+/* MOSTRAR LOS RESULTADOS EN LAS NUEVE TARJETAS */
 
-let puntajes = [];
+function mostrarAreas() {
 
-for (let area in areas) {
+    let tarjetas = document.getElementsByClassName("area");
 
-    if (areas[area].puntaje > 100) {
-        areas[area].puntaje = 100;
-    }
+    for (let i = 0; i < tarjetas.length; i++) {
 
-    if (areas[area].puntaje < 0) {
-        areas[area].puntaje = 0;
-    }
+        let tarjeta = tarjetas[i];
 
-    areas[area].puntaje = Math.round(areas[area].puntaje);
+        let nombreArea = tarjeta.getAttribute("data-area");
 
-    puntajes.push(areas[area].puntaje);
+        let informacion = areas[nombreArea];
 
-}
+        if (informacion == undefined) {
+            continue;
+        }
+
+        let puntajeTarjeta = tarjeta.querySelector(".puntaje");
+
+        let explicacionTarjeta = tarjeta.querySelector(".explicacion");
+
+        puntajeTarjeta.textContent =
+            informacion.puntaje + "/100";
+
+        explicacionTarjeta.innerHTML = "";
 
 
-/* MOSTRAR LOS RESULTADOS EN LAS TARJETAS */
-
-let tarjetas = document.getElementsByClassName("area");
-
-for (let i = 0; i < tarjetas.length; i++) {
-
-    let tarjeta = tarjetas[i];
-
-    let nombreArea = tarjeta.getAttribute("data-area");
-
-    let informacion = areas[nombreArea];
-
-    let puntajeTarjeta = tarjeta.querySelector(".puntaje");
-    let explicacionTarjeta = tarjeta.querySelector(".explicacion");
-
-    puntajeTarjeta.textContent = informacion.puntaje + "/100";
-
-    explicacionTarjeta.innerHTML = "";
-
-    if (informacion.evidencias.length == 0) {
-
-        let texto = document.createElement("p");
-
-        texto.textContent =
-            "No se registraron decisiones relacionadas con esta categoría durante la evaluación.";
-
-        explicacionTarjeta.appendChild(texto);
-
-    } else {
+        /* MOSTRAR CADA ACTIVIDAD Y SU IMPACTO */
 
         for (let j = 0; j < informacion.evidencias.length; j++) {
 
-            let texto = document.createElement("p");
+            let evidencia = informacion.evidencias[j];
 
-            texto.textContent =
-                "- " + informacion.evidencias[j];
+            let bloque = document.createElement("div");
 
-            explicacionTarjeta.appendChild(texto);
+            bloque.className = "evidencia-actividad";
+
+            let nombre = document.createElement("p");
+
+            nombre.className = "nombre-actividad";
+
+            nombre.textContent = evidencia.actividad;
+
+            let impacto = document.createElement("p");
+
+            impacto.className = "impacto-actividad";
+
+            if (evidencia.impacto > 0) {
+
+                impacto.textContent = "+" + evidencia.impacto;
+
+                impacto.className = "impacto-actividad positivo";
+
+            } else {
+
+                impacto.textContent = evidencia.impacto;
+
+                impacto.className = "impacto-actividad negativo";
+
+            }
+
+            let justificacion = document.createElement("p");
+
+            justificacion.className = "justificacion-actividad";
+
+            justificacion.textContent = evidencia.explicacion;
+
+
+            bloque.appendChild(nombre);
+            bloque.appendChild(impacto);
+            bloque.appendChild(justificacion);
+
+            explicacionTarjeta.appendChild(bloque);
 
         }
 
@@ -391,143 +410,264 @@ for (let i = 0; i < tarjetas.length; i++) {
 }
 
 
-/* CALCULAR PROMEDIO GENERAL */
+/* CALCULAR EL PROMEDIO GENERAL */
 
-let suma = 0;
+function calcularPromedio() {
 
-for (let i = 0; i < puntajes.length; i++) {
+    let suma = 0;
 
-    suma = suma + puntajes[i];
+    let cantidadAreas = 0;
 
-}
+    for (let nombreArea in areas) {
 
-let promedio = Math.round(suma / puntajes.length);
+        suma = suma + areas[nombreArea].puntaje;
 
-puntajeGeneral.textContent = promedio + " / 100";
+        cantidadAreas++;
 
+    }
 
-if (promedio >= 70) {
+    let promedio = Math.round(suma / cantidadAreas);
 
-    mensajeGeneral.textContent =
-        "TU DESEMPEÑO GENERAL CUMPLE CON LOS ESTÁNDARES DEL SISTEMA.";
-
-} else {
-
-    mensajeGeneral.textContent =
-        "TU DESEMPEÑO GENERAL SE ENCUENTRA POR DEBAJO DE LOS ESTÁNDARES ÓPTIMOS.";
-
-}
+    puntajeGeneral.textContent = promedio + " / 100";
 
 
-/* MOSTRAR ÍNDICE DE DESVIACIÓN */
+    if (promedio >= 70) {
 
-puntajeDesviacion.textContent =
-    cantidadDesviaciones + " / " + resultadosNotificaciones.length;
+        mensajeGeneral.textContent =
+            "TU DESEMPEÑO GENERAL CUMPLE CON LOS ESTÁNDARES DEL SISTEMA.";
 
+    } else {
 
-if (cantidadDesviaciones == 0) {
-
-    nivelDesviacion.textContent =
-        "ESTADO NORMAL. NO SE DETECTARON DESVIACIONES.";
-
-} else if (cantidadDesviaciones == 1) {
-
-    nivelDesviacion.textContent =
-        "OBSERVACIÓN. SE DETECTÓ UNA CONDUCTA INUSUAL.";
-
-} else if (cantidadDesviaciones == 2) {
-
-    nivelDesviacion.textContent =
-        "ALERTA. SE REGISTRARON DOS DESVIACIONES CONDUCTUALES.";
-
-} else {
-
-    nivelDesviacion.textContent =
-        "RIESGO DE EXCLUSIÓN. TU CONDUCTA PRESENTA INCOMPATIBILIDAD CON EL PROTOCOLO.";
-
-}
-
-
-/* MOSTRAR QUÉ RESPUESTAS GENERARON DESVIACIONES */
-
-detalleDesviacion.innerHTML = "";
-
-for (let i = 0; i < resultadosNotificaciones.length; i++) {
-
-    let resultado = resultadosNotificaciones[i];
-
-    if (resultado.clasificacion == "desviacion") {
-
-        let texto = document.createElement("p");
-
-        texto.textContent =
-            "- " + resultado.remitente +
-            ": \"" + resultado.respuesta + "\"";
-
-        detalleDesviacion.appendChild(texto);
+        mensajeGeneral.textContent =
+            "TU DESEMPEÑO GENERAL SE ENCUENTRA POR DEBAJO DE LOS ESTÁNDARES ÓPTIMOS.";
 
     }
 
 }
 
-if (cantidadDesviaciones == 0) {
 
-    detalleDesviacion.textContent =
-        "No se identificaron respuestas incompatibles con el protocolo.";
+/* ÍNDICE DE DESVIACIÓN CONDUCTUAL */
+
+function mostrarDesviacion() {
+
+    let cantidadDesviaciones = 0;
+
+    for (let i = 0; i < resultadosNotificaciones.length; i++) {
+
+        if (resultadosNotificaciones[i].desviacion == true) {
+
+            cantidadDesviaciones++;
+
+        }
+
+    }
+
+    puntajeDesviacion.textContent =
+        cantidadDesviaciones + " / 4";
+
+
+    /* ESTADO VISUAL DEL ÍNDICE */
+
+    if (cantidadDesviaciones <= 2) {
+
+        nivelDesviacion.className = "desviacion-normal";
+
+    } else {
+
+        nivelDesviacion.className = "desviacion-alerta";
+
+    }
+
+
+    /* MENSAJE SEGÚN EL NÚMERO DE DESVIACIONES */
+
+    if (cantidadDesviaciones == 0) {
+
+        nivelDesviacion.textContent =
+            "ESTADO NORMAL. NO SE DETECTARON DESVIACIONES.";
+
+    } else if (cantidadDesviaciones == 1) {
+
+        nivelDesviacion.textContent =
+            "OBSERVACIÓN. SE DETECTÓ UNA CONDUCTA INUSUAL.";
+
+    } else if (cantidadDesviaciones == 2) {
+
+        nivelDesviacion.textContent =
+            "ALERTA PREVENTIVA. SE REGISTRARON DOS DESVIACIONES.";
+
+    } else {
+
+        nivelDesviacion.textContent =
+            "RIESGO DE EXCLUSIÓN. TU CONDUCTA PRESENTA INCOMPATIBILIDAD CON EL PROTOCOLO.";
+
+    }
+
+
+    /* MOSTRAR LAS CUATRO RESPUESTAS */
+
+    detalleDesviacion.innerHTML = "";
+
+    for (let i = 0; i < resultadosNotificaciones.length; i++) {
+
+        let resultado = resultadosNotificaciones[i];
+
+        let bloque = document.createElement("div");
+
+        bloque.className = "detalle-respuesta";
+
+        let texto = document.createElement("p");
+
+        texto.textContent =
+            resultado.remitente + ": \"" + resultado.respuesta + "\"";
+
+        let estado = document.createElement("p");
+
+        if (resultado.desviacion == true) {
+
+            estado.textContent = "DESVIACIÓN DETECTADA";
+
+            estado.className = "respuesta-desviacion";
+
+        } else {
+
+            estado.textContent = "RESPUESTA COMPATIBLE";
+
+            estado.className = "respuesta-compatible";
+
+        }
+
+        bloque.appendChild(texto);
+        bloque.appendChild(estado);
+
+        detalleDesviacion.appendChild(bloque);
+
+    }
+
+    if (resultadosNotificaciones.length == 0) {
+
+        detalleDesviacion.textContent =
+            "NO SE ENCONTRARON RESPUESTAS REGISTRADAS.";
+
+    }
 
 }
 
 
-/* REVISIÓN DE PREFERENCIAS */
+/* IMPACTO DE TUS DECISIONES */
 
-if (preferenciasCuota.length > 0) {
+/* Mostrar únicamente los cuatro mensajes de
+   las actividades seleccionadas mediante likes. */
+
+function mostrarPreferencias() {
+
+    tituloPreferencias.textContent =
+        "IMPACTO DE TUS DECISIONES";
+
+    listaPreferencias.innerHTML = "";
+
+    if (preferenciasCuota.length == 0) {
+
+        textoPreferencias.textContent =
+            "NO SE ENCONTRARON ACTIVIDADES SELECCIONADAS.";
+
+        return;
+
+    }
 
     textoPreferencias.textContent =
-        "EL SISTEMA HA REGISTRADO LAS CUATRO ACTIVIDADES QUE ELEGISTE. TUS PREFERENCIAS HAN SIDO CRUZADAS CON LOS INDICADORES DE DESEMPEÑO.";
+        "EL SISTEMA HA ANALIZADO LAS CUATRO ACTIVIDADES QUE ELEGISTE Y HA GENERADO LAS SIGUIENTES OBSERVACIONES SOBRE TUS PREFERENCIAS.";
 
-} else {
 
-    textoPreferencias.textContent =
-        "NO SE ENCONTRARON PREFERENCIAS REGISTRADAS.";
+    for (let i = 0; i < preferenciasCuota.length; i++) {
+
+        let preferencia = preferenciasCuota[i];
+
+        let bloque = document.createElement("div");
+
+        bloque.className = "bloque-preferencia";
+
+        let momento = document.createElement("p");
+
+        momento.className = "momento-preferencia";
+
+        momento.textContent =
+            preferencia.momento + " / " + preferencia.actividad;
+
+        let mensaje = document.createElement("p");
+
+        mensaje.className = "mensaje-preferencia";
+
+        mensaje.textContent =
+            preferencia.mensajeSatisfaccion;
+
+        bloque.appendChild(momento);
+        bloque.appendChild(mensaje);
+
+        listaPreferencias.appendChild(bloque);
+
+    }
 
 }
 
-listaPreferencias.innerHTML = "";
 
-for (let i = 0; i < preferenciasCuota.length; i++) {
+/* DICTAMEN FINAL DEL SISTEMA */
 
-    let texto = document.createElement("p");
+function mostrarConclusion() {
 
-    texto.textContent =
-        "- " + preferenciasCuota[i].momento +
-        ": " + preferenciasCuota[i].actividad;
+    let promedio = 0;
 
-    listaPreferencias.appendChild(texto);
+    for (let nombreArea in areas) {
 
-}
+        promedio = promedio + areas[nombreArea].puntaje;
+
+    }
+
+    promedio = Math.round(promedio / 9);
 
 
-/* DICTAMEN FINAL */
+    let cantidadDesviaciones = 0;
 
-if (cantidadDesviaciones >= 3) {
+    for (let i = 0; i < resultadosNotificaciones.length; i++) {
 
-    textoConclusion.textContent =
-        "TU NIVEL DE DESVIACIÓN CONDUCTUAL SUPERA EL UMBRAL DE TOLERANCIA. TU SOLICITUD DE DESCONEXIÓN QUEDARÁ SUJETA A UNA REVISIÓN ADICIONAL. DEBERÁS COMPLETAR EL PROTOCOLO DE COMPENSACIÓN ENERGÉTICA.";
+        if (resultadosNotificaciones[i].desviacion == true) {
 
-} else if (promedio < 50) {
+            cantidadDesviaciones++;
 
-    textoConclusion.textContent =
-        "TU DESEMPEÑO GENERAL SE ENCUENTRA POR DEBAJO DEL MÍNIMO ESPERADO. EL SISTEMA RECOMIENDA CORREGIR TUS HÁBITOS Y COMPLETAR EL PROTOCOLO DE COMPENSACIÓN ENERGÉTICA ANTES DE SOLICITAR LA DESCONEXIÓN.";
+        }
 
-} else {
+    }
 
-    textoConclusion.textContent =
-        "TU EVALUACIÓN CUMPLE CON LOS REQUISITOS MÍNIMOS DEL PROTOCOLO. SIN EMBARGO, DEBERÁS COMPLETAR EL PROCESO DE COMPENSACIÓN ENERGÉTICA ANTES DE SOLICITAR LA DESCONEXIÓN.";
+
+    /* EL PROTOCOLO ENERGÉTICO ES OBLIGATORIO
+       PORQUE LA SIESTA ESTÁ EN LA RUTINA FIJA. */
+
+    let protocoloEnergetico = true;
+
+
+    if (cantidadDesviaciones >= 3) {
+
+        textoConclusion.textContent =
+            "TU NIVEL DE DESVIACIÓN CONDUCTUAL SUPERA EL UMBRAL DE TOLERANCIA. TU SOLICITUD DE DESCONEXIÓN QUEDARÁ SUJETA A UNA REVISIÓN ADICIONAL. AUN ASÍ, DEBERÁS COMPLETAR EL PROTOCOLO DE COMPENSACIÓN ENERGÉTICA ANTES DE SOLICITAR LA DESCONEXIÓN.";
+
+    } else if (promedio < 50) {
+
+        textoConclusion.textContent =
+            "TU DESEMPEÑO GENERAL SE ENCUENTRA POR DEBAJO DEL MÍNIMO ESPERADO. EL SISTEMA RECOMIENDA CORREGIR TUS HÁBITOS Y COMPLETAR EL PROTOCOLO DE COMPENSACIÓN ENERGÉTICA ANTES DE SOLICITAR LA DESCONEXIÓN.";
+
+    } else if (protocoloEnergetico == true) {
+
+        textoConclusion.textContent =
+            "TU EVALUACIÓN GENERAL CUMPLE CON LOS REQUISITOS MÍNIMOS DEL PROTOCOLO. SIN EMBARGO, SE HA IDENTIFICADO UNA ALTERACIÓN EN TU PROGRAMACIÓN ENERGÉTICA. LA SIESTA REGISTRADA DURANTE LA TARDE MODIFICÓ LA DISTRIBUCIÓN DE ENERGÍA PREVISTA PARA EL PERIODO NOCTURNO. PARA GARANTIZAR LA DESCONEXIÓN Y RECUPERAR EL HORARIO DE DESCANSO, DEBERÁS COMPLETAR UNA ACTIVIDAD FÍSICA COMPENSATORIA. ESTA MEDIDA PERMITIRÁ EQUILIBRAR EL EXCEDENTE ENERGÉTICO Y COMENZAR LA SIGUIENTE JORNADA CON LA DISPOSICIÓN NECESARIA PARA CUMPLIR TUS OBJETIVOS DE PRODUCTIVIDAD.";
+
+    }
 
 }
 
 
 /* GESTO DE AMPLIACIÓN DE LAS TARJETAS */
+
+/* CONSERVAMOS EL GESTO QUE YA FUNCIONABA. */
 
 let tarjetasAreas = document.getElementsByClassName("area");
 
