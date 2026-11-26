@@ -15,7 +15,7 @@ const botonContinuar = document.getElementById("boton-continuar");
 
 /* VARIABLES DE LA COMPENSACIÓN */
 
-let tiempoNecesario = 15;
+let tiempoNecesario = 8;
 
 let tiempoAcumulado = 0;
 
@@ -110,7 +110,7 @@ function actualizarPantalla() {
     let segundosTexto = String(segundosActuales).padStart(2, "0");
 
     tiempo.textContent =
-        "00:" + segundosTexto + " / 00:15";
+        "00:" + segundosTexto + " / 00:08";
 
 }
 
