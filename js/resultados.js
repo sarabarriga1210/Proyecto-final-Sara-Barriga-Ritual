@@ -211,8 +211,10 @@ let explicacionesImpactos = {
 
 /* EVALUACIÓN FIJA DE LAS 16 ACTIVIDADES */
 
-fetch("cuota.json")
+/* Cargar cuota.json para que todos reciban
+   la misma evaluación de la rutina completa. */
 
+fetch("cuota.json")
     .then(function(respuesta) {
 
         if (!respuesta.ok) {
@@ -222,7 +224,6 @@ fetch("cuota.json")
         return respuesta.json();
 
     })
-
     .then(function(datos) {
 
         calcularAreas(datos);
@@ -238,7 +239,6 @@ fetch("cuota.json")
         mostrarConclusion();
 
     })
-
     .catch(function(error) {
 
         console.log("Error al calcular resultados:", error);
@@ -431,30 +431,6 @@ function calcularPromedio() {
     puntajeGeneral.textContent = promedio + " / 100";
 
 
-    /* GUARDAR EL PROMEDIO GENERAL */
-
-    localStorage.setItem(
-        "promedioGeneral",
-        promedio
-    );
-
-
-    /* GUARDAR LOS PUNTAJES DE LAS NUEVE ÁREAS */
-
-    let puntajesAreas = {};
-
-    for (let nombreArea in areas) {
-
-        puntajesAreas[nombreArea] = areas[nombreArea].puntaje;
-
-    }
-
-    localStorage.setItem(
-        "puntajesAreas",
-        JSON.stringify(puntajesAreas)
-    );
-
-
     if (promedio >= 70) {
 
         mensajeGeneral.textContent =
@@ -488,14 +464,6 @@ function mostrarDesviacion() {
 
     puntajeDesviacion.textContent =
         cantidadDesviaciones + " / 4";
-
-
-    /* GUARDAR LA CANTIDAD DE DESVIACIONES */
-
-    localStorage.setItem(
-        "cantidadDesviaciones",
-        cantidadDesviaciones
-    );
 
 
     /* ESTADO VISUAL DEL ÍNDICE */
@@ -588,6 +556,9 @@ function mostrarDesviacion() {
 
 /* IMPACTO DE TUS DECISIONES */
 
+/* Mostrar únicamente los cuatro mensajes de
+   las actividades seleccionadas mediante likes. */
+
 function mostrarPreferencias() {
 
     tituloPreferencias.textContent =
@@ -674,14 +645,6 @@ function mostrarConclusion() {
     let protocoloEnergetico = true;
 
 
-    /* GUARDAR EL ESTADO INICIAL DE LA COMPENSACIÓN */
-
-    localStorage.setItem(
-        "compensacionEnergetica",
-        "pendiente"
-    );
-
-
     if (cantidadDesviaciones >= 3) {
 
         textoConclusion.textContent =
@@ -704,8 +667,7 @@ function mostrarConclusion() {
 
 /* GESTO DE AMPLIACIÓN DE LAS TARJETAS */
 
-/* LAS TARJETAS SOLO SE ABREN Y CIERRAN
-   MEDIANTE EL GESTO DE PELLIZCO EN TOUCH. */
+/* CONSERVAMOS EL GESTO QUE YA FUNCIONABA. */
 
 let tarjetasAreas = document.getElementsByClassName("area");
 
@@ -713,19 +675,8 @@ for (let i = 0; i < tarjetasAreas.length; i++) {
 
     let areaActual = tarjetasAreas[i];
 
-    let resumenArea = areaActual.querySelector("summary");
-
     let distanciaInicial = 0;
     let gestoRealizado = false;
-
-
-    /* BLOQUEAR LA APERTURA AUTOMÁTICA POR TOQUE */
-
-    resumenArea.addEventListener("click", function(evento) {
-
-        evento.preventDefault();
-
-    });
 
 
     /* CUANDO LOS DOS DEDOS TOCAN LA TARJETA */
