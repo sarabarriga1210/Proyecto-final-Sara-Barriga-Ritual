@@ -1,4 +1,5 @@
 
+
 const hora = document.getElementById("hora");
 const aro = document.getElementById("aro");
 const huella = document.getElementById("huella");
@@ -132,8 +133,6 @@ function finalizarMedicion() {
 
     puntaje.textContent = "PRODUCTIVIDAD: " + resultado + "%";
 
-
-    
 
     setTimeout(function() {
 
