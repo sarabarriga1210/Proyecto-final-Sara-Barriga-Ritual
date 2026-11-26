@@ -153,7 +153,9 @@ p {
     margin-bottom: 18px;
     padding: 25px 20px;
     min-height: 105px;
-    touch-action: pan-y;
+
+    /* RESERVAR LOS GESTOS PARA EL PELLIZCO */
+    touch-action: none;
 }
 
 .area summary {
