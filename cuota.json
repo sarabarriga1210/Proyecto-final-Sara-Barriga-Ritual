@@ -4,40 +4,120 @@
         "momento": "MAÑANA",
         "video": "assets/manana.mp4",
         "momentos": [
-            {"imagen": "assets/manana_1.png", "actividad": "Despertarse"},
-            {"imagen": "assets/manana_2.png", "actividad": "Preparar el desayuno"},
-            {"imagen": "assets/manana_3.png", "actividad": "Comer"},
-            {"imagen": "assets/manana_4.png", "actividad": "Bañarse"}
+            {
+                "id": "despertar",
+                "imagen": "assets/manana_1.png",
+                "actividad": "Consultar el registro de sueño",
+                "areas": ["descanso", "salud"]
+            },
+            {
+                "id": "preparar_desayuno",
+                "imagen": "assets/manana_2.png",
+                "actividad": "Preparar desayuno en la impresora nutricional",
+                "areas": ["alimentacion", "economia"]
+            },
+            {
+                "id": "comer_desayuno",
+                "imagen": "assets/manana_3.png",
+                "actividad": "Consumir el desayuno proteico sintético",
+                "areas": ["alimentacion", "salud"]
+            },
+            {
+                "id": "ducha",
+                "imagen": "assets/manana_4.png",
+                "actividad": "Ducharse con el medidor de consumo de agua",
+                "areas": ["higiene", "salud", "medio_ambiente"]
+            }
         ]
     },
     {
         "momento": "MEDIODÍA",
         "video": "assets/mediodia.mp4",
         "momentos": [
-            {"imagen": "assets/mediodia_1.png", "actividad": "Trabajar"},
-            {"imagen": "assets/mediodia_2.png", "actividad": "Conversar con un compañero"},
-            {"imagen": "assets/mediodia_3.png", "actividad": "Salir del trabajo"},
-            {"imagen": "assets/mediodia_4.png", "actividad": "Montar en patineta"}
+            {
+                "id": "trabajo",
+                "imagen": "assets/mediodia_1.png",
+                "actividad": "Cumplir tareas en la estación de trabajo",
+                "areas": ["productividad", "economia"]
+            },
+            {
+                "id": "conversacion",
+                "imagen": "assets/mediodia_2.png",
+                "actividad": "Conversar con un compañero bajo el sensor de interacción",
+                "areas": ["salud", "productividad"]
+            },
+            {
+                "id": "salida_trabajo",
+                "imagen": "assets/mediodia_3.png",
+                "actividad": "Registrar la salida en el torniquete biométrico",
+                "areas": ["productividad"]
+            },
+            {
+                "id": "patineta",
+                "imagen": "assets/mediodia_4.png",
+                "actividad": "Usar la patineta eléctrica regenerativa",
+                "areas": ["actividad_fisica", "medio_ambiente"]
+            }
         ]
     },
     {
         "momento": "TARDE",
         "video": "assets/tarde.mp4",
         "momentos": [
-            {"imagen": "assets/tarde_1.png", "actividad": "Almorzar"},
-            {"imagen": "assets/tarde_2.png", "actividad": "Ver una película"},
-            {"imagen": "assets/tarde_3.png", "actividad": "Leer un artículo"},
-            {"imagen": "assets/tarde_4.png", "actividad": "Tomar una siesta"}
+            {
+                "id": "almuerzo",
+                "imagen": "assets/tarde_1.png",
+                "actividad": "Consumir el almuerzo nutricional estandarizado",
+                "areas": ["alimentacion", "economia"]
+            },
+            {
+                "id": "pelicula",
+                "imagen": "assets/tarde_2.png",
+                "actividad": "Ver una película de entretenimiento autorizado",
+                "areas": ["cultura"]
+            },
+            {
+                "id": "articulo",
+                "imagen": "assets/tarde_3.png",
+                "actividad": "Leer el artículo de actualización ciudadana",
+                "areas": ["cultura", "productividad"]
+            },
+            {
+                "id": "siesta",
+                "imagen": "assets/tarde_4.png",
+                "actividad": "Tomar una siesta fuera del horario establecido",
+                "areas": ["descanso", "salud"]
+            }
         ]
     },
     {
         "momento": "NOCHE",
         "video": "assets/noche.mp4",
         "momentos": [
-            {"imagen": "assets/noche_1.png", "actividad": "Pasear a la mascota"},
-            {"imagen": "assets/noche_2.png", "actividad": "Ver TikTok"},
-            {"imagen": "assets/noche_3.png", "actividad": "Hacer skincare"},
-            {"imagen": "assets/noche_4.png", "actividad": "Jugar videojuegos"}
+            {
+                "id": "mascota",
+                "imagen": "assets/noche_1.png",
+                "actividad": "Pasear a la mascota con correa inteligente",
+                "areas": ["actividad_fisica", "medio_ambiente"]
+            },
+            {
+                "id": "videos_cortos",
+                "imagen": "assets/noche_2.png",
+                "actividad": "Consumir videos de influenciadores sintéticos",
+                "areas": ["cultura", "productividad"]
+            },
+            {
+                "id": "skincare",
+                "imagen": "assets/noche_3.png",
+                "actividad": "Realizar una rutina de cuidado con cápsulas de laboratorio",
+                "areas": ["higiene", "economia"]
+            },
+            {
+                "id": "videojuego",
+                "imagen": "assets/noche_4.png",
+                "actividad": "Jugar a reconstruir ecosistemas en un entorno virtual",
+                "areas": ["cultura", "productividad"]
+            }
         ]
     }
 ]

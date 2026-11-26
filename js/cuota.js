@@ -1,5 +1,4 @@
 
-
 /* ELEMENTOS DE LA PANTALLA */
 
 let videoRecap = document.getElementById("video-recap");
@@ -23,6 +22,8 @@ let ultimoMomento = -1;
 
 let procesando = false;
 
+let preferenciasCuota = [];
+
 
 /* CARGAR DATOS DEL JSON */
 
@@ -32,6 +33,14 @@ fetch("cuota.json")
     })
     .then(function(datos) {
         videos = datos;
+
+        preferenciasCuota = [];
+
+        localStorage.setItem(
+            "preferenciasCuota",
+            JSON.stringify(preferenciasCuota)
+        );
+
         mostrarVideo();
     })
     .catch(function(error) {
@@ -119,7 +128,7 @@ function detectarDobleToque(numeroMomento, cuadro, corazon) {
     if (ultimoMomento == numeroMomento &&
         tiempoActual - ultimoToque < 350) {
 
-        registrarLike(cuadro, corazon);
+        registrarLike(numeroMomento, cuadro, corazon);
 
         ultimoToque = 0;
         ultimoMomento = -1;
@@ -134,9 +143,9 @@ function detectarDobleToque(numeroMomento, cuadro, corazon) {
 }
 
 
-/* REGISTRAR LIKE */
+/* REGISTRAR LIKE Y GUARDAR PREFERENCIA */
 
-function registrarLike(cuadro, corazon) {
+function registrarLike(numeroMomento, cuadro, corazon) {
 
     procesando = true;
 
@@ -147,6 +156,25 @@ function registrarLike(cuadro, corazon) {
 
     cuadro.className = "momento seleccionado";
     corazon.className = "corazon visible";
+
+    let videoActual = videos[numeroVideo];
+    let momentoElegido = videoActual.momentos[numeroMomento];
+
+    let preferencia = {
+        id: momentoElegido.id,
+        momento: videoActual.momento,
+        actividad: momentoElegido.actividad,
+        areas: momentoElegido.areas
+    };
+
+    preferenciasCuota.push(preferencia);
+
+    localStorage.setItem(
+        "preferenciasCuota",
+        JSON.stringify(preferenciasCuota)
+    );
+
+    console.log("Preferencia registrada:", preferencia);
 
     setTimeout(function() {
 
