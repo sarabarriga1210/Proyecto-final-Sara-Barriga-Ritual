@@ -36,29 +36,6 @@ let esTouch = false;
 let ignorarMouseHasta = 0;
 
 
-/* FUNCIONES DE SONIDO */
-
-function reproducirEfecto(nombre, repetir) {
-
-    if (window.parent.reproducirSonido) {
-
-        window.parent.reproducirSonido(nombre, repetir);
-
-    }
-
-}
-
-function detenerEfecto(nombre) {
-
-    if (window.parent.detenerSonido) {
-
-        window.parent.detenerSonido(nombre);
-
-    }
-
-}
-
-
 /* RELOJ DE NODUZ */
 
 let horaGuardada = localStorage.getItem("horaNoduz");
@@ -199,10 +176,6 @@ function mostrarNotificacion() {
     casillaRespuesta.classList.remove("seleccionada");
     casillaRespuesta.classList.remove("activa");
 
-    /* SONIDO DE NOTIFICACIÓN */
-
-    reproducirEfecto("notificacion", false);
-
 
     /* CREAR LAS TRES RESPUESTAS */
 
@@ -301,10 +274,6 @@ function iniciarArrastre(evento, respuesta, tactil) {
     respuesta.style.top = posicion.top + "px";
 
     respuesta.classList.add("arrastrada");
-
-    /* SONIDO AL COMENZAR A ARRASTRAR */
-
-    reproducirEfecto("arrastrar", false);
 
 
     /* ACTIVAR LOS EVENTOS DE MOVIMIENTO */
@@ -447,10 +416,6 @@ function terminarArrastre(evento) {
 
     casillaRespuesta.classList.remove("activa");
 
-    /* SONIDO AL SOLTAR */
-
-    reproducirEfecto("soltar", false);
-
 
     /* REGISTRAR O DEVOLVER LA RESPUESTA */
 
@@ -533,10 +498,6 @@ function registrarRespuesta(numeroRespuesta) {
             contadorPendientes.textContent = "4 / 4";
 
             contenedorPantalla.classList.add("finalizado");
-
-            /* SONIDO DE TRANSICIÓN */
-
-            reproducirEfecto("transicion", false);
 
             setTimeout(function() {
 

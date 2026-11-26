@@ -1,3 +1,4 @@
+
 body {
     background-color: #050805;
     margin: 0;
@@ -103,17 +104,6 @@ p {
     line-height: 1.7;
 }
 
-/* ESTADOS DEL ÍNDICE (los pone el JS) */
-
-.desviacion-normal {
-    color: #8fbf88;
-}
-
-.desviacion-alerta {
-    color: #d36c6c;
-    font-weight: bold;
-}
-
 #detalle-desviacion {
     border-top: 1px solid #6b2929;
     margin-top: 15px;
@@ -126,36 +116,6 @@ p {
 
 #detalle-desviacion p {
     margin-bottom: 12px;
-}
-
-/* CADA RESPUESTA DEL DETALLE (las crea el JS) */
-
-.detalle-respuesta {
-    margin-bottom: 14px;
-    padding-bottom: 12px;
-    border-bottom: 1px dashed #4a2222;
-}
-
-.detalle-respuesta:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-.detalle-respuesta p {
-    margin-bottom: 4px;
-}
-
-.respuesta-desviacion {
-    color: #d36c6c;
-    font-size: 10px;
-    letter-spacing: 1px;
-}
-
-.respuesta-compatible {
-    color: #6f9c6a;
-    font-size: 10px;
-    letter-spacing: 1px;
 }
 
 /* ÁREAS */
@@ -193,7 +153,7 @@ p {
     margin-bottom: 18px;
     padding: 25px 20px;
     min-height: 105px;
-    touch-action: none;
+    touch-action: pan-y;
 }
 
 .area summary {
@@ -244,46 +204,6 @@ p {
 
 .explicacion p:last-child {
     margin-bottom: 0;
-}
-
-/* CADA ACTIVIDAD DENTRO DE UNA TARJETA (las crea el JS) */
-
-.evidencia-actividad {
-    margin-bottom: 18px;
-    padding-bottom: 14px;
-    border-bottom: 1px dashed #365335;
-}
-
-.evidencia-actividad:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-.nombre-actividad {
-    color: #8fbf88;
-    font-size: 12px;
-    line-height: 1.6;
-    margin-bottom: 6px;
-}
-
-.impacto-actividad {
-    font-size: 16px;
-    margin-bottom: 6px;
-}
-
-.impacto-actividad.positivo {
-    color: #8fbf88;
-}
-
-.impacto-actividad.negativo {
-    color: #d36c6c;
-}
-
-.justificacion-actividad {
-    color: #a9b9a5;
-    font-size: 11px;
-    line-height: 1.7;
 }
 
 /* TARJETA AMPLIADA */
@@ -344,33 +264,6 @@ p {
     margin-bottom: 10px;
 }
 
-/* CADA PREFERENCIA (las crea el JS) */
-
-.bloque-preferencia {
-    margin-bottom: 18px;
-    padding-bottom: 14px;
-    border-bottom: 1px dashed #365335;
-}
-
-.bloque-preferencia:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-.momento-preferencia {
-    color: #8fbf88;
-    font-size: 11px;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-}
-
-.mensaje-preferencia {
-    color: #a9b9a5;
-    font-size: 11px;
-    line-height: 1.8;
-}
-
 #pregunta-preferencias {
     color: #8fbf88;
     font-size: 12px;
@@ -404,6 +297,39 @@ p {
     line-height: 1.8;
 }
 
+/* BOTÓN DE ACCESO A DESCONEXIÓN */
+
+#acceso-desconexion {
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+    margin: 40px auto 15px auto;
+    text-align: center;
+}
+
+#boton-acceso {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 22px 15px;
+    border: 1px solid #6f9c6a;
+    background-color: #101a10;
+    color: #8fbf88;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    line-height: 1.7;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#boton-acceso:active {
+    background-color: #8fbf88;
+    color: #050805;
+}
+
 /* PANTALLAS PEQUEÑAS */
 
 @media (max-width: 360px) {
@@ -427,6 +353,11 @@ p {
 
     .puntaje {
         font-size: 19px;
+    }
+
+    #boton-acceso {
+        font-size: 10px;
+        padding: 20px 10px;
     }
 
 }

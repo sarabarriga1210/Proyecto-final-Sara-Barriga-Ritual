@@ -26,23 +26,6 @@ let preferenciasCuota = [];
 let actividadesDelDia = [];
 
 
-/* FUNCIONES DE SONIDO */
-
-function reproducirEfecto(nombre, repetir) {
-
-    if (window.parent && window.parent.reproducirSonido) {
-
-        window.parent.reproducirSonido(nombre, repetir);
-
-    } else {
-
-        console.log("No se encontró el reproductor central.");
-
-    }
-
-}
-
-
 /* CONTINUIDAD DEL RELOJ DE NODUZ */
 
 let horaGuardada = localStorage.getItem("horaNoduz");
@@ -343,14 +326,6 @@ function registrarLike(numeroMomento, cuadro, corazon) {
 
     procesando = true;
 
-
-    /* REPRODUCIR SONIDO DEL LIKE */
-
-    reproducirEfecto("like", false);
-
-
-    /* ACTUALIZAR CONTADOR */
-
     likesDisponibles--;
 
     contadorLikes.textContent =
@@ -358,9 +333,6 @@ function registrarLike(numeroMomento, cuadro, corazon) {
 
     cuadro.className = "momento seleccionado";
     corazon.className = "corazon visible";
-
-
-    /* GUARDAR LA PREFERENCIA */
 
     let videoActual = videos[numeroVideo];
 

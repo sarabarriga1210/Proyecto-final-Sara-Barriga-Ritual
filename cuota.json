@@ -1,4 +1,3 @@
-
 [
     {
         "momento": "MAÑANA",
@@ -8,7 +7,11 @@
                 "id": "despertar",
                 "imagen": "assets/manana_1.png",
                 "actividad": "Consultar el registro de sueño",
-                "areas": ["descanso", "salud", "productividad"],
+                "areas": [
+                    "descanso",
+                    "salud",
+                    "productividad"
+                ],
                 "impactos": {
                     "descanso": 3,
                     "salud": 2,
@@ -20,7 +23,13 @@
                 "id": "preparar_desayuno",
                 "imagen": "assets/manana_2.png",
                 "actividad": "Preparar desayuno en la impresora nutricional",
-                "areas": ["alimentacion", "salud", "economia", "medio_ambiente", "productividad"],
+                "areas": [
+                    "alimentacion",
+                    "salud",
+                    "economia",
+                    "medio_ambiente",
+                    "productividad"
+                ],
                 "impactos": {
                     "alimentacion": 2,
                     "salud": 1,
@@ -34,7 +43,12 @@
                 "id": "comer_desayuno",
                 "imagen": "assets/manana_3.png",
                 "actividad": "Consumir el desayuno proteico sintético",
-                "areas": ["alimentacion", "salud", "productividad", "economia"],
+                "areas": [
+                    "alimentacion",
+                    "salud",
+                    "productividad",
+                    "economia"
+                ],
                 "impactos": {
                     "alimentacion": 5,
                     "salud": 3,
@@ -47,7 +61,12 @@
                 "id": "ducha",
                 "imagen": "assets/manana_4.png",
                 "actividad": "Ducharse con el medidor de consumo de agua",
-                "areas": ["higiene", "salud", "medio_ambiente", "economia"],
+                "areas": [
+                    "higiene",
+                    "salud",
+                    "medio_ambiente",
+                    "economia"
+                ],
                 "impactos": {
                     "higiene": 5,
                     "salud": 2,
@@ -66,7 +85,12 @@
                 "id": "trabajo",
                 "imagen": "assets/mediodia_1.png",
                 "actividad": "Cumplir tareas en la estación de trabajo",
-                "areas": ["productividad", "economia", "salud", "descanso"],
+                "areas": [
+                    "productividad",
+                    "economia",
+                    "salud",
+                    "descanso"
+                ],
                 "impactos": {
                     "productividad": 5,
                     "economia": 3,
@@ -79,7 +103,11 @@
                 "id": "conversacion",
                 "imagen": "assets/mediodia_2.png",
                 "actividad": "Conversar con un compañero bajo el sensor de interacción",
-                "areas": ["salud", "productividad", "cultura"],
+                "areas": [
+                    "salud",
+                    "productividad",
+                    "cultura"
+                ],
                 "impactos": {
                     "salud": 3,
                     "productividad": -2,
@@ -91,7 +119,11 @@
                 "id": "salida_trabajo",
                 "imagen": "assets/mediodia_3.png",
                 "actividad": "Registrar la salida en el torniquete biométrico",
-                "areas": ["productividad", "descanso", "salud"],
+                "areas": [
+                    "productividad",
+                    "descanso",
+                    "salud"
+                ],
                 "impactos": {
                     "productividad": 2,
                     "descanso": 2,
@@ -103,7 +135,12 @@
                 "id": "patineta",
                 "imagen": "assets/mediodia_4.png",
                 "actividad": "Usar la patineta eléctrica regenerativa",
-                "areas": ["actividad_fisica", "medio_ambiente", "salud", "economia"],
+                "areas": [
+                    "actividad_fisica",
+                    "medio_ambiente",
+                    "salud",
+                    "economia"
+                ],
                 "impactos": {
                     "actividad_fisica": 5,
                     "medio_ambiente": 5,
@@ -122,7 +159,13 @@
                 "id": "almuerzo",
                 "imagen": "assets/tarde_1.png",
                 "actividad": "Consumir el almuerzo nutricional estandarizado",
-                "areas": ["alimentacion", "salud", "economia", "productividad", "medio_ambiente"],
+                "areas": [
+                    "alimentacion",
+                    "salud",
+                    "economia",
+                    "productividad",
+                    "medio_ambiente"
+                ],
                 "impactos": {
                     "alimentacion": 4,
                     "salud": 3,
@@ -136,7 +179,12 @@
                 "id": "pelicula",
                 "imagen": "assets/tarde_2.png",
                 "actividad": "Ver una película de entretenimiento autorizado",
-                "areas": ["cultura", "descanso", "salud", "productividad"],
+                "areas": [
+                    "cultura",
+                    "descanso",
+                    "salud",
+                    "productividad"
+                ],
                 "impactos": {
                     "cultura": 3,
                     "descanso": 2,
@@ -149,7 +197,11 @@
                 "id": "articulo",
                 "imagen": "assets/tarde_3.png",
                 "actividad": "Leer el artículo de actualización ciudadana",
-                "areas": ["cultura", "productividad", "salud"],
+                "areas": [
+                    "cultura",
+                    "productividad",
+                    "salud"
+                ],
                 "impactos": {
                     "cultura": 4,
                     "productividad": 2,
@@ -161,7 +213,11 @@
                 "id": "siesta",
                 "imagen": "assets/tarde_4.png",
                 "actividad": "Tomar una siesta fuera del horario establecido",
-                "areas": ["descanso", "salud", "productividad"],
+                "areas": [
+                    "descanso",
+                    "salud",
+                    "productividad"
+                ],
                 "impactos": {
                     "descanso": 5,
                     "salud": 2,
@@ -180,7 +236,13 @@
                 "id": "mascota",
                 "imagen": "assets/noche_1.png",
                 "actividad": "Pasear a la mascota con correa inteligente",
-                "areas": ["actividad_fisica", "medio_ambiente", "salud", "descanso", "productividad"],
+                "areas": [
+                    "actividad_fisica",
+                    "medio_ambiente",
+                    "salud",
+                    "descanso",
+                    "productividad"
+                ],
                 "impactos": {
                     "actividad_fisica": 4,
                     "medio_ambiente": 2,
@@ -194,7 +256,12 @@
                 "id": "videos_cortos",
                 "imagen": "assets/noche_2.png",
                 "actividad": "Consumir videos de influenciadores sintéticos",
-                "areas": ["cultura", "productividad", "descanso", "salud"],
+                "areas": [
+                    "cultura",
+                    "productividad",
+                    "descanso",
+                    "salud"
+                ],
                 "impactos": {
                     "cultura": -2,
                     "productividad": -4,
@@ -207,7 +274,12 @@
                 "id": "skincare",
                 "imagen": "assets/noche_3.png",
                 "actividad": "Realizar una rutina de cuidado con cápsulas de laboratorio",
-                "areas": ["higiene", "economia", "salud", "descanso"],
+                "areas": [
+                    "higiene",
+                    "economia",
+                    "salud",
+                    "descanso"
+                ],
                 "impactos": {
                     "higiene": 5,
                     "salud": 2,
@@ -220,7 +292,13 @@
                 "id": "videojuego",
                 "imagen": "assets/noche_4.png",
                 "actividad": "Jugar a reconstruir ecosistemas en un entorno virtual",
-                "areas": ["cultura", "productividad", "descanso", "salud", "medio_ambiente"],
+                "areas": [
+                    "cultura",
+                    "productividad",
+                    "descanso",
+                    "salud",
+                    "medio_ambiente"
+                ],
                 "impactos": {
                     "cultura": 3,
                     "productividad": -3,
