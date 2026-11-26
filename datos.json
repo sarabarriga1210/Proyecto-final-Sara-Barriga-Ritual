@@ -8,35 +8,20 @@
         "respuestas": [
             {
                 "texto": "¡Claro! Esta vez no podemos dejar que nos reduzcan el tiempo.",
-                "clasificacion": "buena",
+                "clasificacion": "cumplimiento",
                 "desviacion": false,
-                "impactos": {
-                    "salud": 2,
-                    "productividad": -1,
-                    "descanso": -1
-                },
                 "consecuencia": "Confirmaste el encuentro y protegiste el indicador de vínculo. Sin embargo, el sistema detectó que tu motivación principal fue evitar una penalización."
             },
             {
                 "texto": "Sí, nos vemos. Hace falta tener un rato sin interrupciones.",
-                "clasificacion": "buena",
+                "clasificacion": "adaptacion",
                 "desviacion": false,
-                "impactos": {
-                    "salud": 4,
-                    "descanso": 2,
-                    "productividad": -1
-                },
                 "consecuencia": "Priorizaste un espacio de conexión afectiva. El sistema reconoce el beneficio emocional de compartir tiempo con personas cercanas."
             },
             {
                 "texto": "¿Y si simplemente nos vemos cuando queramos?",
-                "clasificacion": "riesgosa",
+                "clasificacion": "resistencia",
                 "desviacion": true,
-                "impactos": {
-                    "salud": 2,
-                    "productividad": -2,
-                    "descanso": 1
-                },
                 "consecuencia": "Cuestionaste el sistema de autorización de encuentros. Se registró una preferencia por la autonomía sobre los horarios asignados."
             }
         ]
@@ -49,35 +34,20 @@
         "respuestas": [
             {
                 "texto": "Claro, ma. Te llamo cuando termine mis pendientes.",
-                "clasificacion": "buena",
+                "clasificacion": "cumplimiento",
                 "desviacion": false,
-                "impactos": {
-                    "salud": 2,
-                    "productividad": -1,
-                    "descanso": -1
-                },
                 "consecuencia": "Aceptaste completar la llamada familiar. El sistema reconoce el cumplimiento del vínculo, aunque advierte que estás acumulando compromisos para el final de la jornada."
             },
             {
                 "texto": "Sí, hoy buscamos un espacio para hablar con calma.",
-                "clasificacion": "buena",
+                "clasificacion": "adaptacion",
                 "desviacion": false,
-                "impactos": {
-                    "salud": 4,
-                    "descanso": 1,
-                    "productividad": -1
-                },
                 "consecuencia": "Asignaste tiempo a una relación familiar. El sistema reconoce la importancia de mantener vínculos estables para tu bienestar."
             },
             {
                 "texto": "No deberíamos necesitar una autorización para hablar.",
-                "clasificacion": "riesgosa",
+                "clasificacion": "resistencia",
                 "desviacion": true,
-                "impactos": {
-                    "salud": 2,
-                    "productividad": -2,
-                    "descanso": 1
-                },
                 "consecuencia": "Cuestionaste el sistema de autorización de comunicaciones familiares. Se registró una conducta incompatible con las normas de vinculación."
             }
         ]
@@ -90,38 +60,20 @@
         "respuestas": [
             {
                 "texto": "Entendido. Lo dejo listo esta noche.",
-                "clasificacion": "riesgosa",
+                "clasificacion": "cumplimiento",
                 "desviacion": false,
-                "impactos": {
-                    "productividad": -4,
-                    "economia": 2,
-                    "descanso": -7,
-                    "salud": -5
-                },
                 "consecuencia": "Aceptaste extender tu jornada laboral. Aunque el sistema registra disponibilidad y compromiso, detecta una deficiencia de organización que te obliga a trabajar durante tus horas de descanso. El cansancio acumulado puede afectar tu rendimiento de mañana."
             },
             {
                 "texto": "Recibido. Mañana lo tendrás a primera hora.",
-                "clasificacion": "buena",
+                "clasificacion": "adaptacion",
                 "desviacion": false,
-                "impactos": {
-                    "productividad": 3,
-                    "descanso": -2,
-                    "salud": -1,
-                    "economia": 1
-                },
                 "consecuencia": "Programaste la entrega para el inicio de la jornada. El sistema reconoce la organización del trabajo, aunque registra presión adicional sobre tu horario de la mañana."
             },
             {
                 "texto": "Mi jornada ya terminó. Lo revisaré mañana.",
-                "clasificacion": "riesgosa",
+                "clasificacion": "resistencia",
                 "desviacion": true,
-                "impactos": {
-                    "productividad": -3,
-                    "economia": -2,
-                    "descanso": 3,
-                    "salud": 2
-                },
                 "consecuencia": "Estableciste un límite de horario laboral. El sistema registra una desviación por disponibilidad insuficiente, aunque reconoce que protegiste tu tiempo de descanso."
             }
         ]
@@ -134,36 +86,20 @@
         "respuestas": [
             {
                 "texto": "Yo puedo hacerla. Hay que subir ese porcentaje.",
-                "clasificacion": "riesgosa",
+                "clasificacion": "cumplimiento",
                 "desviacion": false,
-                "impactos": {
-                    "cultura": 2,
-                    "productividad": -2,
-                    "salud": -2,
-                    "descanso": -3
-                },
                 "consecuencia": "Asumiste una responsabilidad adicional para mejorar el resultado del grupo. El sistema reconoce tu disposición, pero detecta una distribución ineficiente de las tareas que aumenta tu carga individual."
             },
             {
                 "texto": "Dividamos las tareas para terminar a tiempo.",
-                "clasificacion": "buena",
+                "clasificacion": "adaptacion",
                 "desviacion": false,
-                "impactos": {
-                    "cultura": 3,
-                    "productividad": 4,
-                    "salud": 1
-                },
                 "consecuencia": "Propusiste una distribución organizada del trabajo. El sistema reconoce la cooperación y la optimización de recursos para alcanzar el objetivo académico."
             },
             {
                 "texto": "¿En qué momento dejamos de aprender y empezamos a competir?",
-                "clasificacion": "riesgosa",
+                "clasificacion": "resistencia",
                 "desviacion": true,
-                "impactos": {
-                    "cultura": 3,
-                    "productividad": -3,
-                    "salud": 1
-                },
                 "consecuencia": "Cuestionaste el sistema de clasificación académica. El sistema detecta una preferencia por el aprendizaje sobre la competencia y registra una desviación de conducta."
             }
         ]

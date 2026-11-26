@@ -14,17 +14,25 @@ p {
     margin: 0;
 }
 
+
+/* PANTALLA PRINCIPAL */
+
 #contenedor-pantalla {
     width: 100%;
     min-height: 100vh;
+    min-height: 100dvh;
     box-sizing: border-box;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 25px 0 25px;
-    gap: 25px;
+
+    padding: 25px 0 30px;
+    gap: 22px;
 }
 
+
+/* RELOJ */
 
 #contenedor-hora {
     text-align: center;
@@ -43,11 +51,12 @@ p {
 }
 
 
+/* BANDEJA DE ENTRADA */
 
 #contenedor-bandeja {
     width: 85%;
     text-align: center;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 #titulo-bandeja {
@@ -63,14 +72,18 @@ p {
 }
 
 
+/* TARJETA DE NOTIFICACIÓN */
 
 #contenedor-notificacion {
     width: 85%;
     max-width: 400px;
+
     background-color: #101a10;
     border: 1px solid #365335;
+
     padding: 18px;
     box-sizing: border-box;
+
     border-radius: 8px;
 }
 
@@ -90,6 +103,7 @@ p {
 
 #informacion-remitente {
     flex: 1;
+    min-width: 0;
 }
 
 #remitente {
@@ -122,6 +136,7 @@ p {
 }
 
 
+/* RESPUESTAS */
 
 #contenedor-respuestas {
     width: 85%;
@@ -145,40 +160,56 @@ p {
     width: 100%;
     padding: 13px;
     box-sizing: border-box;
+
     background-color: #101a10;
     border: 1px solid #365335;
     border-radius: 5px;
+
     color: #8fbf88;
     font-family: "Courier New", monospace;
     font-size: 12px;
     line-height: 1.5;
     text-align: left;
+
     touch-action: none;
+    cursor: grab;
 }
 
 .respuesta.arrastrada {
     position: fixed;
     z-index: 10;
-    opacity: 0.9;
+
+    opacity: 0.95;
+
     background-color: #263b27;
     border: 1px solid #8fbf88;
+
+    cursor: grabbing;
 }
 
 
+/* CASILLA DE RESPUESTA */
 
 #casilla-respuesta {
     width: 85%;
     max-width: 400px;
     min-height: 55px;
+
     border: 1px dashed #6f9c6a;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     box-sizing: border-box;
     padding: 12px;
+
     text-align: center;
     background-color: #0b110b;
+
     margin-top: 5px;
+
+    transition: background-color 0.2s, border 0.2s;
 }
 
 #texto-casilla {
@@ -193,7 +224,13 @@ p {
     border: 1px solid #8fbf88;
 }
 
+#casilla-respuesta.seleccionada {
+    background-color: #101a10;
+    border: 1px solid #8fbf88;
+}
 
+
+/* PANTALLA AL FINALIZAR */
 
 #contenedor-pantalla.finalizado #contenedor-notificacion {
     display: none;
@@ -205,4 +242,37 @@ p {
 
 #contenedor-pantalla.finalizado #casilla-respuesta {
     display: none;
+}
+
+
+/* PANTALLAS PEQUEÑAS */
+
+@media (max-height: 700px) {
+
+    #contenedor-pantalla {
+        gap: 15px;
+        padding-top: 15px;
+    }
+
+    #contenedor-bandeja {
+        margin-top: 5px;
+    }
+
+    #contenedor-notificacion {
+        padding: 14px;
+    }
+
+    #contenedor-mensaje {
+        margin-top: 12px;
+        padding-top: 10px;
+    }
+
+    #contenedor-respuestas {
+        margin-top: 0;
+    }
+
+    .respuesta {
+        padding: 10px;
+    }
+
 }

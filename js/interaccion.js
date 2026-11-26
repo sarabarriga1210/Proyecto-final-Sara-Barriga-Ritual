@@ -2,6 +2,7 @@
 /* ELEMENTOS DE LA PANTALLA */
 
 let hora = document.getElementById("hora");
+
 let remitente = document.getElementById("remitente");
 let tipoNotificacion = document.getElementById("tipo-notificacion");
 let fotoPerfil = document.getElementById("foto-perfil");
@@ -13,6 +14,8 @@ let contadorPendientes = document.getElementById("contador-pendientes");
 let casillaRespuesta = document.getElementById("casilla-respuesta");
 let textoCasilla = document.getElementById("texto-casilla");
 
+let contenedorPantalla = document.getElementById("contenedor-pantalla");
+
 
 /* VARIABLES */
 
@@ -22,20 +25,97 @@ let numeroNotificacion = 0;
 let respuestaSeleccionada = null;
 let elementoArrastrado = null;
 
-let posicionInicialX = 0;
-let posicionInicialY = 0;
+let posicionX = 0;
+let posicionY = 0;
+
+let procesando = false;
 
 let resultadosNotificaciones = [];
 
-let procesando = false;
+let esTouch = false;
+let ignorarMouseHasta = 0;
+
+
+/* RELOJ DE NODUZ */
+
+let horaGuardada = localStorage.getItem("horaNoduz");
+
+let horas = 22;
+let minutos = 47;
+let segundos = 0;
+
+
+/* RECUPERAR LA HORA GUARDADA */
+
+if (horaGuardada != null) {
+
+    let partesHora = horaGuardada.split(":");
+
+    horas = Number(partesHora[0]);
+    minutos = Number(partesHora[1]);
+    segundos = Number(partesHora[2]);
+
+}
+
+
+/* ACTUALIZAR EL RELOJ */
+
+function actualizarHora() {
+
+    let h = String(horas).padStart(2, "0");
+    let m = String(minutos).padStart(2, "0");
+    let s = String(segundos).padStart(2, "0");
+
+    hora.textContent = h + ":" + m + ":" + s;
+
+    localStorage.setItem(
+        "horaNoduz",
+        h + ":" + m + ":" + s
+    );
+
+    segundos++;
+
+    if (segundos == 60) {
+
+        segundos = 0;
+        minutos++;
+
+    }
+
+    if (minutos == 60) {
+
+        minutos = 0;
+        horas++;
+
+    }
+
+    if (horas == 24) {
+
+        horas = 0;
+
+    }
+
+}
+
+actualizarHora();
+
+setInterval(actualizarHora, 1000);
 
 
 /* CARGAR LAS NOTIFICACIONES */
 
 fetch("datos.json")
+
     .then(function(respuesta) {
+
+        if (!respuesta.ok) {
+            throw new Error("No se pudo cargar el archivo JSON.");
+        }
+
         return respuesta.json();
+
     })
+
     .then(function(datos) {
 
         notificaciones = datos;
@@ -50,41 +130,21 @@ fetch("datos.json")
         mostrarNotificacion();
 
     })
+
     .catch(function(error) {
 
         console.log("No se pudieron cargar las notificaciones.", error);
 
         remitente.textContent = "ERROR DEL SISTEMA";
+
         mensajeNotificacion.textContent =
             "No fue posible cargar tus notificaciones.";
 
+        contadorPendientes.textContent = "ERROR";
+
+        textoCasilla.textContent = "VERIFICA LOS DATOS DEL SISTEMA";
+
     });
-
-
-/* MOSTRAR LA HORA */
-
-function actualizarHora() {
-
-    let fecha = new Date();
-
-    let horas = fecha.getHours();
-    let minutos = fecha.getMinutes();
-
-    if (horas < 10) {
-        horas = "0" + horas;
-    }
-
-    if (minutos < 10) {
-        minutos = "0" + minutos;
-    }
-
-    hora.textContent = horas + ":" + minutos;
-
-}
-
-actualizarHora();
-
-setInterval(actualizarHora, 1000);
 
 
 /* MOSTRAR UNA NOTIFICACIÓN */
@@ -114,6 +174,7 @@ function mostrarNotificacion() {
     listaRespuestas.innerHTML = "";
 
     casillaRespuesta.classList.remove("seleccionada");
+    casillaRespuesta.classList.remove("activa");
 
 
     /* CREAR LAS TRES RESPUESTAS */
@@ -132,97 +193,242 @@ function mostrarNotificacion() {
         listaRespuestas.appendChild(nuevaRespuesta);
 
 
-        /* INICIAR EL ARRASTRE */
+        /* EVENTO PARA PANTALLAS TÁCTILES */
 
-        nuevaRespuesta.ontouchstart = function(evento) {
+        nuevaRespuesta.addEventListener("touchstart", function(evento) {
 
-            if (procesando == true) {
+            iniciarArrastre(
+                evento,
+                nuevaRespuesta,
+                true
+            );
+
+        }, { passive: false });
+
+
+        /* EVENTO PARA USAR EL MOUSE */
+
+        nuevaRespuesta.addEventListener("mousedown", function(evento) {
+
+            if (Date.now() < ignorarMouseHasta) {
                 return;
             }
 
-            evento.preventDefault();
+            iniciarArrastre(
+                evento,
+                nuevaRespuesta,
+                false
+            );
 
-            let toque = evento.touches[0];
-
-            elementoArrastrado = nuevaRespuesta;
-
-            posicionInicialX = toque.clientX;
-            posicionInicialY = toque.clientY;
-
-            nuevaRespuesta.classList.add("arrastrando");
-
-        };
-
-
-        /* MOVER LA RESPUESTA */
-
-        nuevaRespuesta.ontouchmove = function(evento) {
-
-            if (elementoArrastrado != nuevaRespuesta) {
-                return;
-            }
-
-            evento.preventDefault();
-
-            let toque = evento.touches[0];
-
-            let movimientoX = toque.clientX - posicionInicialX;
-            let movimientoY = toque.clientY - posicionInicialY;
-
-            nuevaRespuesta.style.transform =
-                "translate(" + movimientoX + "px, " + movimientoY + "px)";
-
-        };
-
-
-        /* SOLTAR LA RESPUESTA */
-
-        nuevaRespuesta.ontouchend = function(evento) {
-
-            if (elementoArrastrado != nuevaRespuesta) {
-                return;
-            }
-
-            let rectanguloCasilla =
-                casillaRespuesta.getBoundingClientRect();
-
-            let rectanguloRespuesta =
-                nuevaRespuesta.getBoundingClientRect();
-
-            let centroX =
-                rectanguloRespuesta.left + rectanguloRespuesta.width / 2;
-
-            let centroY =
-                rectanguloRespuesta.top + rectanguloRespuesta.height / 2;
-
-
-            /* COMPROBAR SI SE SOLTÓ DENTRO DE LA CASILLA */
-
-            if (
-                centroX >= rectanguloCasilla.left &&
-                centroX <= rectanguloCasilla.right &&
-                centroY >= rectanguloCasilla.top &&
-                centroY <= rectanguloCasilla.bottom
-            ) {
-
-                let numeroRespuesta =
-                    parseInt(nuevaRespuesta.dataset.numero);
-
-                registrarRespuesta(numeroRespuesta);
-
-            } else {
-
-                nuevaRespuesta.style.transform = "translate(0px, 0px)";
-
-                nuevaRespuesta.classList.remove("arrastrando");
-
-            }
-
-            elementoArrastrado = null;
-
-        };
+        });
 
     }
+
+}
+
+
+/* INICIAR EL ARRASTRE */
+
+function iniciarArrastre(evento, respuesta, tactil) {
+
+    if (procesando == true || elementoArrastrado != null) {
+        return;
+    }
+
+    evento.preventDefault();
+
+    esTouch = tactil;
+
+    if (esTouch == true) {
+
+        ignorarMouseHasta = Date.now() + 700;
+
+    }
+
+    elementoArrastrado = respuesta;
+
+    let posicion = respuesta.getBoundingClientRect();
+
+    let dedoX;
+    let dedoY;
+
+    if (tactil == true) {
+
+        dedoX = evento.touches[0].clientX;
+        dedoY = evento.touches[0].clientY;
+
+    } else {
+
+        dedoX = evento.clientX;
+        dedoY = evento.clientY;
+
+    }
+
+    posicionX = dedoX - posicion.left;
+    posicionY = dedoY - posicion.top;
+
+    respuesta.style.width = posicion.width + "px";
+
+    respuesta.style.left = posicion.left + "px";
+
+    respuesta.style.top = posicion.top + "px";
+
+    respuesta.classList.add("arrastrada");
+
+
+    /* ACTIVAR LOS EVENTOS DE MOVIMIENTO */
+
+    if (tactil == true) {
+
+        document.addEventListener("touchmove", moverRespuesta, {
+            passive: false
+        });
+
+        document.addEventListener("touchend", terminarArrastre);
+
+        document.addEventListener("touchcancel", terminarArrastre);
+
+    } else {
+
+        document.addEventListener("mousemove", moverRespuesta);
+
+        document.addEventListener("mouseup", terminarArrastre);
+
+    }
+
+}
+
+
+/* MOVER LA RESPUESTA */
+
+function moverRespuesta(evento) {
+
+    if (elementoArrastrado == null) {
+        return;
+    }
+
+    evento.preventDefault();
+
+    let dedoX;
+    let dedoY;
+
+    if (esTouch == true) {
+
+        if (evento.touches.length == 0) {
+            return;
+        }
+
+        dedoX = evento.touches[0].clientX;
+        dedoY = evento.touches[0].clientY;
+
+    } else {
+
+        dedoX = evento.clientX;
+        dedoY = evento.clientY;
+
+    }
+
+    elementoArrastrado.style.left =
+        (dedoX - posicionX) + "px";
+
+    elementoArrastrado.style.top =
+        (dedoY - posicionY) + "px";
+
+
+    /* COMPROBAR SI ESTÁ SOBRE LA CASILLA */
+
+    let posicionCasilla = casillaRespuesta.getBoundingClientRect();
+
+    let dentroDeCasilla =
+        dedoX >= posicionCasilla.left &&
+        dedoX <= posicionCasilla.right &&
+        dedoY >= posicionCasilla.top &&
+        dedoY <= posicionCasilla.bottom;
+
+    if (dentroDeCasilla == true) {
+
+        casillaRespuesta.classList.add("activa");
+
+    } else {
+
+        casillaRespuesta.classList.remove("activa");
+
+    }
+
+}
+
+
+/* TERMINAR EL ARRASTRE */
+
+function terminarArrastre(evento) {
+
+    if (elementoArrastrado == null) {
+        return;
+    }
+
+    let dedoX;
+    let dedoY;
+
+    if (esTouch == true) {
+
+        let dedo = evento.changedTouches[0];
+
+        dedoX = dedo.clientX;
+        dedoY = dedo.clientY;
+
+    } else {
+
+        dedoX = evento.clientX;
+        dedoY = evento.clientY;
+
+    }
+
+
+    /* COMPROBAR SI LA RESPUESTA LLEGÓ A LA CASILLA */
+
+    let posicionCasilla = casillaRespuesta.getBoundingClientRect();
+
+    let dentroDeCasilla =
+        dedoX >= posicionCasilla.left &&
+        dedoX <= posicionCasilla.right &&
+        dedoY >= posicionCasilla.top &&
+        dedoY <= posicionCasilla.bottom;
+
+
+    /* QUITAR LOS EVENTOS DE MOVIMIENTO */
+
+    document.removeEventListener("touchmove", moverRespuesta);
+    document.removeEventListener("touchend", terminarArrastre);
+    document.removeEventListener("touchcancel", terminarArrastre);
+
+    document.removeEventListener("mousemove", moverRespuesta);
+    document.removeEventListener("mouseup", terminarArrastre);
+
+
+    /* RESTAURAR LA RESPUESTA */
+
+    elementoArrastrado.classList.remove("arrastrada");
+
+    elementoArrastrado.style.position = "";
+    elementoArrastrado.style.left = "";
+    elementoArrastrado.style.top = "";
+    elementoArrastrado.style.width = "";
+
+    casillaRespuesta.classList.remove("activa");
+
+
+    /* REGISTRAR O DEVOLVER LA RESPUESTA */
+
+    if (dentroDeCasilla == true) {
+
+        let numeroRespuesta =
+            Number(elementoArrastrado.dataset.numero);
+
+        registrarRespuesta(numeroRespuesta);
+
+    }
+
+    elementoArrastrado = null;
 
 }
 
@@ -243,7 +449,7 @@ function registrarRespuesta(numeroRespuesta) {
         notificacionActual.respuestas[numeroRespuesta];
 
 
-    /* GUARDAR TODA LA INFORMACIÓN */
+    /* GUARDAR LA INFORMACIÓN DE LA RESPUESTA */
 
     let resultado = {
 
@@ -256,8 +462,6 @@ function registrarRespuesta(numeroRespuesta) {
         clasificacion: respuestaElegida.clasificacion,
 
         desviacion: respuestaElegida.desviacion,
-
-        impactos: respuestaElegida.impactos,
 
         consecuencia: respuestaElegida.consecuencia
 
@@ -272,7 +476,7 @@ function registrarRespuesta(numeroRespuesta) {
     );
 
 
-    /* MOSTRAR LA RESPUESTA ELEGIDA */
+    /* MOSTRAR LA RESPUESTA REGISTRADA */
 
     textoCasilla.textContent = respuestaElegida.texto;
 
@@ -291,7 +495,15 @@ function registrarRespuesta(numeroRespuesta) {
 
         } else {
 
-            window.location.href = "cuota.html";
+            contadorPendientes.textContent = "4 / 4";
+
+            contenedorPantalla.classList.add("finalizado");
+
+            setTimeout(function() {
+
+                window.location.href = "cuota.html";
+
+            }, 1200);
 
         }
 
