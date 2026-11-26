@@ -11,6 +11,21 @@ let horas = 22;
 let minutos = 47;
 let segundos = 0;
 
+
+/* RECUPERAR LA HORA GUARDADA */
+
+let horaGuardada = localStorage.getItem("horaNoduz");
+
+if (horaGuardada != null) {
+
+    let partesHora = horaGuardada.split(":");
+
+    horas = Number(partesHora[0]);
+    minutos = Number(partesHora[1]);
+    segundos = Number(partesHora[2]);
+
+}
+
 elementoEstado.textContent = "PROTOCOLO DE DESCONEXIÓN DISPONIBLE";
 
 
@@ -23,6 +38,11 @@ function actualizarReloj() {
     let s = String(segundos).padStart(2, "0");
 
     elementoHora.textContent = h + ":" + m + ":" + s;
+
+    localStorage.setItem(
+        "horaNoduz",
+        h + ":" + m + ":" + s
+    );
 
     segundos = segundos + 1;
 
@@ -140,6 +160,14 @@ function empezarToque(evento) {
     if (evento.touches.length == 1) {
 
         inicioY = evento.touches[0].clientY;
+
+        /* INICIAR LA MÚSICA */
+
+        if (window.parent.iniciarMusica) {
+
+            window.parent.iniciarMusica();
+
+        }
 
     }
 

@@ -2,40 +2,48 @@
 <!doctype html>
 <html lang="es">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Protocolo de Desconexión</title>
+    <title>Protocolo de Desconexión</title>
 
-        <link rel="stylesheet" href="css/style.css">
-    </head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #050805;
+        }
 
-    <body>
+        #marco-protocolo {
+            display: block;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            border: none;
+        }
+    </style>
+</head>
 
-        <div id="contenedor-pantalla">
+<body>
 
-            <div id="contenedor-hora">
-                <p id="hora"></p>
-                <p id="estado"></p>
-            </div>
+    <iframe
+        id="marco-protocolo"
+        src="inicio.html"
+        title="Protocolo de Desconexión">
+    </iframe>
 
-            <div id="contenedor-texto">
-                <p id="texto-frase1"></p>
-                <p id="texto-frase2"></p>
-                <p id="texto-frase3"></p>
-                <p id="texto-frase4"></p>
-            </div>
+    <audio
+        id="musica-noduz"
+        src="assets/ambiente-noduz.mp3"
+        loop>
+    </audio>
 
-            <div id="contenedor-instruccion">
-                <p id="flecha"></p>
-                <p id="texto-instruccion"></p>
-            </div>
+    <script src="js/sonidos.js"></script>
 
-        </div>
-
-        <script src="js/script.js"></script>
-
-    </body>
+</body>
 
 </html>
