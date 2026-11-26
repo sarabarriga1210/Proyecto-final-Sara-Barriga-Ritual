@@ -2,46 +2,82 @@
 [
     {
         "remitente": "Amor",
-        "tipo": "pareja",
+        "tipo": "VÍNCULO AFECTIVO",
         "imagen": "assets/pareja.png",
-        "mensaje": "Amor, ya hice la reserva para mañana a las 8. ¿Te parece?",
+        "mensaje": "Amor, por fin nos aprobaron el espacio de convivencia para mañana. Son 40 minutos, de 8:00 a 8:40 p. m. Recuerda que si cancelamos otra vez, el sistema puede reducir nuestro indicador de vínculo. ¿Nos vemos?",
         "respuestas": [
-            "Listo, amor. Allá nos vemos.",
-            "Perfecto, gracias por organizarlo.",
-            "Confirmado."
+            {
+                "texto": "¡Claro! Esta vez no podemos dejar que nos reduzcan el tiempo.",
+                "clasificacion": "acierto"
+            },
+            {
+                "texto": "Sí, nos vemos. Hace falta tener un rato sin interrupciones.",
+                "clasificacion": "acierto"
+            },
+            {
+                "texto": "¿Y si simplemente nos vemos cuando queramos?",
+                "clasificacion": "desviacion"
+            }
         ]
     },
     {
         "remitente": "Mamá",
-        "tipo": "familia",
+        "tipo": "VÍNCULO FAMILIAR",
         "imagen": "assets/mama.png",
-        "mensaje": "¿Cómo te fue hoy? Hace rato no hablamos. Llámame cuando puedas.",
+        "mensaje": "Hola. Me llegó una notificación diciendo que llevamos 12 días sin completar una llamada familiar. Me preocupa que te estén poniendo demasiadas tareas. ¿Podemos hablar hoy? No quiero que nos suspendan el beneficio de visitas.",
         "respuestas": [
-            "Bien, ma. Mañana hablamos con calma.",
-            "Todo bien, gracias por preguntar. Te llamo luego.",
-            "Recibido, te aviso cuando tenga tiempo."
+            {
+                "texto": "Claro, ma. Te llamo cuando termine mis pendientes.",
+                "clasificacion": "acierto"
+            },
+            {
+                "texto": "Sí, hoy buscamos un espacio para hablar con calma.",
+                "clasificacion": "acierto"
+            },
+            {
+                "texto": "No deberíamos necesitar una autorización para hablar.",
+                "clasificacion": "desviacion"
+            }
         ]
     },
     {
         "remitente": "Jefe",
-        "tipo": "trabajo",
+        "tipo": "TRABAJO",
         "imagen": "assets/jefe.png",
-        "mensaje": "Necesito que me envíes el informe actualizado antes de mañana a primera hora.",
+        "mensaje": "Tu indicador de rendimiento bajó 8 puntos esta semana. El sistema detectó varios periodos de inactividad durante tu jornada. Necesito el informe actualizado antes de las 7:00 a. m. Recuerda que el compromiso laboral también se evalúa fuera del horario.",
         "respuestas": [
-            "Claro, lo dejo listo hoy.",
-            "Entendido, mañana lo tienes.",
-            "Recibido, quedo pendiente."
+            {
+                "texto": "Entendido. Lo dejo listo esta noche.",
+                "clasificacion": "acierto"
+            },
+            {
+                "texto": "Recibido. Mañana lo tendrás a primera hora.",
+                "clasificacion": "acierto"
+            },
+            {
+                "texto": "Mi jornada ya terminó. Lo revisaré mañana.",
+                "clasificacion": "desviacion"
+            }
         ]
     },
     {
         "remitente": "Grupo de la universidad",
-        "tipo": "grupo",
+        "tipo": "EDUCACIÓN",
         "imagen": "assets/grupo.png",
-        "mensaje": "Chicos, acuérdense que el otro jueves tienen la entrega final.",
+        "mensaje": "Hola. Ya publicaron el ranking de avance del proyecto. Estamos en el puesto 38 de 42 grupos. Si no subimos el porcentaje de cumplimiento antes del jueves, nos asignarán una jornada de recuperación obligatoria. ¿Quién puede encargarse de la presentación?",
         "respuestas": [
-            "Perfecto, gracias.",
-            "No, no alcanzo.",
-            "No puedo ir ese día."
+            {
+                "texto": "Yo puedo hacerla. Hay que subir ese porcentaje.",
+                "clasificacion": "acierto"
+            },
+            {
+                "texto": "Dividamos las tareas para terminar a tiempo.",
+                "clasificacion": "acierto"
+            },
+            {
+                "texto": "¿En qué momento dejamos de aprender y empezamos a competir?",
+                "clasificacion": "desviacion"
+            }
         ]
     }
 ]

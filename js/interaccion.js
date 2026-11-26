@@ -1,9 +1,10 @@
 
-
+/* RELOJ */
 
 let elementoHora = document.getElementById("hora");
 
 function actualizarReloj() {
+
     let ahora = new Date();
 
     let horas = String(ahora.getHours()).padStart(2, "0");
@@ -11,13 +12,14 @@ function actualizarReloj() {
     let segundos = String(ahora.getSeconds()).padStart(2, "0");
 
     elementoHora.textContent = horas + ":" + minutos + ":" + segundos;
+
 }
 
 actualizarReloj();
 setInterval(actualizarReloj, 1000);
 
 
-
+/* ELEMENTOS DE LA PANTALLA */
 
 let remitente = document.getElementById("remitente");
 let tipoNotificacion = document.getElementById("tipo-notificacion");
@@ -33,12 +35,14 @@ let textoCasilla = document.getElementById("texto-casilla");
 let contenedorPantalla = document.getElementById("contenedor-pantalla");
 
 
-
+/* VARIABLES */
 
 let notificaciones = [];
 let numeroNotificacion = 0;
 
 let respuestaArrastrada = null;
+let respuestaElegida = null;
+
 let posicionX = 0;
 let posicionY = 0;
 let posicionInicialX = 0;
@@ -46,60 +50,86 @@ let posicionInicialY = 0;
 
 let procesando = false;
 
+let resultadosNotificaciones = [];
 
 
+/* CARGAR DATOS DEL JSON */
 
 fetch("datos.json")
     .then(function(respuesta) {
         return respuesta.json();
     })
     .then(function(datos) {
+
         notificaciones = datos;
+
+        resultadosNotificaciones = [];
+
+        localStorage.setItem(
+            "resultadosNotificaciones",
+            JSON.stringify(resultadosNotificaciones)
+        );
+
         mostrarNotificacion();
+
     })
     .catch(function(error) {
+
         console.log("No se pudieron cargar las notificaciones.", error);
+
         textoCasilla.textContent = "ERROR AL CARGAR LOS DATOS";
+
     });
 
 
-
+/* MOSTRAR NOTIFICACIÓN */
 
 function mostrarNotificacion() {
 
     let notificacionActual = notificaciones[numeroNotificacion];
 
     remitente.textContent = notificacionActual.remitente;
-    tipoNotificacion.textContent = notificacionActual.tipo.toUpperCase();
+    tipoNotificacion.textContent = notificacionActual.tipo;
     fotoPerfil.src = notificacionActual.imagen;
     mensajeNotificacion.textContent = notificacionActual.mensaje;
 
     contadorPendientes.textContent =
         (notificaciones.length - numeroNotificacion) + " PENDIENTES";
 
-    textoCasilla.textContent = "ARRASTRE LA RESPUESTA AQUÍ";
+    textoCasilla.textContent = "ARRASTRA TU RESPUESTA AQUÍ";
 
     listaRespuestas.innerHTML = "";
+
+    respuestaElegida = null;
 
     for (let i = 0; i < notificacionActual.respuestas.length; i++) {
 
         let nuevaRespuesta = document.createElement("div");
 
         nuevaRespuesta.className = "respuesta";
-        nuevaRespuesta.textContent = notificacionActual.respuestas[i];
+        nuevaRespuesta.textContent =
+            notificacionActual.respuestas[i].texto;
 
         listaRespuestas.appendChild(nuevaRespuesta);
 
         nuevaRespuesta.ontouchstart = function(evento) {
-            iniciarArrastre(evento, nuevaRespuesta);
+
+            iniciarArrastre(
+                evento,
+                nuevaRespuesta,
+                notificacionActual.respuestas[i]
+            );
+
         };
 
     }
+
 }
 
 
+/* INICIAR ARRASTRE */
 
-function iniciarArrastre(evento, respuesta) {
+function iniciarArrastre(evento, respuesta, datosRespuesta) {
 
     if (procesando == true) {
         return;
@@ -108,6 +138,7 @@ function iniciarArrastre(evento, respuesta) {
     evento.preventDefault();
 
     respuestaArrastrada = respuesta;
+    respuestaElegida = datosRespuesta;
 
     let posicion = respuesta.getBoundingClientRect();
 
@@ -130,6 +161,7 @@ function iniciarArrastre(evento, respuesta) {
 }
 
 
+/* MOVER RESPUESTA */
 
 function moverRespuesta(evento) {
 
@@ -146,7 +178,7 @@ function moverRespuesta(evento) {
 }
 
 
-
+/* TERMINAR ARRASTRE */
 
 function terminarArrastre(evento) {
 
@@ -172,7 +204,13 @@ function terminarArrastre(evento) {
     respuestaArrastrada.style.width = "";
 
     if (dentroDeCasilla == true) {
+
         registrarRespuesta();
+
+    } else {
+
+        respuestaElegida = null;
+
     }
 
     respuestaArrastrada = null;
@@ -180,13 +218,35 @@ function terminarArrastre(evento) {
 }
 
 
-
+/* REGISTRAR RESPUESTA */
 
 function registrarRespuesta() {
+
+    if (respuestaElegida == null || procesando == true) {
+        return;
+    }
 
     procesando = true;
 
     textoCasilla.textContent = "RESPUESTA REGISTRADA";
+
+    let notificacionActual = notificaciones[numeroNotificacion];
+
+    let resultado = {
+        remitente: notificacionActual.remitente,
+        tipo: notificacionActual.tipo,
+        respuesta: respuestaElegida.texto,
+        clasificacion: respuestaElegida.clasificacion
+    };
+
+    resultadosNotificaciones.push(resultado);
+
+    localStorage.setItem(
+        "resultadosNotificaciones",
+        JSON.stringify(resultadosNotificaciones)
+    );
+
+    console.log("Respuesta registrada:", resultado);
 
     numeroNotificacion++;
 
@@ -200,15 +260,20 @@ function registrarRespuesta() {
         contadorPendientes.textContent = "0 PENDIENTES";
 
         setTimeout(function() {
+
             window.location.href = "cuota.html";
-        }, 1800);
+
+        }, 1200);
 
     } else {
 
         setTimeout(function() {
+
             mostrarNotificacion();
+
             procesando = false;
-        }, 700);
+
+        }, 500);
 
     }
 
