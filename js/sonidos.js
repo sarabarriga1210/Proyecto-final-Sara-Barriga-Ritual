@@ -8,9 +8,9 @@ const musicaNoduz = document.getElementById("musica-noduz");
 const controlMusica = document.getElementById("control-musica");
 
 
-/* VOLUMEN */
+/* VOLUMEN DE LA MÚSICA */
 
-musicaNoduz.volume = 0.04;
+musicaNoduz.volume = 0.01;
 
 let musicaActivada = true;
 
@@ -47,6 +47,9 @@ function iniciarMusica() {
     if (musicaActivada == false) {
         return;
     }
+
+    musicaNoduz.muted = false;
+    musicaNoduz.volume = 0.01;
 
     if (musicaNoduz.paused) {
 
@@ -100,13 +103,15 @@ function reproducirSonido(nombre, repetir) {
             archivosSonido[nombre]
         );
 
+        sonidosNoduz[nombre].preload = "auto";
+
     }
 
     let sonido = sonidosNoduz[nombre];
 
     sonido.loop = repetir == true;
 
-    sonido.volume = 0.8;
+    sonido.volume = 1;
 
     sonido.pause();
 

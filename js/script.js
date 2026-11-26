@@ -103,6 +103,25 @@ flecha.textContent = "↑";
 textoInstruccion.textContent = "Desliza hacia arriba para iniciar";
 
 
+/* ACTIVAR MÚSICA CON LA PRIMERA INTERACCIÓN */
+
+function activarMusicaInicial() {
+
+    if (window.parent.iniciarMusica) {
+
+        window.parent.iniciarMusica();
+
+    }
+
+}
+
+document.addEventListener(
+    "pointerdown",
+    activarMusicaInicial,
+    { once: true }
+);
+
+
 /* APARICIÓN PROGRESIVA DE LOS MENSAJES */
 
 let listo = false;
@@ -161,13 +180,7 @@ function empezarToque(evento) {
 
         inicioY = evento.touches[0].clientY;
 
-        /* INICIAR LA MÚSICA */
-
-        if (window.parent.iniciarMusica) {
-
-            window.parent.iniciarMusica();
-
-        }
+        activarMusicaInicial();
 
     }
 
