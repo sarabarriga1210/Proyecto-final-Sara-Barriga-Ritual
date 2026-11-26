@@ -26,18 +26,81 @@ let preferenciasCuota = [];
 let actividadesDelDia = [];
 
 
+/* CONTINUIDAD DEL RELOJ DE NODUZ */
+
+let horaGuardada = localStorage.getItem("horaNoduz");
+
+let partesHora;
+
+if (horaGuardada) {
+
+    partesHora = horaGuardada.split(":");
+
+} else {
+
+    partesHora = ["22", "47", "0"];
+
+}
+
+let horas = Number(partesHora[0]);
+let minutos = Number(partesHora[1]);
+let segundos = Number(partesHora[2]);
+
+
+function actualizarHoraNoduz() {
+
+    segundos++;
+
+    if (segundos >= 60) {
+
+        segundos = 0;
+        minutos++;
+
+    }
+
+    if (minutos >= 60) {
+
+        minutos = 0;
+        horas++;
+
+    }
+
+    if (horas >= 24) {
+
+        horas = 0;
+
+    }
+
+    let h = String(horas).padStart(2, "0");
+    let m = String(minutos).padStart(2, "0");
+    let s = String(segundos).padStart(2, "0");
+
+    localStorage.setItem(
+        "horaNoduz",
+        h + ":" + m + ":" + s
+    );
+
+}
+
+setInterval(actualizarHoraNoduz, 1000);
+
+
 /* CARGAR DATOS DEL JSON */
 
 fetch("cuota.json")
+
     .then(function(respuesta) {
 
         if (!respuesta.ok) {
+
             throw new Error("No se encontró cuota.json");
+
         }
 
         return respuesta.json();
 
     })
+
     .then(function(datos) {
 
         videos = datos;
@@ -46,11 +109,26 @@ fetch("cuota.json")
         actividadesDelDia = [];
 
 
+        /* VERIFICAR LA ESTRUCTURA DEL JSON */
+
+        if (videos.length != 4) {
+
+            throw new Error("El recap debe tener cuatro momentos del día");
+
+        }
+
+
         /* GUARDAR LAS 16 ACTIVIDADES DEL DÍA */
 
         for (let i = 0; i < videos.length; i++) {
 
             let actividadesMomento = videos[i].momentos;
+
+            if (actividadesMomento.length != 4) {
+
+                throw new Error("Cada momento debe tener cuatro actividades");
+
+            }
 
             for (let j = 0; j < actividadesMomento.length; j++) {
 
@@ -96,9 +174,12 @@ fetch("cuota.json")
         );
 
 
+        /* INICIAR EL RECAP */
+
         mostrarVideo();
 
     })
+
     .catch(function(error) {
 
         console.log("Error al cargar los datos:", error);
@@ -127,7 +208,9 @@ function mostrarVideo() {
     videoRecap.pause();
 
     videoRecap.onended = function() {
+
         mostrarMomentos();
+
     };
 
     videoRecap.onerror = function() {
@@ -204,13 +287,17 @@ function mostrarMomentos() {
 function detectarDobleToque(numeroMomento, cuadro, corazon) {
 
     if (procesando == true) {
+
         return;
+
     }
 
     let tiempoActual = new Date().getTime();
 
-    if (ultimoMomento == numeroMomento &&
-        tiempoActual - ultimoToque < 350) {
+    if (
+        ultimoMomento == numeroMomento &&
+        tiempoActual - ultimoToque < 350
+    ) {
 
         registrarLike(numeroMomento, cuadro, corazon);
 
@@ -230,6 +317,12 @@ function detectarDobleToque(numeroMomento, cuadro, corazon) {
 /* REGISTRAR LIKE Y GUARDAR PREFERENCIA */
 
 function registrarLike(numeroMomento, cuadro, corazon) {
+
+    if (procesando == true || likesDisponibles <= 0) {
+
+        return;
+
+    }
 
     procesando = true;
 
@@ -259,11 +352,15 @@ function registrarLike(numeroMomento, cuadro, corazon) {
 
         mensajeSatisfaccion: momentoElegido.mensajeSatisfaccion,
 
-        protocoloEnergetico: momentoElegido.protocoloEnergetico || false
+        protocoloEnergetico:
+            momentoElegido.protocoloEnergetico || false
 
     };
 
     preferenciasCuota.push(preferencia);
+
+
+    /* ACTUALIZAR LAS CUATRO PREFERENCIAS */
 
     localStorage.setItem(
         "preferenciasCuota",
@@ -271,6 +368,9 @@ function registrarLike(numeroMomento, cuadro, corazon) {
     );
 
     console.log("Preferencia registrada:", preferencia);
+
+
+    /* PASAR AL SIGUIENTE MOMENTO */
 
     setTimeout(function() {
 
