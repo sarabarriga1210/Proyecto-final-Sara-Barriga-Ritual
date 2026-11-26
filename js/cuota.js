@@ -26,6 +26,19 @@ let preferenciasCuota = [];
 let actividadesDelDia = [];
 
 
+/* FUNCIONES DE SONIDO */
+
+function reproducirEfecto(nombre, repetir) {
+
+    if (window.parent.reproducirSonido) {
+
+        window.parent.reproducirSonido(nombre, repetir);
+
+    }
+
+}
+
+
 /* CONTINUIDAD DEL RELOJ DE NODUZ */
 
 let horaGuardada = localStorage.getItem("horaNoduz");
@@ -326,6 +339,10 @@ function registrarLike(numeroMomento, cuadro, corazon) {
 
     procesando = true;
 
+    /* SONIDO DEL LIKE */
+
+    reproducirEfecto("like", false);
+
     likesDisponibles--;
 
     contadorLikes.textContent =
@@ -375,6 +392,10 @@ function registrarLike(numeroMomento, cuadro, corazon) {
     setTimeout(function() {
 
         numeroVideo++;
+
+        /* SONIDO DE TRANSICIÓN */
+
+        reproducirEfecto("transicion", false);
 
         if (numeroVideo < videos.length) {
 
