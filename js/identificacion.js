@@ -21,6 +21,30 @@ let completado = false;
 let navegacionIniciada = false;
 
 
+/* CONTROL DE SONIDOS */
+
+function reproducirEfecto(nombre, repetir) {
+
+    if (window.parent.reproducirSonido) {
+
+        window.parent.reproducirSonido(nombre, repetir);
+
+    }
+
+}
+
+
+function detenerEfecto(nombre) {
+
+    if (window.parent.detenerSonido) {
+
+        window.parent.detenerSonido(nombre);
+
+    }
+
+}
+
+
 /* RECUPERAR LA HORA DE NODUZ */
 
 let horaGuardada = localStorage.getItem("horaNoduz");
@@ -97,6 +121,12 @@ function iniciarMedicion(evento) {
         return;
     }
 
+    /* EVITAR REINICIAR UNA MEDICIÓN YA ACTIVA */
+
+    if (tiempoInicio != undefined) {
+        return;
+    }
+
     clearInterval(intervalo);
 
     progreso = 0;
@@ -109,6 +139,10 @@ function iniciarMedicion(evento) {
     mensaje.textContent = "LEYENDO HUELLA DIGITAL...";
 
     tiempoInicio = Date.now();
+
+    /* INICIAR SONIDO DE ESCANEO EN BUCLE */
+
+    reproducirEfecto("escaneo", true);
 
     intervalo = setInterval(actualizarProgreso, 30);
 
@@ -153,6 +187,10 @@ function terminarMedicion() {
 
     if (progreso < 360 && tiempoInicio != undefined) {
 
+        /* DETENER EL SONIDO DE ESCANEO */
+
+        detenerEfecto("escaneo");
+
         progreso = 0;
 
         aro.style.background =
@@ -175,6 +213,16 @@ function terminarMedicion() {
 function finalizarMedicion() {
 
     completado = true;
+
+    /* DETENER ESCANEO */
+
+    detenerEfecto("escaneo");
+
+    /* REPRODUCIR CONFIRMACIÓN BIOMÉTRICA */
+
+    reproducirEfecto("biometria", false);
+
+    tiempoInicio = undefined;
 
     mensaje.textContent = "MEDICIÓN COMPLETADA.";
 
@@ -216,7 +264,15 @@ function continuarProtocolo() {
 
         navegacionIniciada = true;
 
-        window.location.href = "interaccion.html";
+        /* SONIDO DEL BOTÓN */
+
+        reproducirEfecto("tap", false);
+
+        setTimeout(function() {
+
+            window.location.href = "interaccion.html";
+
+        }, 150);
 
     }
 
