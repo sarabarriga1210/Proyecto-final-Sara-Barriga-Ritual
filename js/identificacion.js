@@ -1,4 +1,5 @@
 
+/* ELEMENTOS DE LA PANTALLA */
 
 const hora = document.getElementById("hora");
 const aro = document.getElementById("aro");
@@ -7,6 +8,9 @@ const mensaje = document.getElementById("mensaje");
 const puntaje = document.getElementById("puntaje");
 const botonContinuar = document.getElementById("boton-continuar");
 
+
+/* VARIABLES */
+
 let tiempoInicio;
 let intervalo;
 let progreso = 0;
@@ -14,7 +18,7 @@ let tiempoNecesario = 3000;
 let completado = false;
 
 
-
+/* MOSTRAR LA HORA */
 
 function actualizarHora() {
 
@@ -40,7 +44,7 @@ actualizarHora();
 setInterval(actualizarHora, 1000);
 
 
-
+/* INICIAR LA MEDICIÓN */
 
 function iniciarMedicion(event) {
 
@@ -68,7 +72,7 @@ function iniciarMedicion(event) {
 }
 
 
-
+/* ACTUALIZAR EL PROGRESO DEL ARO */
 
 function actualizarProgreso() {
 
@@ -94,7 +98,7 @@ function actualizarProgreso() {
 }
 
 
-
+/* CANCELAR LA MEDICIÓN SI SE SUELTA ANTES */
 
 function terminarMedicion() {
 
@@ -121,7 +125,7 @@ function terminarMedicion() {
 }
 
 
-
+/* FINALIZAR LA MEDICIÓN */
 
 function finalizarMedicion() {
 
@@ -133,6 +137,16 @@ function finalizarMedicion() {
 
     puntaje.textContent = "PRODUCTIVIDAD: " + resultado + "%";
 
+
+    /* GUARDAR EL PUNTAJE PARA LA PÁGINA DE RESULTADOS */
+
+    localStorage.setItem(
+        "puntajeProductividad",
+        resultado
+    );
+
+
+    /* MOSTRAR EL BOTÓN DE CONTINUAR */
 
     setTimeout(function() {
 
@@ -149,7 +163,7 @@ function finalizarMedicion() {
 }
 
 
-
+/* CONTINUAR CON EL PROTOCOLO */
 
 function continuarProtocolo(event) {
 
@@ -160,7 +174,7 @@ function continuarProtocolo(event) {
 }
 
 
-
+/* EVENTOS PARA PANTALLAS TÁCTILES */
 
 huella.addEventListener("touchstart", iniciarMedicion, { passive: false });
 
@@ -169,3 +183,12 @@ document.addEventListener("touchend", terminarMedicion);
 document.addEventListener("touchcancel", terminarMedicion);
 
 botonContinuar.addEventListener("touchstart", continuarProtocolo, { passive: false });
+
+
+/* EVENTOS PARA USAR EL MOUSE */
+
+huella.addEventListener("mousedown", iniciarMedicion);
+
+document.addEventListener("mouseup", terminarMedicion);
+
+botonContinuar.addEventListener("click", continuarProtocolo);

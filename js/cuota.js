@@ -23,29 +23,88 @@ let ultimoMomento = -1;
 let procesando = false;
 
 let preferenciasCuota = [];
+let actividadesDelDia = [];
 
 
 /* CARGAR DATOS DEL JSON */
 
 fetch("cuota.json")
     .then(function(respuesta) {
+
+        if (!respuesta.ok) {
+            throw new Error("No se encontró cuota.json");
+        }
+
         return respuesta.json();
+
     })
     .then(function(datos) {
+
         videos = datos;
 
         preferenciasCuota = [];
+        actividadesDelDia = [];
+
+
+        /* GUARDAR LAS 16 ACTIVIDADES DEL DÍA */
+
+        for (let i = 0; i < videos.length; i++) {
+
+            let actividadesMomento = videos[i].momentos;
+
+            for (let j = 0; j < actividadesMomento.length; j++) {
+
+                let actividadActual = actividadesMomento[j];
+
+                let actividad = {
+
+                    id: actividadActual.id,
+
+                    momento: videos[i].momento,
+
+                    actividad: actividadActual.actividad,
+
+                    areas: actividadActual.areas,
+
+                    impactos: actividadActual.impactos,
+
+                    mensajeSatisfaccion:
+                        actividadActual.mensajeSatisfaccion,
+
+                    protocoloEnergetico:
+                        actividadActual.protocoloEnergetico || false
+
+                };
+
+                actividadesDelDia.push(actividad);
+
+            }
+
+        }
+
+
+        /* GUARDAR LOS REGISTROS EN EL NAVEGADOR */
+
+        localStorage.setItem(
+            "actividadesCuota",
+            JSON.stringify(actividadesDelDia)
+        );
 
         localStorage.setItem(
             "preferenciasCuota",
             JSON.stringify(preferenciasCuota)
         );
 
+
         mostrarVideo();
+
     })
     .catch(function(error) {
-        console.log("No se pudieron cargar los videos.", error);
+
+        console.log("Error al cargar los datos:", error);
+
         momentoDelDia.textContent = "ERROR AL CARGAR EL RECAP";
+
     });
 
 
@@ -65,13 +124,35 @@ function mostrarVideo() {
     contenedorVideo.className = "";
     contenedorSeleccion.style.display = "none";
 
+    videoRecap.pause();
+
     videoRecap.onended = function() {
         mostrarMomentos();
     };
 
+    videoRecap.onerror = function() {
+
+        console.log("Error al reproducir:", videoActual.video);
+
+        momentoDelDia.textContent = "ERROR DE REPRODUCCIÓN";
+
+    };
+
     videoRecap.src = videoActual.video;
+
     videoRecap.load();
-    videoRecap.play();
+
+    let reproduccion = videoRecap.play();
+
+    if (reproduccion !== undefined) {
+
+        reproduccion.catch(function(error) {
+
+            console.log("No se pudo iniciar el video:", error);
+
+        });
+
+    }
 
 }
 
@@ -94,6 +175,7 @@ function mostrarMomentos() {
         let corazon = document.createElement("div");
 
         nuevoMomento.className = "momento";
+
         imagenMomento.src = videoActual.momentos[i].imagen;
 
         corazon.className = "corazon";
@@ -105,9 +187,11 @@ function mostrarMomentos() {
         cuadriculaMomentos.appendChild(nuevoMomento);
 
         nuevoMomento.ontouchend = function(evento) {
+
             evento.preventDefault();
 
             detectarDobleToque(i, nuevoMomento, corazon);
+
         };
 
     }
@@ -158,13 +242,25 @@ function registrarLike(numeroMomento, cuadro, corazon) {
     corazon.className = "corazon visible";
 
     let videoActual = videos[numeroVideo];
+
     let momentoElegido = videoActual.momentos[numeroMomento];
 
     let preferencia = {
+
         id: momentoElegido.id,
+
         momento: videoActual.momento,
+
         actividad: momentoElegido.actividad,
-        areas: momentoElegido.areas
+
+        areas: momentoElegido.areas,
+
+        impactos: momentoElegido.impactos,
+
+        mensajeSatisfaccion: momentoElegido.mensajeSatisfaccion,
+
+        protocoloEnergetico: momentoElegido.protocoloEnergetico || false
+
     };
 
     preferenciasCuota.push(preferencia);
