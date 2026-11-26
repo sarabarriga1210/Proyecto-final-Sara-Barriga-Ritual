@@ -6,6 +6,7 @@ body {
     color: #6f9c6a;
     font-family: "Courier New", monospace;
     overflow-x: hidden;
+    overflow-y: auto;
     user-select: none;
     -webkit-user-select: none;
 }
@@ -20,7 +21,7 @@ p {
     width: 100%;
     min-height: 100vh;
     box-sizing: border-box;
-    padding: 30px 20px;
+    padding: 30px 20px 50px 20px;
 }
 
 /* ENCABEZADO */
@@ -48,7 +49,7 @@ p {
     width: 100%;
     max-width: 500px;
     box-sizing: border-box;
-    margin: 0 auto 35px auto;
+    margin: 0 auto 25px auto;
     border: 1px solid #365335;
     background-color: #101a10;
     padding: 22px 15px;
@@ -69,6 +70,52 @@ p {
 #mensaje-general {
     font-size: 11px;
     line-height: 1.7;
+}
+
+/* ÍNDICE DE DESVIACIÓN */
+
+#resumen-desviacion {
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+    margin: 0 auto 40px auto;
+    border: 1px solid #6b2929;
+    background-color: #160d0d;
+    padding: 22px 18px;
+    text-align: center;
+}
+
+#titulo-desviacion {
+    color: #c58b8b;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    line-height: 1.6;
+}
+
+#puntaje-desviacion {
+    color: #d36c6c;
+    font-size: 38px;
+    margin: 15px 0;
+}
+
+#nivel-desviacion {
+    color: #c58b8b;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+#detalle-desviacion {
+    border-top: 1px solid #6b2929;
+    margin-top: 15px;
+    padding-top: 15px;
+    color: #c58b8b;
+    font-size: 11px;
+    line-height: 1.8;
+    text-align: left;
+}
+
+#detalle-desviacion p {
+    margin-bottom: 12px;
 }
 
 /* ÁREAS */
@@ -106,9 +153,7 @@ p {
     margin-bottom: 18px;
     padding: 25px 20px;
     min-height: 105px;
-
-    /* El gesto táctil lo controla nuestro JavaScript */
-    touch-action: none;
+    touch-action: pan-y;
 }
 
 .area summary {
@@ -157,6 +202,10 @@ p {
     margin-bottom: 14px;
 }
 
+.explicacion p:last-child {
+    margin-bottom: 0;
+}
+
 /* TARJETA AMPLIADA */
 
 .area.ampliada {
@@ -173,6 +222,53 @@ p {
 .area.ampliada .explicacion {
     font-size: 13px;
     line-height: 1.9;
+}
+
+/* REVISIÓN DE PREFERENCIAS */
+
+#revision-preferencias {
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+    border: 1px solid #365335;
+    background-color: #101a10;
+    padding: 22px 18px;
+    margin: 35px auto;
+    text-align: center;
+}
+
+#titulo-preferencias {
+    color: #8fbf88;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+}
+
+#texto-preferencias {
+    color: #a9b9a5;
+    font-size: 11px;
+    line-height: 1.8;
+    margin-bottom: 18px;
+}
+
+#lista-preferencias {
+    text-align: left;
+    border-top: 1px solid #365335;
+    padding-top: 15px;
+    color: #a9b9a5;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+#lista-preferencias p {
+    margin-bottom: 10px;
+}
+
+#pregunta-preferencias {
+    color: #8fbf88;
+    font-size: 12px;
+    line-height: 1.8;
+    margin-top: 20px;
 }
 
 /* CONCLUSIÓN */
