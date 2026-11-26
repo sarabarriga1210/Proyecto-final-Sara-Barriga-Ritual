@@ -1,7 +1,6 @@
 
 /* CONTROL CENTRAL DE SONIDOS DE NODUZ */
 
-
 /* ELEMENTOS */
 
 const musicaNoduz = document.getElementById("musica-noduz");
@@ -30,8 +29,7 @@ let archivosSonido = {
     energia: "assets/energia.mp3",
     energiaCompleta: "assets/energia-completa.mp3",
     alarma: "assets/alarma-outcast.mp3",
-    apagado: "assets/apagado.mp3",
-    transicion: "assets/transicion.mp3"
+    apagado: "assets/apagado.mp3"
 };
 
 
@@ -71,7 +69,6 @@ function cambiarMusica() {
     if (musicaActivada == true) {
 
         musicaActivada = false;
-
         musicaNoduz.pause();
 
         controlMusica.textContent = "♫ MÚSICA: APAGADA";
@@ -94,15 +91,13 @@ function cambiarMusica() {
 function reproducirSonido(nombre, repetir) {
 
     if (archivosSonido[nombre] == undefined) {
+        console.log("Sonido no encontrado:", nombre);
         return;
     }
 
     if (sonidosNoduz[nombre] == undefined) {
 
-        sonidosNoduz[nombre] = new Audio(
-            archivosSonido[nombre]
-        );
-
+        sonidosNoduz[nombre] = new Audio(archivosSonido[nombre]);
         sonidosNoduz[nombre].preload = "auto";
 
     }
@@ -110,11 +105,9 @@ function reproducirSonido(nombre, repetir) {
     let sonido = sonidosNoduz[nombre];
 
     sonido.loop = repetir == true;
-
     sonido.volume = 1;
 
     sonido.pause();
-
     sonido.currentTime = 0;
 
     sonido.play().catch(function(error) {
@@ -135,7 +128,6 @@ function detenerSonido(nombre) {
         let sonido = sonidosNoduz[nombre];
 
         sonido.pause();
-
         sonido.currentTime = 0;
 
     }
@@ -151,7 +143,5 @@ controlMusica.addEventListener("click", cambiarMusica);
 /* COMPARTIR FUNCIONES CON LAS PANTALLAS */
 
 window.iniciarMusica = iniciarMusica;
-
 window.reproducirSonido = reproducirSonido;
-
 window.detenerSonido = detenerSonido;

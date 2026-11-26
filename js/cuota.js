@@ -30,9 +30,13 @@ let actividadesDelDia = [];
 
 function reproducirEfecto(nombre, repetir) {
 
-    if (window.parent.reproducirSonido) {
+    if (window.parent && window.parent.reproducirSonido) {
 
         window.parent.reproducirSonido(nombre, repetir);
+
+    } else {
+
+        console.log("No se encontró el reproductor central.");
 
     }
 
@@ -339,9 +343,13 @@ function registrarLike(numeroMomento, cuadro, corazon) {
 
     procesando = true;
 
-    /* SONIDO DEL LIKE */
+
+    /* REPRODUCIR SONIDO DEL LIKE */
 
     reproducirEfecto("like", false);
+
+
+    /* ACTUALIZAR CONTADOR */
 
     likesDisponibles--;
 
@@ -350,6 +358,9 @@ function registrarLike(numeroMomento, cuadro, corazon) {
 
     cuadro.className = "momento seleccionado";
     corazon.className = "corazon visible";
+
+
+    /* GUARDAR LA PREFERENCIA */
 
     let videoActual = videos[numeroVideo];
 
@@ -392,10 +403,6 @@ function registrarLike(numeroMomento, cuadro, corazon) {
     setTimeout(function() {
 
         numeroVideo++;
-
-        /* SONIDO DE TRANSICIÓN */
-
-        reproducirEfecto("transicion", false);
 
         if (numeroVideo < videos.length) {
 
