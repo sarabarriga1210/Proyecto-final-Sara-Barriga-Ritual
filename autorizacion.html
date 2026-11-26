@@ -1,0 +1,142 @@
+
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo de desconexión</title>
+    <link rel="stylesheet" href="css/autorizacion.css">
+</head>
+
+<body>
+
+    <div id="contenedor-autorizacion">
+
+        <header id="encabezado">
+            <p id="hora"></p>
+            <p id="estado-sistema">NODUZ // SISTEMA CENTRAL DE REGULACIÓN</p>
+        </header>
+
+        <main>
+
+            <!-- INFORME DE RESULTADOS -->
+
+            <section id="pantalla-informe">
+
+                <p class="etiqueta">EVALUACIÓN FINAL DEL PROTOCOLO</p>
+
+                <h1>REGISTRO DE ACTIVIDAD COMPLETADO</h1>
+
+                <p class="texto-intro">
+                    Tu ciclo de actividad ha finalizado. El sistema ha procesado
+                    los registros correspondientes a tu jornada.
+                </p>
+
+                <section class="bloque-resultados">
+
+                    <p class="titulo-seccion">INDICADORES GENERALES</p>
+
+                    <div class="indicador">
+                        <span>PROMEDIO GENERAL</span>
+                        <strong id="promedio-general">--</strong>
+                    </div>
+
+                    <div class="indicador">
+                        <span>DESVIACIÓN CONDUCTUAL</span>
+                        <strong id="desviaciones">--</strong>
+                    </div>
+
+                    <div class="indicador">
+                        <span>PRODUCTIVIDAD BIOMÉTRICA</span>
+                        <strong id="productividad">--</strong>
+                    </div>
+
+                    <div class="indicador">
+                        <span>COMPENSACIÓN ENERGÉTICA</span>
+                        <strong id="compensacion">--</strong>
+                    </div>
+
+                </section>
+
+                <section class="bloque-resultados">
+
+                    <p class="titulo-seccion">REGISTRO POR ÁREAS</p>
+
+                    <div id="lista-areas"></div>
+
+                </section>
+
+                <p id="mensaje-informe">
+                    Tu información ha sido incorporada al registro central de Noduz.
+                </p>
+
+                <button id="boton-continuar">
+                    CONTINUAR
+                </button>
+
+            </section>
+
+
+            <!-- SOLICITUD DE DESCONEXIÓN -->
+
+            <section id="pantalla-desconexion" hidden>
+
+                <p class="etiqueta">PROTOCOLO FINAL // NODUZ</p>
+
+                <h1 id="titulo-desconexion">TU CICLO HA TERMINADO</h1>
+
+                <p id="texto-desconexion">
+                    Tu periodo de actividad ha concluido.
+                    Puedes iniciar tu desconexión.
+                </p>
+
+                <div id="cuenta-regresiva">
+
+                    <p id="tiempo-restante">10</p>
+
+                    <p id="etiqueta-tiempo">
+                        SEGUNDOS PARA CONFIRMAR
+                    </p>
+
+                </div>
+
+                <button id="boton-desconectar">
+                    DESCONECTAR AHORA
+                </button>
+
+                <p id="mensaje-tiempo">
+                    Confirma tu desconexión dentro del tiempo establecido.
+                </p>
+
+            </section>
+
+
+            <!-- RESULTADO DE LA DESCONEXIÓN -->
+
+            <section id="pantalla-final" hidden>
+
+                <div id="simbolo-alerta">●</div>
+
+                <h1 id="titulo-final"></h1>
+
+                <p id="texto-final"></p>
+
+                <p id="estado-final"></p>
+
+            </section>
+
+        </main>
+
+        <footer>
+            <p>UNIDAD DE REGULACIÓN DE NODUZ</p>
+            <p>EL DESCANSO TAMBIÉN ESTÁ SUJETO A SUPERVISIÓN.</p>
+        </footer>
+
+    </div>
+
+    <script src="js/autorizacion.js"></script>
+
+</body>
+
+</html>

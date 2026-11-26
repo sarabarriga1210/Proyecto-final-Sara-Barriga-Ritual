@@ -1,0 +1,370 @@
+
+body {
+    background-color: #050805;
+    margin: 0;
+    padding: 0;
+    color: #6f9c6a;
+    font-family: "Courier New", monospace;
+    overflow-x: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#contenedor-autorizacion {
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100svh;
+    box-sizing: border-box;
+    padding: 25px 20px;
+}
+
+#encabezado {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+#hora {
+    color: #8fbf88;
+    font-size: 25px;
+    letter-spacing: 3px;
+    margin: 0 0 12px 0;
+}
+
+#estado-sistema {
+    font-size: 9px;
+    letter-spacing: 2px;
+    line-height: 1.7;
+    margin: 0;
+}
+
+main {
+    width: 100%;
+    max-width: 620px;
+    margin: 0 auto;
+}
+
+.etiqueta {
+    color: #8fbf88;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: #8fbf88;
+    font-size: 19px;
+    letter-spacing: 2px;
+    line-height: 1.6;
+    text-align: center;
+    margin: 0 0 22px 0;
+}
+
+.texto-intro {
+    color: #a9b9a5;
+    font-size: 12px;
+    line-height: 1.9;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* RESULTADOS */
+
+.bloque-resultados {
+    border: 1px solid #345034;
+    background-color: #0b110b;
+    padding: 18px;
+    margin-bottom: 25px;
+}
+
+.titulo-seccion {
+    color: #8fbf88;
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding-bottom: 13px;
+    border-bottom: 1px solid #345034;
+    margin: 0 0 12px 0;
+}
+
+.indicador {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 0;
+    border-bottom: 1px solid #1b2a1b;
+}
+
+.indicador:last-child {
+    border-bottom: none;
+}
+
+.indicador span {
+    color: #a9b9a5;
+    font-size: 10px;
+    letter-spacing: 1px;
+    line-height: 1.6;
+}
+
+.indicador strong {
+    color: #8fbf88;
+    font-size: 15px;
+    font-weight: normal;
+    text-align: right;
+}
+
+/* PUNTAJES POR ÁREA */
+
+.area-resultado {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid #1b2a1b;
+    color: #a9b9a5;
+    font-size: 11px;
+}
+
+.area-resultado:last-child {
+    border-bottom: none;
+}
+
+.area-resultado strong {
+    color: #8fbf88;
+    font-weight: normal;
+}
+
+#mensaje-informe {
+    color: #6f9c6a;
+    font-size: 11px;
+    line-height: 1.8;
+    text-align: center;
+    margin: 25px 0;
+}
+
+/* BOTONES */
+
+button {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 19px 12px;
+    border: 1px solid #8fbf88;
+    background-color: #142014;
+    color: #8fbf88;
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+button:active {
+    background-color: #8fbf88;
+    color: #050805;
+}
+
+/* PANTALLA DE DESCONEXIÓN */
+
+#pantalla-desconexion {
+    text-align: center;
+    padding-top: 25px;
+}
+
+#titulo-desconexion {
+    font-size: 21px;
+    margin-bottom: 25px;
+}
+
+#texto-desconexion {
+    color: #a9b9a5;
+    font-size: 12px;
+    line-height: 1.9;
+    margin-bottom: 35px;
+}
+
+#cuenta-regresiva {
+    border: 1px solid #6f9c6a;
+    background-color: #0b110b;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+#tiempo-restante {
+    color: #8fbf88;
+    font-size: 64px;
+    margin: 0 0 10px 0;
+}
+
+#etiqueta-tiempo {
+    color: #6f9c6a;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+#boton-desconectar {
+    min-height: 65px;
+    font-size: 13px;
+    background-color: #182518;
+}
+
+#mensaje-tiempo {
+    color: #6f9c6a;
+    font-size: 10px;
+    line-height: 1.8;
+    margin-top: 20px;
+}
+
+/* PANTALLA FINAL */
+
+#pantalla-final {
+    text-align: center;
+    padding: 45px 15px;
+    border: 1px solid #345034;
+    background-color: #0b110b;
+}
+
+#simbolo-alerta {
+    color: #8fbf88;
+    font-size: 30px;
+    margin-bottom: 25px;
+}
+
+#texto-final {
+    color: #a9b9a5;
+    font-size: 12px;
+    line-height: 2;
+    margin: 25px 0;
+}
+
+#estado-final {
+    color: #8fbf88;
+    font-size: 10px;
+    letter-spacing: 2px;
+    line-height: 1.8;
+}
+
+/* ALERTA OUTCAST */
+
+body.alerta-outcast {
+    background-color: #260606;
+    color: #ff7777;
+    animation: parpadeo-fondo 1s infinite;
+}
+
+body.alerta-outcast #hora,
+body.alerta-outcast #estado-sistema {
+    color: #ff7777;
+}
+
+body.alerta-outcast #pantalla-final {
+    border-color: #ff4444;
+    background-color: #350707;
+    animation: parpadeo-borde 0.8s infinite;
+}
+
+body.alerta-outcast #simbolo-alerta,
+body.alerta-outcast #titulo-final {
+    color: #ff5555;
+}
+
+body.alerta-outcast #texto-final {
+    color: #ffc0c0;
+}
+
+body.alerta-outcast #estado-final {
+    color: #ff7777;
+}
+
+body.alerta-outcast #pantalla-desconexion {
+    border-color: #ff4444;
+}
+
+body.alerta-outcast #boton-desconectar {
+    border-color: #ff7777;
+    background-color: #500909;
+    color: #ffffff;
+}
+
+body.alerta-outcast #tiempo-restante {
+    color: #ff5555;
+}
+
+body.alerta-outcast #cuenta-regresiva {
+    border-color: #ff4444;
+    background-color: #350707;
+}
+
+@keyframes parpadeo-fondo {
+    0%, 100% {
+        background-color: #260606;
+    }
+
+    50% {
+        background-color: #390707;
+    }
+}
+
+@keyframes parpadeo-borde {
+    0%, 100% {
+        border-color: #ff4444;
+    }
+
+    50% {
+        border-color: #8c1111;
+    }
+}
+
+/* PIE DE PÁGINA */
+
+footer {
+    max-width: 620px;
+    margin: 45px auto 10px auto;
+    padding-top: 18px;
+    border-top: 1px solid #345034;
+    text-align: center;
+}
+
+footer p {
+    color: #456442;
+    font-size: 9px;
+    letter-spacing: 2px;
+    line-height: 1.8;
+}
+
+/* ELEMENTOS OCULTOS */
+
+[hidden] {
+    display: none !important;
+}
+
+/* CELULARES */
+
+@media (max-width: 400px) {
+
+    #contenedor-autorizacion {
+        padding: 20px 15px;
+    }
+
+    #hora {
+        font-size: 21px;
+    }
+
+    h1 {
+        font-size: 17px;
+    }
+
+    .bloque-resultados {
+        padding: 14px;
+    }
+
+    #tiempo-restante {
+        font-size: 55px;
+    }
+
+    #boton-desconectar {
+        font-size: 11px;
+    }
+
+}

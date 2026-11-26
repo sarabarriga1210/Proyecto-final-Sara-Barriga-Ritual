@@ -15,11 +15,12 @@ body {
 #contenedor-energia {
     width: 100%;
     min-height: 100vh;
+    min-height: 100svh;
     box-sizing: border-box;
-    padding: 30px 22px;
+    padding: 25px 22px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 /* ENCABEZADO */
@@ -48,7 +49,7 @@ body {
     width: 100%;
     max-width: 600px;
     box-sizing: border-box;
-    margin: 45px auto 35px auto;
+    margin: 30px auto 20px auto;
     text-align: center;
 }
 
@@ -56,21 +57,21 @@ body {
     color: #8fbf88;
     font-size: 16px;
     letter-spacing: 3px;
-    margin-bottom: 30px;
+    margin-bottom: 22px;
 }
 
 #texto-principal {
     color: #a9b9a5;
     font-size: 14px;
     line-height: 1.8;
-    margin-bottom: 18px;
+    margin-bottom: 15px;
 }
 
 #texto-secundario {
     color: #6f9c6a;
     font-size: 12px;
     line-height: 1.8;
-    margin-bottom: 28px;
+    margin-bottom: 20px;
 }
 
 #instruccion {
@@ -86,15 +87,17 @@ body {
     width: 100%;
     max-width: 700px;
     box-sizing: border-box;
-    margin: 35px auto;
+    margin: 15px auto 10px auto;
     text-align: center;
 }
+
+/* ETIQUETA */
 
 #etiqueta-progreso {
     color: #8fbf88;
     font-size: 11px;
     letter-spacing: 3px;
-    margin-bottom: 22px;
+    margin: 20px 0;
 }
 
 /* BARRA GRANDE */
@@ -122,13 +125,14 @@ body {
 #porcentaje {
     color: #8fbf88;
     font-size: 38px;
-    margin: 22px 0 12px 0;
+    margin: 18px 0 10px 0;
 }
 
 #tiempo {
     color: #6f9c6a;
     font-size: 12px;
     letter-spacing: 2px;
+    margin: 0 0 20px 0;
 }
 
 /* CONTROLES */
@@ -136,7 +140,7 @@ body {
 #seccion-control {
     width: 100%;
     max-width: 500px;
-    margin: 20px auto 10px auto;
+    margin: 10px auto;
     text-align: center;
 }
 
@@ -145,16 +149,17 @@ body {
     font-size: 11px;
     letter-spacing: 2px;
     line-height: 1.8;
-    margin-bottom: 25px;
+    margin: 12px 0;
 }
 
 /* BOTONES */
 
 #boton-iniciar,
 #boton-continuar {
+    display: block;
     width: 100%;
     box-sizing: border-box;
-    padding: 20px 15px;
+    padding: 18px 15px;
     border: 1px solid #6f9c6a;
     background-color: #101a10;
     color: #8fbf88;
@@ -165,15 +170,20 @@ body {
     cursor: pointer;
 }
 
+#boton-iniciar {
+    margin: 0 auto 25px auto;
+}
+
+#boton-continuar {
+    margin: 10px auto 0 auto;
+    border-color: #8fbf88;
+    background-color: #182518;
+}
+
 #boton-iniciar:active,
 #boton-continuar:active {
     background-color: #8fbf88;
     color: #050805;
-}
-
-#boton-continuar {
-    border-color: #8fbf88;
-    background-color: #182518;
 }
 
 [hidden] {
@@ -185,11 +195,15 @@ body {
 @media (max-width: 400px) {
 
     #contenedor-energia {
-        padding: 25px 16px;
+        padding: 20px 16px;
     }
 
     #hora {
         font-size: 21px;
+    }
+
+    #mensaje-energia {
+        margin: 23px auto 15px auto;
     }
 
     #titulo {
@@ -200,12 +214,22 @@ body {
         font-size: 12px;
     }
 
+    #texto-secundario {
+        font-size: 11px;
+    }
+
     #barra-progreso {
         height: 45px;
     }
 
     #porcentaje {
         font-size: 32px;
+    }
+
+    #boton-iniciar,
+    #boton-continuar {
+        padding: 16px 10px;
+        font-size: 10px;
     }
 
 }
