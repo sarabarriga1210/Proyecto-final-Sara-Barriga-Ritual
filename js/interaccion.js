@@ -1,26 +1,7 @@
 
-/* RELOJ */
-
-let elementoHora = document.getElementById("hora");
-
-function actualizarReloj() {
-
-    let ahora = new Date();
-
-    let horas = String(ahora.getHours()).padStart(2, "0");
-    let minutos = String(ahora.getMinutes()).padStart(2, "0");
-    let segundos = String(ahora.getSeconds()).padStart(2, "0");
-
-    elementoHora.textContent = horas + ":" + minutos + ":" + segundos;
-
-}
-
-actualizarReloj();
-setInterval(actualizarReloj, 1000);
-
-
 /* ELEMENTOS DE LA PANTALLA */
 
+let hora = document.getElementById("hora");
 let remitente = document.getElementById("remitente");
 let tipoNotificacion = document.getElementById("tipo-notificacion");
 let fotoPerfil = document.getElementById("foto-perfil");
@@ -32,28 +13,24 @@ let contadorPendientes = document.getElementById("contador-pendientes");
 let casillaRespuesta = document.getElementById("casilla-respuesta");
 let textoCasilla = document.getElementById("texto-casilla");
 
-let contenedorPantalla = document.getElementById("contenedor-pantalla");
-
 
 /* VARIABLES */
 
 let notificaciones = [];
 let numeroNotificacion = 0;
 
-let respuestaArrastrada = null;
-let respuestaElegida = null;
+let respuestaSeleccionada = null;
+let elementoArrastrado = null;
 
-let posicionX = 0;
-let posicionY = 0;
 let posicionInicialX = 0;
 let posicionInicialY = 0;
 
-let procesando = false;
-
 let resultadosNotificaciones = [];
 
+let procesando = false;
 
-/* CARGAR DATOS DEL JSON */
+
+/* CARGAR LAS NOTIFICACIONES */
 
 fetch("datos.json")
     .then(function(respuesta) {
@@ -77,48 +54,171 @@ fetch("datos.json")
 
         console.log("No se pudieron cargar las notificaciones.", error);
 
-        textoCasilla.textContent = "ERROR AL CARGAR LOS DATOS";
+        remitente.textContent = "ERROR DEL SISTEMA";
+        mensajeNotificacion.textContent =
+            "No fue posible cargar tus notificaciones.";
 
     });
 
 
-/* MOSTRAR NOTIFICACIÓN */
+/* MOSTRAR LA HORA */
+
+function actualizarHora() {
+
+    let fecha = new Date();
+
+    let horas = fecha.getHours();
+    let minutos = fecha.getMinutes();
+
+    if (horas < 10) {
+        horas = "0" + horas;
+    }
+
+    if (minutos < 10) {
+        minutos = "0" + minutos;
+    }
+
+    hora.textContent = horas + ":" + minutos;
+
+}
+
+actualizarHora();
+
+setInterval(actualizarHora, 1000);
+
+
+/* MOSTRAR UNA NOTIFICACIÓN */
 
 function mostrarNotificacion() {
+
+    procesando = false;
+
+    respuestaSeleccionada = null;
+    elementoArrastrado = null;
 
     let notificacionActual = notificaciones[numeroNotificacion];
 
     remitente.textContent = notificacionActual.remitente;
+
     tipoNotificacion.textContent = notificacionActual.tipo;
+
     fotoPerfil.src = notificacionActual.imagen;
+
     mensajeNotificacion.textContent = notificacionActual.mensaje;
 
     contadorPendientes.textContent =
-        (notificaciones.length - numeroNotificacion) + " PENDIENTES";
+        (numeroNotificacion + 1) + " / " + notificaciones.length;
 
     textoCasilla.textContent = "ARRASTRA TU RESPUESTA AQUÍ";
 
     listaRespuestas.innerHTML = "";
 
-    respuestaElegida = null;
+    casillaRespuesta.classList.remove("seleccionada");
+
+
+    /* CREAR LAS TRES RESPUESTAS */
 
     for (let i = 0; i < notificacionActual.respuestas.length; i++) {
 
         let nuevaRespuesta = document.createElement("div");
 
         nuevaRespuesta.className = "respuesta";
+
         nuevaRespuesta.textContent =
             notificacionActual.respuestas[i].texto;
 
+        nuevaRespuesta.dataset.numero = i;
+
         listaRespuestas.appendChild(nuevaRespuesta);
+
+
+        /* INICIAR EL ARRASTRE */
 
         nuevaRespuesta.ontouchstart = function(evento) {
 
-            iniciarArrastre(
-                evento,
-                nuevaRespuesta,
-                notificacionActual.respuestas[i]
-            );
+            if (procesando == true) {
+                return;
+            }
+
+            evento.preventDefault();
+
+            let toque = evento.touches[0];
+
+            elementoArrastrado = nuevaRespuesta;
+
+            posicionInicialX = toque.clientX;
+            posicionInicialY = toque.clientY;
+
+            nuevaRespuesta.classList.add("arrastrando");
+
+        };
+
+
+        /* MOVER LA RESPUESTA */
+
+        nuevaRespuesta.ontouchmove = function(evento) {
+
+            if (elementoArrastrado != nuevaRespuesta) {
+                return;
+            }
+
+            evento.preventDefault();
+
+            let toque = evento.touches[0];
+
+            let movimientoX = toque.clientX - posicionInicialX;
+            let movimientoY = toque.clientY - posicionInicialY;
+
+            nuevaRespuesta.style.transform =
+                "translate(" + movimientoX + "px, " + movimientoY + "px)";
+
+        };
+
+
+        /* SOLTAR LA RESPUESTA */
+
+        nuevaRespuesta.ontouchend = function(evento) {
+
+            if (elementoArrastrado != nuevaRespuesta) {
+                return;
+            }
+
+            let rectanguloCasilla =
+                casillaRespuesta.getBoundingClientRect();
+
+            let rectanguloRespuesta =
+                nuevaRespuesta.getBoundingClientRect();
+
+            let centroX =
+                rectanguloRespuesta.left + rectanguloRespuesta.width / 2;
+
+            let centroY =
+                rectanguloRespuesta.top + rectanguloRespuesta.height / 2;
+
+
+            /* COMPROBAR SI SE SOLTÓ DENTRO DE LA CASILLA */
+
+            if (
+                centroX >= rectanguloCasilla.left &&
+                centroX <= rectanguloCasilla.right &&
+                centroY >= rectanguloCasilla.top &&
+                centroY <= rectanguloCasilla.bottom
+            ) {
+
+                let numeroRespuesta =
+                    parseInt(nuevaRespuesta.dataset.numero);
+
+                registrarRespuesta(numeroRespuesta);
+
+            } else {
+
+                nuevaRespuesta.style.transform = "translate(0px, 0px)";
+
+                nuevaRespuesta.classList.remove("arrastrando");
+
+            }
+
+            elementoArrastrado = null;
 
         };
 
@@ -127,117 +227,42 @@ function mostrarNotificacion() {
 }
 
 
-/* INICIAR ARRASTRE */
+/* REGISTRAR LA RESPUESTA ELEGIDA */
 
-function iniciarArrastre(evento, respuesta, datosRespuesta) {
+function registrarRespuesta(numeroRespuesta) {
 
     if (procesando == true) {
         return;
     }
 
-    evento.preventDefault();
-
-    respuestaArrastrada = respuesta;
-    respuestaElegida = datosRespuesta;
-
-    let posicion = respuesta.getBoundingClientRect();
-
-    posicionInicialX = posicion.left;
-    posicionInicialY = posicion.top;
-
-    posicionX = evento.touches[0].clientX - posicion.left;
-    posicionY = evento.touches[0].clientY - posicion.top;
-
-    respuesta.style.width = posicion.width + "px";
-    respuesta.style.left = posicion.left + "px";
-    respuesta.style.top = posicion.top + "px";
-
-    respuesta.className = "respuesta arrastrada";
-
-    document.ontouchmove = moverRespuesta;
-    document.ontouchend = terminarArrastre;
-    document.ontouchcancel = terminarArrastre;
-
-}
-
-
-/* MOVER RESPUESTA */
-
-function moverRespuesta(evento) {
-
-    evento.preventDefault();
-
-    let dedo = evento.touches[0];
-
-    respuestaArrastrada.style.left =
-        (dedo.clientX - posicionX) + "px";
-
-    respuestaArrastrada.style.top =
-        (dedo.clientY - posicionY) + "px";
-
-}
-
-
-/* TERMINAR ARRASTRE */
-
-function terminarArrastre(evento) {
-
-    let dedo = evento.changedTouches[0];
-
-    let posicionCasilla = casillaRespuesta.getBoundingClientRect();
-
-    let dentroDeCasilla =
-        dedo.clientX >= posicionCasilla.left &&
-        dedo.clientX <= posicionCasilla.right &&
-        dedo.clientY >= posicionCasilla.top &&
-        dedo.clientY <= posicionCasilla.bottom;
-
-    document.ontouchmove = null;
-    document.ontouchend = null;
-    document.ontouchcancel = null;
-
-    respuestaArrastrada.className = "respuesta";
-
-    respuestaArrastrada.style.position = "";
-    respuestaArrastrada.style.left = "";
-    respuestaArrastrada.style.top = "";
-    respuestaArrastrada.style.width = "";
-
-    if (dentroDeCasilla == true) {
-
-        registrarRespuesta();
-
-    } else {
-
-        respuestaElegida = null;
-
-    }
-
-    respuestaArrastrada = null;
-
-}
-
-
-/* REGISTRAR RESPUESTA */
-
-function registrarRespuesta() {
-
-    if (respuestaElegida == null || procesando == true) {
-        return;
-    }
-
     procesando = true;
-
-    textoCasilla.textContent = "RESPUESTA REGISTRADA";
 
     let notificacionActual = notificaciones[numeroNotificacion];
 
+    let respuestaElegida =
+        notificacionActual.respuestas[numeroRespuesta];
+
+
+    /* GUARDAR TODA LA INFORMACIÓN */
+
     let resultado = {
+
         remitente: notificacionActual.remitente,
+
         tipo: notificacionActual.tipo,
+
         respuesta: respuestaElegida.texto,
-        clasificacion: respuestaElegida.clasificacion
+
+        clasificacion: respuestaElegida.clasificacion,
+
+        desviacion: respuestaElegida.desviacion,
+
+        impactos: respuestaElegida.impactos,
+
+        consecuencia: respuestaElegida.consecuencia
+
     };
+
 
     resultadosNotificaciones.push(resultado);
 
@@ -246,35 +271,30 @@ function registrarRespuesta() {
         JSON.stringify(resultadosNotificaciones)
     );
 
-    console.log("Respuesta registrada:", resultado);
 
-    numeroNotificacion++;
+    /* MOSTRAR LA RESPUESTA ELEGIDA */
 
-    contadorPendientes.textContent =
-        (notificaciones.length - numeroNotificacion) + " PENDIENTES";
+    textoCasilla.textContent = respuestaElegida.texto;
 
-    if (numeroNotificacion == notificaciones.length) {
+    casillaRespuesta.classList.add("seleccionada");
 
-        contenedorPantalla.className = "finalizado";
 
-        contadorPendientes.textContent = "0 PENDIENTES";
+    /* AVANZAR A LA SIGUIENTE NOTIFICACIÓN */
 
-        setTimeout(function() {
+    setTimeout(function() {
 
-            window.location.href = "cuota.html";
+        numeroNotificacion++;
 
-        }, 1200);
-
-    } else {
-
-        setTimeout(function() {
+        if (numeroNotificacion < notificaciones.length) {
 
             mostrarNotificacion();
 
-            procesando = false;
+        } else {
 
-        }, 500);
+            window.location.href = "cuota.html";
 
-    }
+        }
+
+    }, 1200);
 
 }
