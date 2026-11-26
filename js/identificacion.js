@@ -9,33 +9,76 @@ const puntaje = document.getElementById("puntaje");
 const botonContinuar = document.getElementById("boton-continuar");
 
 
-/* VARIABLES */
+/* VARIABLES DE LA MEDICIÓN */
 
 let tiempoInicio;
 let intervalo;
 let progreso = 0;
+
 let tiempoNecesario = 3000;
+
 let completado = false;
+let navegacionIniciada = false;
 
 
-/* MOSTRAR LA HORA */
+/* RECUPERAR LA HORA DE NODUZ */
+
+let horaGuardada = localStorage.getItem("horaNoduz");
+
+let horas = 22;
+let minutos = 47;
+let segundos = 0;
+
+
+/* SEPARAR LA HORA GUARDADA */
+
+if (horaGuardada != null) {
+
+    let partesHora = horaGuardada.split(":");
+
+    horas = Number(partesHora[0]);
+    minutos = Number(partesHora[1]);
+    segundos = Number(partesHora[2]);
+
+}
+
+
+/* ACTUALIZAR EL RELOJ */
 
 function actualizarHora() {
 
-    let fecha = new Date();
+    let h = String(horas).padStart(2, "0");
+    let m = String(minutos).padStart(2, "0");
+    let s = String(segundos).padStart(2, "0");
 
-    let horas = fecha.getHours();
-    let minutos = fecha.getMinutes();
+    hora.textContent = h + ":" + m + ":" + s;
 
-    if (horas < 10) {
-        horas = "0" + horas;
+    localStorage.setItem(
+        "horaNoduz",
+        h + ":" + m + ":" + s
+    );
+
+    segundos = segundos + 1;
+
+    if (segundos == 60) {
+
+        segundos = 0;
+        minutos = minutos + 1;
+
     }
 
-    if (minutos < 10) {
-        minutos = "0" + minutos;
+    if (minutos == 60) {
+
+        minutos = 0;
+        horas = horas + 1;
+
     }
 
-    hora.textContent = horas + ":" + minutos;
+    if (horas == 24) {
+
+        horas = 0;
+
+    }
 
 }
 
@@ -46,9 +89,9 @@ setInterval(actualizarHora, 1000);
 
 /* INICIAR LA MEDICIÓN */
 
-function iniciarMedicion(event) {
+function iniciarMedicion(evento) {
 
-    event.preventDefault();
+    evento.preventDefault();
 
     if (completado == true) {
         return;
@@ -98,7 +141,7 @@ function actualizarProgreso() {
 }
 
 
-/* CANCELAR LA MEDICIÓN SI SE SUELTA ANTES */
+/* CANCELAR SI SE SUELTA ANTES DE LOS TRES SEGUNDOS */
 
 function terminarMedicion() {
 
@@ -108,7 +151,7 @@ function terminarMedicion() {
         return;
     }
 
-    if (progreso < 360) {
+    if (progreso < 360 && tiempoInicio != undefined) {
 
         progreso = 0;
 
@@ -118,7 +161,9 @@ function terminarMedicion() {
         mensaje.textContent = "ERROR: MEDICIÓN INCOMPLETA.";
 
         puntaje.textContent =
-            "Su rendimiento no puede ser medido.";
+            "Tu rendimiento no puede ser medido.";
+
+        tiempoInicio = undefined;
 
     }
 
@@ -138,7 +183,7 @@ function finalizarMedicion() {
     puntaje.textContent = "PRODUCTIVIDAD: " + resultado + "%";
 
 
-    /* GUARDAR EL PUNTAJE PARA LA PÁGINA DE RESULTADOS */
+    /* GUARDAR EL RESULTADO */
 
     localStorage.setItem(
         "puntajeProductividad",
@@ -146,7 +191,7 @@ function finalizarMedicion() {
     );
 
 
-    /* MOSTRAR EL BOTÓN DE CONTINUAR */
+    /* MOSTRAR EL BOTÓN */
 
     setTimeout(function() {
 
@@ -165,24 +210,30 @@ function finalizarMedicion() {
 
 /* CONTINUAR CON EL PROTOCOLO */
 
-function continuarProtocolo(event) {
+function continuarProtocolo() {
 
-    event.preventDefault();
+    if (completado == true && navegacionIniciada == false) {
 
-    window.location.href = "interaccion.html";
+        navegacionIniciada = true;
+
+        window.location.href = "interaccion.html";
+
+    }
 
 }
 
 
 /* EVENTOS PARA PANTALLAS TÁCTILES */
 
-huella.addEventListener("touchstart", iniciarMedicion, { passive: false });
+huella.addEventListener(
+    "touchstart",
+    iniciarMedicion,
+    { passive: false }
+);
 
 document.addEventListener("touchend", terminarMedicion);
 
 document.addEventListener("touchcancel", terminarMedicion);
-
-botonContinuar.addEventListener("touchstart", continuarProtocolo, { passive: false });
 
 
 /* EVENTOS PARA USAR EL MOUSE */
@@ -190,5 +241,8 @@ botonContinuar.addEventListener("touchstart", continuarProtocolo, { passive: fal
 huella.addEventListener("mousedown", iniciarMedicion);
 
 document.addEventListener("mouseup", terminarMedicion);
+
+
+/* EVENTO DEL BOTÓN */
 
 botonContinuar.addEventListener("click", continuarProtocolo);
