@@ -1,0 +1,211 @@
+
+body {
+    background-color: #050805;
+    margin: 0;
+    padding: 0;
+    color: #6f9c6a;
+    font-family: "Courier New", monospace;
+    overflow-x: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* CONTENEDOR PRINCIPAL */
+
+#contenedor-energia {
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 30px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* ENCABEZADO */
+
+#encabezado-energia {
+    text-align: center;
+}
+
+#hora {
+    color: #8fbf88;
+    font-size: 25px;
+    letter-spacing: 3px;
+    margin: 0 0 12px 0;
+}
+
+#estado {
+    font-size: 9px;
+    letter-spacing: 2px;
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* MENSAJE DEL SISTEMA */
+
+#mensaje-energia {
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+    margin: 45px auto 35px auto;
+    text-align: center;
+}
+
+#titulo {
+    color: #8fbf88;
+    font-size: 16px;
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+}
+
+#texto-principal {
+    color: #a9b9a5;
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 18px;
+}
+
+#texto-secundario {
+    color: #6f9c6a;
+    font-size: 12px;
+    line-height: 1.8;
+    margin-bottom: 28px;
+}
+
+#instruccion {
+    color: #8fbf88;
+    font-size: 11px;
+    line-height: 1.8;
+    letter-spacing: 1px;
+}
+
+/* SECCIÓN DE PROGRESO */
+
+#seccion-progreso {
+    width: 100%;
+    max-width: 700px;
+    box-sizing: border-box;
+    margin: 35px auto;
+    text-align: center;
+}
+
+#etiqueta-progreso {
+    color: #8fbf88;
+    font-size: 11px;
+    letter-spacing: 3px;
+    margin-bottom: 22px;
+}
+
+/* BARRA GRANDE */
+
+#barra-progreso {
+    width: 100%;
+    height: 55px;
+    box-sizing: border-box;
+    border: 1px solid #6f9c6a;
+    background-color: #101a10;
+    padding: 5px;
+    overflow: hidden;
+}
+
+#progreso {
+    width: 0%;
+    height: 100%;
+    background-color: #6f9c6a;
+    box-shadow: 0 0 15px #6f9c6a;
+    transition: width 0.15s linear;
+}
+
+/* PORCENTAJE Y TIEMPO */
+
+#porcentaje {
+    color: #8fbf88;
+    font-size: 38px;
+    margin: 22px 0 12px 0;
+}
+
+#tiempo {
+    color: #6f9c6a;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+/* CONTROLES */
+
+#seccion-control {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto 10px auto;
+    text-align: center;
+}
+
+#mensaje-estado {
+    color: #8fbf88;
+    font-size: 11px;
+    letter-spacing: 2px;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+/* BOTONES */
+
+#boton-iniciar,
+#boton-continuar {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px 15px;
+    border: 1px solid #6f9c6a;
+    background-color: #101a10;
+    color: #8fbf88;
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+#boton-iniciar:active,
+#boton-continuar:active {
+    background-color: #8fbf88;
+    color: #050805;
+}
+
+#boton-continuar {
+    border-color: #8fbf88;
+    background-color: #182518;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* PANTALLAS PEQUEÑAS */
+
+@media (max-width: 400px) {
+
+    #contenedor-energia {
+        padding: 25px 16px;
+    }
+
+    #hora {
+        font-size: 21px;
+    }
+
+    #titulo {
+        font-size: 14px;
+    }
+
+    #texto-principal {
+        font-size: 12px;
+    }
+
+    #barra-progreso {
+        height: 45px;
+    }
+
+    #porcentaje {
+        font-size: 32px;
+    }
+
+}

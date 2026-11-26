@@ -1,0 +1,104 @@
+
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Compensación energética</title>
+
+    <link rel="stylesheet" href="css/energia.css">
+</head>
+
+<body>
+
+    <div id="contenedor-energia">
+
+        <!-- ENCABEZADO -->
+
+        <div id="encabezado-energia">
+
+            <p id="hora"></p>
+
+            <p id="estado">
+                PROTOCOLO DE COMPENSACIÓN ENERGÉTICA
+            </p>
+
+        </div>
+
+
+        <!-- MENSAJE DEL SISTEMA -->
+
+        <div id="mensaje-energia">
+
+            <p id="titulo">
+                COMPENSACIÓN REQUERIDA
+            </p>
+
+            <p id="texto-principal">
+                Tu registro de actividad indica una interrupción del ciclo programado.
+            </p>
+
+            <p id="texto-secundario">
+                Para restablecer tu disponibilidad energética, debes completar una sesión de movimiento físico.
+            </p>
+
+            <p id="instruccion">
+                Agita tu dispositivo para acumular energía y completar el protocolo.
+            </p>
+
+        </div>
+
+
+        <!-- PROGRESO DE LA ACTIVIDAD -->
+
+        <div id="seccion-progreso">
+
+            <p id="etiqueta-progreso">
+                NIVEL DE COMPENSACIÓN
+            </p>
+
+            <div id="barra-progreso">
+
+                <div id="progreso"></div>
+
+            </div>
+
+            <p id="porcentaje">
+                0%
+            </p>
+
+            <p id="tiempo">
+                00:00 / 00:15
+            </p>
+
+        </div>
+
+
+        <!-- ESTADO Y BOTONES -->
+
+        <div id="seccion-control">
+
+            <p id="mensaje-estado">
+                COMPENSACIÓN PENDIENTE
+            </p>
+
+            <button id="boton-iniciar">
+                INICIAR COMPENSACIÓN
+            </button>
+
+            <button id="boton-continuar" hidden>
+                CONTINUAR A AUTORIZACIÓN
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script src="js/energia.js"></script>
+
+</body>
+
+</html>

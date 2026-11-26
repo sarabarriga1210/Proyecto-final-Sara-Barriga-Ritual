@@ -297,6 +297,39 @@ p {
     line-height: 1.8;
 }
 
+/* BOTÓN DE ACCESO A DESCONEXIÓN */
+
+#acceso-desconexion {
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+    margin: 40px auto 15px auto;
+    text-align: center;
+}
+
+#boton-acceso {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 22px 15px;
+    border: 1px solid #6f9c6a;
+    background-color: #101a10;
+    color: #8fbf88;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    line-height: 1.7;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#boton-acceso:active {
+    background-color: #8fbf88;
+    color: #050805;
+}
+
 /* PANTALLAS PEQUEÑAS */
 
 @media (max-width: 360px) {
@@ -320,6 +353,11 @@ p {
 
     .puntaje {
         font-size: 19px;
+    }
+
+    #boton-acceso {
+        font-size: 10px;
+        padding: 20px 10px;
     }
 
 }

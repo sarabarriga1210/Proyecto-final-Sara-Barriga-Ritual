@@ -431,6 +431,30 @@ function calcularPromedio() {
     puntajeGeneral.textContent = promedio + " / 100";
 
 
+    /* GUARDAR EL PROMEDIO GENERAL */
+
+    localStorage.setItem(
+        "promedioGeneral",
+        promedio
+    );
+
+
+    /* GUARDAR LOS PUNTAJES DE LAS NUEVE ÁREAS */
+
+    let puntajesAreas = {};
+
+    for (let nombreArea in areas) {
+
+        puntajesAreas[nombreArea] = areas[nombreArea].puntaje;
+
+    }
+
+    localStorage.setItem(
+        "puntajesAreas",
+        JSON.stringify(puntajesAreas)
+    );
+
+
     if (promedio >= 70) {
 
         mensajeGeneral.textContent =
@@ -464,6 +488,14 @@ function mostrarDesviacion() {
 
     puntajeDesviacion.textContent =
         cantidadDesviaciones + " / 4";
+
+
+    /* GUARDAR LA CANTIDAD DE DESVIACIONES */
+
+    localStorage.setItem(
+        "cantidadDesviaciones",
+        cantidadDesviaciones
+    );
 
 
     /* ESTADO VISUAL DEL ÍNDICE */
@@ -640,6 +672,14 @@ function mostrarConclusion() {
        PORQUE LA SIESTA ESTÁ EN LA RUTINA FIJA. */
 
     let protocoloEnergetico = true;
+
+
+    /* GUARDAR EL ESTADO INICIAL DE LA COMPENSACIÓN */
+
+    localStorage.setItem(
+        "compensacionEnergetica",
+        "pendiente"
+    );
 
 
     if (cantidadDesviaciones >= 3) {
