@@ -19,9 +19,10 @@ let tiempoNecesario = 3000;
 
 let completado = false;
 let navegacionIniciada = false;
+let sonidoEscaneoActivo = false;
 
 
-/* CONTROL DE SONIDOS */
+/* FUNCIONES DE SONIDO */
 
 function reproducirEfecto(nombre, repetir) {
 
@@ -53,8 +54,6 @@ let horas = 22;
 let minutos = 47;
 let segundos = 0;
 
-
-/* SEPARAR LA HORA GUARDADA */
 
 if (horaGuardada != null) {
 
@@ -117,17 +116,17 @@ function iniciarMedicion(evento) {
 
     evento.preventDefault();
 
-    if (completado == true) {
+    if (completado == true || tiempoInicio != undefined) {
         return;
     }
 
-    /* EVITAR REINICIAR UNA MEDICIÓN YA ACTIVA */
+    /* ASEGURAR QUE LA MÚSICA PUEDA INICIARSE */
 
-    if (tiempoInicio != undefined) {
-        return;
+    if (window.parent.iniciarMusica) {
+
+        window.parent.iniciarMusica();
+
     }
-
-    clearInterval(intervalo);
 
     progreso = 0;
 
@@ -140,9 +139,15 @@ function iniciarMedicion(evento) {
 
     tiempoInicio = Date.now();
 
-    /* INICIAR SONIDO DE ESCANEO EN BUCLE */
+    /* INICIAR ESCANEO UNA SOLA VEZ */
 
-    reproducirEfecto("escaneo", true);
+    if (sonidoEscaneoActivo == false) {
+
+        reproducirEfecto("escaneo", true);
+
+        sonidoEscaneoActivo = true;
+
+    }
 
     intervalo = setInterval(actualizarProgreso, 30);
 
@@ -153,9 +158,7 @@ function iniciarMedicion(evento) {
 
 function actualizarProgreso() {
 
-    let tiempoActual = Date.now();
-
-    let tiempoTranscurrido = tiempoActual - tiempoInicio;
+    let tiempoTranscurrido = Date.now() - tiempoInicio;
 
     progreso = (tiempoTranscurrido / tiempoNecesario) * 360;
 
@@ -175,35 +178,44 @@ function actualizarProgreso() {
 }
 
 
+/* DETENER EL ESCANEO */
+
+function detenerEscaneo() {
+
+    if (sonidoEscaneoActivo == true) {
+
+        detenerEfecto("escaneo");
+
+        sonidoEscaneoActivo = false;
+
+    }
+
+}
+
+
 /* CANCELAR SI SE SUELTA ANTES DE LOS TRES SEGUNDOS */
 
 function terminarMedicion() {
 
     clearInterval(intervalo);
 
-    if (completado == true) {
+    if (completado == true || tiempoInicio == undefined) {
         return;
     }
 
-    if (progreso < 360 && tiempoInicio != undefined) {
+    detenerEscaneo();
 
-        /* DETENER EL SONIDO DE ESCANEO */
+    progreso = 0;
 
-        detenerEfecto("escaneo");
+    aro.style.background =
+        "conic-gradient(#8fbf88 0deg, #263b27 0deg)";
 
-        progreso = 0;
+    mensaje.textContent = "ERROR: MEDICIÓN INCOMPLETA.";
 
-        aro.style.background =
-            "conic-gradient(#8fbf88 0deg, #263b27 0deg)";
+    puntaje.textContent =
+        "Tu rendimiento no puede ser medido.";
 
-        mensaje.textContent = "ERROR: MEDICIÓN INCOMPLETA.";
-
-        puntaje.textContent =
-            "Tu rendimiento no puede ser medido.";
-
-        tiempoInicio = undefined;
-
-    }
+    tiempoInicio = undefined;
 
 }
 
@@ -214,15 +226,11 @@ function finalizarMedicion() {
 
     completado = true;
 
-    /* DETENER ESCANEO */
+    tiempoInicio = undefined;
 
-    detenerEfecto("escaneo");
-
-    /* REPRODUCIR CONFIRMACIÓN BIOMÉTRICA */
+    detenerEscaneo();
 
     reproducirEfecto("biometria", false);
-
-    tiempoInicio = undefined;
 
     mensaje.textContent = "MEDICIÓN COMPLETADA.";
 
@@ -264,8 +272,6 @@ function continuarProtocolo() {
 
         navegacionIniciada = true;
 
-        /* SONIDO DEL BOTÓN */
-
         reproducirEfecto("tap", false);
 
         setTimeout(function() {
@@ -279,7 +285,7 @@ function continuarProtocolo() {
 }
 
 
-/* EVENTOS PARA PANTALLAS TÁCTILES */
+/* EVENTOS TÁCTILES */
 
 huella.addEventListener(
     "touchstart",
@@ -292,7 +298,7 @@ document.addEventListener("touchend", terminarMedicion);
 document.addEventListener("touchcancel", terminarMedicion);
 
 
-/* EVENTOS PARA USAR EL MOUSE */
+/* EVENTOS CON MOUSE */
 
 huella.addEventListener("mousedown", iniciarMedicion);
 

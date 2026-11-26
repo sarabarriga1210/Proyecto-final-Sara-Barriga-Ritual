@@ -1,7 +1,18 @@
 
 /* CONTROL CENTRAL DE SONIDOS DE NODUZ */
 
-let sonidosNoduz = {};
+
+/* ELEMENTOS */
+
+const musicaNoduz = document.getElementById("musica-noduz");
+const controlMusica = document.getElementById("control-musica");
+
+
+/* VOLUMEN */
+
+musicaNoduz.volume = 0.04;
+
+let musicaActivada = true;
 
 
 /* ARCHIVOS DE AUDIO */
@@ -24,16 +35,18 @@ let archivosSonido = {
 };
 
 
-/* REPRODUCTOR DE MÚSICA AMBIENTAL */
+/* GUARDAR LOS REPRODUCTORES */
 
-let musicaNoduz = document.getElementById("musica-noduz");
-
-musicaNoduz.volume = 0.25;
+let sonidosNoduz = {};
 
 
 /* INICIAR MÚSICA */
 
 function iniciarMusica() {
+
+    if (musicaActivada == false) {
+        return;
+    }
 
     if (musicaNoduz.paused) {
 
@@ -48,6 +61,31 @@ function iniciarMusica() {
 }
 
 
+/* ENCENDER O APAGAR MÚSICA */
+
+function cambiarMusica() {
+
+    if (musicaActivada == true) {
+
+        musicaActivada = false;
+
+        musicaNoduz.pause();
+
+        controlMusica.textContent = "♫ MÚSICA: APAGADA";
+
+    } else {
+
+        musicaActivada = true;
+
+        controlMusica.textContent = "♫ MÚSICA: ACTIVADA";
+
+        iniciarMusica();
+
+    }
+
+}
+
+
 /* REPRODUCIR UN EFECTO */
 
 function reproducirSonido(nombre, repetir) {
@@ -55,8 +93,6 @@ function reproducirSonido(nombre, repetir) {
     if (archivosSonido[nombre] == undefined) {
         return;
     }
-
-    /* CREAR EL AUDIO SI TODAVÍA NO EXISTE */
 
     if (sonidosNoduz[nombre] == undefined) {
 
@@ -68,18 +104,17 @@ function reproducirSonido(nombre, repetir) {
 
     let sonido = sonidosNoduz[nombre];
 
-    /* CONFIGURAR REPETICIÓN */
-
     sonido.loop = repetir == true;
 
-    /* REINICIAR EL SONIDO */
+    sonido.volume = 0.8;
 
     sonido.pause();
+
     sonido.currentTime = 0;
 
     sonido.play().catch(function(error) {
 
-        console.log("No se pudo reproducir el sonido:", nombre);
+        console.log("Error reproduciendo:", nombre, error);
 
     });
 
@@ -95,6 +130,7 @@ function detenerSonido(nombre) {
         let sonido = sonidosNoduz[nombre];
 
         sonido.pause();
+
         sonido.currentTime = 0;
 
     }
@@ -102,7 +138,12 @@ function detenerSonido(nombre) {
 }
 
 
-/* PERMITIR QUE LAS OTRAS PÁGINAS UTILICEN LOS SONIDOS */
+/* CONECTAR EL BOTÓN DE MÚSICA */
+
+controlMusica.addEventListener("click", cambiarMusica);
+
+
+/* COMPARTIR FUNCIONES CON LAS PANTALLAS */
 
 window.iniciarMusica = iniciarMusica;
 

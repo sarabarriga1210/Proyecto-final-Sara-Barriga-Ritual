@@ -25,6 +25,25 @@
             height: 100dvh;
             border: none;
         }
+
+        #control-musica {
+            position: fixed;
+            z-index: 1000;
+            top: 12px;
+            right: 12px;
+            padding: 9px 11px;
+            border: 1px solid #456442;
+            background-color: rgba(5, 8, 5, 0.88);
+            color: #8fbf88;
+            font-family: "Courier New", monospace;
+            font-size: 9px;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        #control-musica:active {
+            background-color: #263b27;
+        }
     </style>
 </head>
 
@@ -36,10 +55,15 @@
         title="Protocolo de Desconexión">
     </iframe>
 
+    <button id="control-musica" type="button">
+        ♫ MÚSICA: ACTIVADA
+    </button>
+
     <audio
         id="musica-noduz"
         src="assets/ambiente-noduz.mp3"
-        loop>
+        loop
+        preload="auto">
     </audio>
 
     <script src="js/sonidos.js"></script>
