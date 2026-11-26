@@ -211,10 +211,8 @@ let explicacionesImpactos = {
 
 /* EVALUACIÓN FIJA DE LAS 16 ACTIVIDADES */
 
-/* Cargar cuota.json para que todos reciban
-   la misma evaluación de la rutina completa. */
-
 fetch("cuota.json")
+
     .then(function(respuesta) {
 
         if (!respuesta.ok) {
@@ -224,6 +222,7 @@ fetch("cuota.json")
         return respuesta.json();
 
     })
+
     .then(function(datos) {
 
         calcularAreas(datos);
@@ -239,6 +238,7 @@ fetch("cuota.json")
         mostrarConclusion();
 
     })
+
     .catch(function(error) {
 
         console.log("Error al calcular resultados:", error);
@@ -556,9 +556,6 @@ function mostrarDesviacion() {
 
 /* IMPACTO DE TUS DECISIONES */
 
-/* Mostrar únicamente los cuatro mensajes de
-   las actividades seleccionadas mediante likes. */
-
 function mostrarPreferencias() {
 
     tituloPreferencias.textContent =
@@ -667,7 +664,8 @@ function mostrarConclusion() {
 
 /* GESTO DE AMPLIACIÓN DE LAS TARJETAS */
 
-/* CONSERVAMOS EL GESTO QUE YA FUNCIONABA. */
+/* LAS TARJETAS SOLO SE ABREN Y CIERRAN
+   MEDIANTE EL GESTO DE PELLIZCO EN TOUCH. */
 
 let tarjetasAreas = document.getElementsByClassName("area");
 
@@ -675,8 +673,19 @@ for (let i = 0; i < tarjetasAreas.length; i++) {
 
     let areaActual = tarjetasAreas[i];
 
+    let resumenArea = areaActual.querySelector("summary");
+
     let distanciaInicial = 0;
     let gestoRealizado = false;
+
+
+    /* BLOQUEAR LA APERTURA AUTOMÁTICA POR TOQUE */
+
+    resumenArea.addEventListener("click", function(evento) {
+
+        evento.preventDefault();
+
+    });
 
 
     /* CUANDO LOS DOS DEDOS TOCAN LA TARJETA */
