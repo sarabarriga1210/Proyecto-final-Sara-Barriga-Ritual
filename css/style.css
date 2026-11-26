@@ -68,6 +68,22 @@ body {
     color: #b03a3a;
 }
 
+/* AVISO PARA ACTIVAR EL AUDIO */
+#aviso-audio {
+    position: absolute;
+    bottom: 17%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #8fbf88;
+    animation: parpadeo 1.5s infinite;
+    transition: opacity 0.8s;
+}
+
+/* INSTRUCCIÓN PARA AVANZAR */
 #contenedor-instruccion {
     position: absolute;
     bottom: 5%;

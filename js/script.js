@@ -92,20 +92,29 @@ textoFrase3.textContent = "Tu próxima activación está programada para las 6:0
 textoFrase4.textContent = "Sigue las indicaciones.";
 
 
-/* ELEMENTOS DE LA INSTRUCCIÓN */
+/* ELEMENTOS DE LAS INSTRUCCIONES */
 
 let contenedorInstruccion = document.getElementById("contenedor-instruccion");
 let flecha = document.getElementById("flecha");
 let textoInstruccion = document.getElementById("texto-instruccion");
+let avisoAudio = document.getElementById("aviso-audio");
 
 flecha.textContent = "↑";
 
 textoInstruccion.textContent = "Desliza hacia arriba para iniciar";
 
 
-/* ACTIVAR MÚSICA CON LA PRIMERA INTERACCIÓN */
+/* ACTIVAR MÚSICA CON EL PRIMER TOQUE */
+
+let primerToqueRealizado = false;
 
 function activarMusicaInicial() {
+
+    if (primerToqueRealizado == true) {
+        return;
+    }
+
+    primerToqueRealizado = true;
 
     if (window.parent.iniciarMusica) {
 
@@ -113,12 +122,19 @@ function activarMusicaInicial() {
 
     }
 
+    avisoAudio.style.opacity = "0";
+
+    setTimeout(function () {
+
+        avisoAudio.style.display = "none";
+
+    }, 800);
+
 }
 
 document.addEventListener(
     "pointerdown",
-    activarMusicaInicial,
-    { once: true }
+    activarMusicaInicial
 );
 
 
